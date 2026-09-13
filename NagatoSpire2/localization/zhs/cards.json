@@ -1,0 +1,8 @@
+{
+  "NAGATO_SPIRE2_CARD_STRIKE.title": "打击",
+  "NAGATO_SPIRE2_CARD_STRIKE.description": "造成{Damage:diff()}点伤害。",
+  "NAGATO_SPIRE2_CARD_DEFEND.title": "防御",
+  "NAGATO_SPIRE2_CARD_DEFEND.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.title": "海军假日",
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.description": ""
+}

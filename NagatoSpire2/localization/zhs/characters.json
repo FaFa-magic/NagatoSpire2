@@ -1,0 +1,17 @@
+{
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.title": "长门",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.titleObject": "长门",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.pronounObject": "她",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.pronounSubject": "她",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.pronounPossessive": "她的",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.possessiveAdjective": "她的",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.description": "重樱的旗舰。\n她怀着庄严的决心向尖塔深处进发。",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.banter.alive.endTurnPing": "继续前进吧。",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.banter.dead.endTurnPing": "吾已无法继续前行……",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.eventDeathPrevention": "吾必须坚守下去。",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.aromaPrinciple": "[sine][blue]吾定会完成此番使命。[/blue][/sine]",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.goldMonologue": "[sine]这些金币或许能派上用场。[/sine]",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.cardsModifierTitle": "长门卡牌",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.cardsModifierDescription": "长门的卡牌现在会出现在奖励和商店中。",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.skinName": "默认装束"
+}

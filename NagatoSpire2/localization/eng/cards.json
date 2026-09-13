@@ -1,0 +1,6 @@
+{
+  "NAGATO_SPIRE2_CARD_STRIKE.title": "Strike",
+  "NAGATO_SPIRE2_CARD_STRIKE.description": "Deal {Damage:diff()} damage.",
+  "NAGATO_SPIRE2_CARD_DEFEND.title": "Defend",
+  "NAGATO_SPIRE2_CARD_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold]."
+}

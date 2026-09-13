@@ -1,0 +1,17 @@
+{
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.title": "Nagato",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.titleObject": "Nagato",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.pronounObject": "her",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.pronounSubject": "she",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.pronounPossessive": "hers",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.possessiveAdjective": "her",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.description": "The flagship of the Sakura Empire.\nShe advances through the Spire with solemn resolve.",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.banter.alive.endTurnPing": "Let us continue.",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.banter.dead.endTurnPing": "I can go no further...",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.eventDeathPrevention": "I must remain steadfast.",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.aromaPrinciple": "[sine][blue]I shall see this duty through.[/blue][/sine]",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.goldMonologue": "[sine]These coins may yet serve a worthy purpose.[/sine]",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.cardsModifierTitle": "Nagato Cards",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.cardsModifierDescription": "Nagato's cards now appear in rewards and shops.",
+  "NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.skinName": "Default Attire"
+}
