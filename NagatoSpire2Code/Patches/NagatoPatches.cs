@@ -5,14 +5,13 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using NagatoSpire2.NagatoSpire2Code.Cards;
 using STS2RitsuLib.Patching.Models;
-using STS2RitsuLib.Utils;
 
 namespace NagatoSpire2.NagatoSpire2Code.Patches;
 
 /// <summary>
-/// Keeps the custom title banner un-tinted without changing the rarity material used by the
-/// portrait border and type plaque. The base game intentionally assigns CardModel.BannerMaterial
-/// to all three nodes, so this node-local correction runs after the normal card reload pipeline.
+/// Keeps the custom portrait border and title banner un-tinted without changing the rarity
+/// material used by the type plaque. The base game intentionally assigns CardModel.BannerMaterial
+/// to all three nodes, so these node-local corrections run after every relevant visual refresh.
 /// </summary>
 [HarmonyAfter("com.ritsukage.sts2-RitsuLib.framework-content-assets")]
 internal sealed class NagatoCardChromePatch : IPatchMethod
@@ -21,18 +20,19 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 		"res://NagatoSpire2/images/card_frames/nagato_type_plaque_";
 
 	private static readonly ConditionalWeakTable<NinePatchRect, OriginalPlaqueTexture> OriginalPlaques = new();
-	private static readonly Material? TitleBannerMaterial = MaterialUtils.CreateUnmodulatedHsvShaderMaterial();
 
-	private static Texture2D? _attackPlaque;
-	private static Texture2D? _skillPlaque;
-	private static Texture2D? _powerPlaque;
+	private static Texture2D? _commonPlaque;
+	private static Texture2D? _uncommonPlaque;
+	private static Texture2D? _rarePlaque;
 
-	public static string PatchId => "nagato_card_chrome_reload";
-	public static string Description => "Decouple Nagato title banner and type plaque visuals";
+	public static string PatchId => "nagato_card_chrome_refresh";
+	public static string Description => "Decouple Nagato chrome and select type plaques by rarity";
 
 	public static ModPatchTarget[] GetTargets() =>
 	[
-		PatchTarget.Method<NCard>("Reload")
+		PatchTarget.Method<NCard>("Reload"),
+		PatchTarget.Method<NCard>("UpdatePortrait"),
+		PatchTarget.Method<NCard>("UpdateVisuals")
 	];
 
 	[HarmonyPostfix]
@@ -46,27 +46,42 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 			return;
 		}
 
+		TextureRect? portraitBorder = __instance.GetNodeOrNull<TextureRect>("%PortraitBorder");
 		TextureRect? titleBanner = __instance.GetNodeOrNull<TextureRect>("%TitleBanner");
+
+		if (portraitBorder != null)
+		{
+			portraitBorder.UseParentMaterial = false;
+			portraitBorder.Material = NagatoCardModel.UnfilteredChromeMaterial;
+		}
+
 		if (titleBanner != null)
-			titleBanner.Material = TitleBannerMaterial;
+		{
+			titleBanner.UseParentMaterial = false;
+			titleBanner.Material = NagatoCardModel.UnfilteredChromeMaterial;
+		}
 
 		if (typePlaque == null)
 			return;
 
 		OriginalPlaques.GetValue(typePlaque, static plaque => new OriginalPlaqueTexture(plaque.Texture));
-		Texture2D? texture = LoadPlaque(model.Type);
+		Texture2D? texture = LoadPlaque(model.Rarity);
 		if (texture != null)
 			typePlaque.Texture = texture;
+
+		typePlaque.UseParentMaterial = false;
+		typePlaque.Material = NagatoCardModel.UnfilteredChromeMaterial;
 	}
 
-	private static Texture2D? LoadPlaque(CardType type)
+	private static Texture2D? LoadPlaque(CardRarity rarity)
 	{
-		return type switch
+		return rarity switch
 		{
-			CardType.Attack => LoadTexture(ref _attackPlaque, $"{PlaquePathPrefix}attack.png"),
-			CardType.Skill => LoadTexture(ref _skillPlaque, $"{PlaquePathPrefix}skill.png"),
-			CardType.Power => LoadTexture(ref _powerPlaque, $"{PlaquePathPrefix}power.png"),
-			_ => null
+			CardRarity.Basic or CardRarity.Common =>
+				LoadTexture(ref _commonPlaque, $"{PlaquePathPrefix}common.png"),
+			CardRarity.Rare =>
+				LoadTexture(ref _rarePlaque, $"{PlaquePathPrefix}rare.png"),
+			_ => LoadTexture(ref _uncommonPlaque, $"{PlaquePathPrefix}uncommon.png")
 		};
 	}
 

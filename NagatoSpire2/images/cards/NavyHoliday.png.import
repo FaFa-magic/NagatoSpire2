@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvuxip0m6fcac"
-path="res://.godot/imported/nagato_type_plaque_attack.png-5d5081fa30ebd9020283917f4c76931d.ctex"
+uid="uid://ck5pj2iuqx8oc"
+path="res://.godot/imported/NavyHoliday.png-b7da1f6834f1eb85f62ab088077d1138.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/card_frames/nagato_type_plaque_attack.png"
-dest_files=["res://.godot/imported/nagato_type_plaque_attack.png-5d5081fa30ebd9020283917f4c76931d.ctex"]
+source_file="res://NagatoSpire2/images/cards/NavyHoliday.png"
+dest_files=["res://.godot/imported/NavyHoliday.png-b7da1f6834f1eb85f62ab088077d1138.ctex"]
 
 [params]
 

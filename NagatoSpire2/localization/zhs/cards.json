@@ -4,5 +4,7 @@
   "NAGATO_SPIRE2_CARD_DEFEND.title": "防御",
   "NAGATO_SPIRE2_CARD_DEFEND.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
   "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.title": "海军假日",
-  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.description": ""
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.description": "",
+  "NAGATO_SPIRE2_CARD_OPERATION_VICTORY.title": "捷号作战",
+  "NAGATO_SPIRE2_CARD_OPERATION_VICTORY.description": ""
 }

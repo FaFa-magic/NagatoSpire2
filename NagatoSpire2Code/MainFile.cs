@@ -27,5 +27,18 @@ public static class MainFile
 		cardVisualPatcher.RegisterPatch<NagatoCardChromePatch>();
 		if (!cardVisualPatcher.PatchAll())
 			Logger.ErrorNoTrace("Nagato card visual patches failed to apply.");
+
+		var spinePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_spine_patches");
+		spinePatcher.RegisterPatch<NagatoSkinEnumerationPatch>();
+		spinePatcher.RegisterPatch<NagatoSharedProgressionLookupPatch>();
+		spinePatcher.RegisterPatch<NagatoSkinAncientDialogueLookupPatch>();
+		spinePatcher.RegisterPatch<NagatoSharedGameOverProgressionPatch>();
+		spinePatcher.RegisterPatch<NagatoSkinSelectPatch>();
+		spinePatcher.RegisterPatch<NagatoSkinSelectEmbarkPatch>();
+		spinePatcher.RegisterPatch<NagatoSkinSelectUnreadyPatch>();
+		spinePatcher.RegisterPatch<NagatoCombatSpineIdleBootstrapPatch>();
+
+		if (!spinePatcher.PatchAll())
+			throw new InvalidOperationException("Critical Nagato Spine patches failed.");
 	}
 }

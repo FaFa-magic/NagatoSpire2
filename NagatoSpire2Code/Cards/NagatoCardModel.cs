@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using NagatoSpire2.NagatoSpire2Code.Characters;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -8,6 +9,13 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards;
 [RegisterCard(typeof(NagatoCardPool), Inherit = true)]
 public abstract class NagatoCardModel : ModCardTemplate
 {
+	private const string PortraitBorderPathPrefix =
+		"res://NagatoSpire2/images/card_frames/nagato_portrait_border_";
+	internal static readonly Material UnfilteredChromeMaterial = new CanvasItemMaterial
+	{
+		LightMode = CanvasItemMaterial.LightModeEnum.Unshaded
+	};
+
 	protected NagatoCardModel(
 		int energyCost,
 		CardType type,
@@ -21,13 +29,9 @@ public abstract class NagatoCardModel : ModCardTemplate
 	public override CardAssetProfile AssetProfile => new(
 		PortraitPath: $"res://NagatoSpire2/images/cards/{GetType().Name}.png",
 		BannerTexturePath: "res://NagatoSpire2/images/card_frames/nagato_Banner.png",
-		PortraitBorderPath: Type switch
-		{
-			CardType.Attack => "res://NagatoSpire2/images/card_frames/nagato_portrait_border_attack.png",
-			CardType.Skill => "res://NagatoSpire2/images/card_frames/nagato_portrait_border_skill.png",
-			CardType.Power => "res://NagatoSpire2/images/card_frames/nagato_portrait_border_power.png",
-			_ => null
-		},
+		BannerMaterial: UnfilteredChromeMaterial,
+		PortraitBorderPath: ResolvePortraitBorderPath(),
+		PortraitBorderMaterial: UnfilteredChromeMaterial,
 		AncientBannerPath: "res://NagatoSpire2/images/card_frames/nagato_ancient_Banner.png",
 		AncientBorderPath: "res://NagatoSpire2/images/card_frames/nagato_ancient.png",
 		AncientBorderMaterialPath: "res://NagatoSpire2/materials/cards/nagato_ancient_border_opaque.tres",
@@ -39,4 +43,30 @@ public abstract class NagatoCardModel : ModCardTemplate
 			_ => ""
 		}
 	);
+
+	private string? ResolvePortraitBorderPath()
+	{
+		if (Rarity == CardRarity.Ancient)
+			return null;
+
+		string? typeSuffix = Type switch
+		{
+			CardType.Attack => "attack",
+			CardType.Skill => "skill",
+			CardType.Power => "power",
+			_ => null
+		};
+
+		if (typeSuffix == null)
+			return null;
+
+		string rarityPrefix = Rarity switch
+		{
+			CardRarity.Basic or CardRarity.Common => "common_",
+			CardRarity.Rare => "rare_",
+			_ => ""
+		};
+
+		return $"{PortraitBorderPathPrefix}{rarityPrefix}{typeSuffix}.png";
+	}
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wfq7fm61ho8b"
-path="res://.godot/imported/nagato_type_plaque_power.png-c25b997b4b67e563dbc7a1c4b0021989.ctex"
+uid="uid://veh2squ7myph"
+path="res://.godot/imported/nagato_portrait_border_rare_attack.png-b4f9cf9e45ad46e898025a2f9b84de13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/card_frames/nagato_type_plaque_power.png"
-dest_files=["res://.godot/imported/nagato_type_plaque_power.png-c25b997b4b67e563dbc7a1c4b0021989.ctex"]
+source_file="res://NagatoSpire2/images/card_frames/nagato_portrait_border_rare_attack.png"
+dest_files=["res://.godot/imported/nagato_portrait_border_rare_attack.png-b4f9cf9e45ad46e898025a2f9b84de13.ctex"]
 
 [params]
 

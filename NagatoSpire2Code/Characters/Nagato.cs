@@ -1,17 +1,22 @@
 using Godot;
+using MegaCrit.Sts2.Core.Animation;
+using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Godot;
+using STS2RitsuLib.Scaffolding.Visuals.StateMachine;
 
 namespace NagatoSpire2.NagatoSpire2Code.Characters;
 
 [RegisterCharacter]
-public sealed class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicPool, NagatoPotionPool>
+public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicPool, NagatoPotionPool>
 {
 	public const string CharacterId = "Nagato";
 	public const string CharacterColor = "Nagato_sakura";
+	public virtual NagatoSkin CurrentSkin => NagatoSkin.Default;
+	public NagatoSkinDefinition CurrentSkinDefinition => NagatoSkinManager.GetDefinition(CurrentSkin);
 
 	public override CharacterGender Gender => CharacterGender.Feminine;
 	public override int StartingHp => 70;
@@ -30,8 +35,8 @@ public sealed class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, Nagat
 			Scenes: new(
 				VisualsPath: "res://NagatoSpire2/scenes/characters/Nagato.tscn",
 				EnergyCounterPath: "res://NagatoSpire2/scenes/vfx/nagato_energy_counter.tscn",
-				MerchantAnimPath: "res://NagatoSpire2/scenes/characters/Nagato_merchant.tscn",
-				RestSiteAnimPath: "res://NagatoSpire2/scenes/characters/Nagato_rest_site.tscn"
+				MerchantAnimPath: CurrentSkinDefinition.MerchantAnimPath,
+				RestSiteAnimPath: CurrentSkinDefinition.RestSiteAnimPath
 			),
 			Ui: new(
 				IconTexturePath: "res://NagatoSpire2/images/characters/character_icon_nagato.png",
@@ -45,6 +50,9 @@ public sealed class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, Nagat
 			),
 			Vfx: new(
 				TrailPath: "res://NagatoSpire2/scenes/vfx/card_trail_nagato.tscn"
+			),
+			Spine: new(
+				CombatSkeletonDataPath: CurrentSkinDefinition.SpineSkeletonDataPath
 			),
 			VanillaRelicVisualOverrides:
 			[
@@ -62,6 +70,16 @@ public sealed class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, Nagat
 
 	protected override NCreatureVisuals? TryCreateCreatureVisuals() =>
 		RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(AssetProfile.Scenes!.VisualsPath!);
+
+	protected override CreatureAnimator? SetupCustomCreatureAnimator(MegaSprite controller) =>
+		ModAnimStateMachines.Standard(
+			controller,
+			idleName: "normal",
+			deadName: "dead",
+			hitName: "touch",
+			attackName: "attack",
+			castName: "attack_left",
+			relaxedName: "sleep");
 
 	public override List<string> GetArchitectAttackVfx() =>
 	[
