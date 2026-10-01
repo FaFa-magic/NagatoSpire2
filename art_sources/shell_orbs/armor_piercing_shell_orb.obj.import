@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://pyni0n2o61wu"
+path="res://.godot/imported/armor_piercing_shell_orb.obj-dcf82020ef57f297bf9d2d2b6e89565d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/armor_piercing_shell_orb.obj-dcf82020ef57f297bf9d2d2b6e89565d.mesh"]
+
+source_file="res://art_sources/shell_orbs/armor_piercing_shell_orb.obj"
+dest_files=["res://.godot/imported/armor_piercing_shell_orb.obj-dcf82020ef57f297bf9d2d2b6e89565d.mesh", "res://.godot/imported/armor_piercing_shell_orb.obj-dcf82020ef57f297bf9d2d2b6e89565d.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

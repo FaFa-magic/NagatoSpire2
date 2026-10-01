@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -11,9 +12,10 @@ namespace NagatoSpire2.NagatoSpire2Code.Orbs;
 public sealed class HighExplosiveShellOrb : NagatoShellOrb
 {
 	public override decimal EvokeVal => ModifyOrbValue(3m);
+	public override Color DarkenedColor => new("#8B3938");
 	public override OrbAssetProfile AssetProfile => new(
-		IconPath: "res://images/orbs/lightning_orb.png",
-		VisualsScenePath: "res://scenes/orbs/orb_visuals/lightning_orb.tscn");
+		IconPath: "res://NagatoSpire2/images/orbs/high_explosive_shell_orb.png",
+		VisualsScenePath: "res://NagatoSpire2/scenes/orbs/high_explosive_shell_orb.tscn");
 
 	public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext choiceContext)
 	{

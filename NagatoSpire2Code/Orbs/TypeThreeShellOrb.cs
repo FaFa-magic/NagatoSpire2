@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -11,9 +12,10 @@ namespace NagatoSpire2.NagatoSpire2Code.Orbs;
 public sealed class TypeThreeShellOrb : NagatoShellOrb
 {
 	public override decimal EvokeVal => 1m;
+	public override Color DarkenedColor => new("#A96668");
 	public override OrbAssetProfile AssetProfile => new(
-		IconPath: "res://images/orbs/frost_orb.png",
-		VisualsScenePath: "res://scenes/orbs/orb_visuals/frost_orb.tscn");
+		IconPath: "res://NagatoSpire2/images/orbs/type_three_shell_orb.png",
+		VisualsScenePath: "res://NagatoSpire2/scenes/orbs/type_three_shell_orb.tscn");
 
 	public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext choiceContext)
 	{

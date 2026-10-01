@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://i68nh0vul8fp"
+path="res://.godot/imported/high_explosive_shell_orb.obj-7fcc37c20ca65286b4c2a0ae9c23b18b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/high_explosive_shell_orb.obj-7fcc37c20ca65286b4c2a0ae9c23b18b.mesh"]
+
+source_file="res://art_sources/shell_orbs/high_explosive_shell_orb.obj"
+dest_files=["res://.godot/imported/high_explosive_shell_orb.obj-7fcc37c20ca65286b4c2a0ae9c23b18b.mesh", "res://.godot/imported/high_explosive_shell_orb.obj-7fcc37c20ca65286b4c2a0ae9c23b18b.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
