@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmpeh22ggiogb"
-path="res://.godot/imported/Layer_bottom_Janus.png-1799f78402bc25ec355f2d724b3784f2.ctex"
+path="res://.godot/imported/Layer_bottom_Janus.png-0cd95dc77f8ac1041daa0ca8533398a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/combatui/energy_counter/Layer_bottom_Janus.png"
-dest_files=["res://.godot/imported/Layer_bottom_Janus.png-1799f78402bc25ec355f2d724b3784f2.ctex"]
+source_file="res://NagatoSpire2/images/combatui/energy_counter/Layer_bottom_Janus.png"
+dest_files=["res://.godot/imported/Layer_bottom_Janus.png-0cd95dc77f8ac1041daa0ca8533398a5.ctex"]
 
 [params]
 

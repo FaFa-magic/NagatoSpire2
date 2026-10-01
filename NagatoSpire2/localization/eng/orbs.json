@@ -1,0 +1,11 @@
+{
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.title": "High-Explosive Shell",
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.description": "When Evoked, Evoke adjacent High-Explosive Shells. Deal 3 damage to ALL enemies.",
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.smartDescription": "When Evoked, Evoke adjacent High-Explosive Shells. Deal [blue]{Evoke}[/blue] damage to ALL enemies.",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.title": "Armor-Piercing Shell",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.description": "When Evoked, Evoke adjacent Armor-Piercing Shells. Deal 3 damage to the enemy with the most HP and gain 1 temporary Focus.",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.smartDescription": "When Evoked, Evoke adjacent Armor-Piercing Shells. Deal [blue]{Evoke}[/blue] damage to the enemy with the most HP and gain 1 temporary Focus.",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.title": "Type 3 Shell",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.description": "When Evoked, Evoke adjacent Type 3 Shells. Gain 1 Plating. Unaffected by Focus.",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.smartDescription": "When Evoked, Evoke adjacent Type 3 Shells. Gain [blue]{Evoke}[/blue] Plating. Unaffected by Focus."
+}

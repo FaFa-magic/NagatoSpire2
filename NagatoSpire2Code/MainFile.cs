@@ -30,6 +30,7 @@ public static class MainFile
 
 		var spinePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_spine_patches");
 		spinePatcher.RegisterPatch<NagatoSkinEnumerationPatch>();
+		spinePatcher.RegisterPatch<NagatoSkinCardLibrarySelectionPatch>();
 		spinePatcher.RegisterPatch<NagatoSharedProgressionLookupPatch>();
 		spinePatcher.RegisterPatch<NagatoSkinAncientDialogueLookupPatch>();
 		spinePatcher.RegisterPatch<NagatoSharedGameOverProgressionPatch>();
@@ -40,5 +41,11 @@ public static class MainFile
 
 		if (!spinePatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato Spine patches failed.");
+
+		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
+		orbPatcher.RegisterPatch<NagatoOrbEvokePatch>();
+		orbPatcher.RegisterPatch<NagatoOrbChannelPatch>();
+		if (!orbPatcher.PatchAll())
+			throw new InvalidOperationException("Critical Nagato orb patches failed.");
 	}
 }

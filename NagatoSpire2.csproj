@@ -62,7 +62,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="STS2.RitsuLib" Version="0.5.20" PrivateAssets="All" GeneratePathProperty="true" />
+        <PackageReference Include="STS2.RitsuLib" Version="0.6.2" PrivateAssets="All" GeneratePathProperty="true" />
         <AdditionalFiles Include="NagatoSpire2/localization/**/*.json"/>
     </ItemGroup>
 
@@ -103,19 +103,10 @@
                 Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')"/>
     </Target>
 
-    <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
+    <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent" Condition="'$(IsInnerGodotExport)' != 'true'">
         <Message Text="Copying .dll and manifest to mods folder." Importance="high"/>
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/"/>
         <Copy SourceFiles="NagatoSpire2.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/"/>
-    </Target>
-
-    <Target Name="DeployRitsuLibToMods" AfterTargets="PostBuildEvent" Condition="'$(RitsuLibDeployDir)' != ''">
-        <ItemGroup>
-            <RitsuLibDll Include="$(PkgSTS2_RitsuLib)\lib\net9.0\STS2-RitsuLib.dll" Condition="Exists('$(PkgSTS2_RitsuLib)\lib\net9.0\STS2-RitsuLib.dll')" />
-            <RitsuLibManifest Include="$(PkgSTS2_RitsuLib)\content\mod_manifest.json" Condition="Exists('$(PkgSTS2_RitsuLib)\content\mod_manifest.json')" />
-        </ItemGroup>
-        <Copy SourceFiles="@(RitsuLibDll)" DestinationFolder="$(RitsuLibDeployDir)" SkipUnchangedFiles="true" />
-        <Copy SourceFiles="@(RitsuLibManifest)" DestinationFolder="$(RitsuLibDeployDir)" SkipUnchangedFiles="true" />
     </Target>
 
     <Target Name="GodotPublish" AfterTargets="Publish" Condition="'$(GodotPath)' != '' and Exists('$(GodotPath)') and '$(IsInnerGodotExport)' != 'true'">
@@ -123,6 +114,8 @@
         <Exec Command="&quot;$(GodotPath)&quot; --headless --export-pack &quot;Windows Desktop&quot; &quot;$(ModsPath)$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;"
               EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1"
               ContinueOnError="WarnAndContinue"/>
+        <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)/tools/Finalize-ModPack.ps1&quot; -PackPath &quot;$(ModsPath)$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;"
+              Condition="'$(IsWindows)' == 'true' and Exists('$(ModsPath)$(MSBuildProjectName)/$(MSBuildProjectName).pck')"/>
     </Target>
 
     <Target Name="GodotPublishSkipped" AfterTargets="Publish" Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')">

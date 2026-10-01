@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfctjypwp25tc"
-path="res://.godot/imported/multiplayer_foot_janus_scissors.png-150b637bc8884c7898e643c8b91adfe4.ctex"
+path="res://.godot/imported/multiplayer_foot_janus_scissors.png-20f0822063a95180548adc559978afee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/characters/feet/multiplayer_foot_janus_scissors.png"
-dest_files=["res://.godot/imported/multiplayer_foot_janus_scissors.png-150b637bc8884c7898e643c8b91adfe4.ctex"]
+source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_janus_scissors.png"
+dest_files=["res://.godot/imported/multiplayer_foot_janus_scissors.png-20f0822063a95180548adc559978afee.ctex"]
 
 [params]
 

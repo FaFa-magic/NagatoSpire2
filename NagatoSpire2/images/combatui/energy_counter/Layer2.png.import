@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx6l0j74ggyad"
-path="res://.godot/imported/Layer2.png-9671a23513b89522c9af17d1a7397a94.ctex"
+path="res://.godot/imported/Layer2.png-b614b873db3e5398cb749da4c54ae52e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/combatui/energy_counter/Layer2.png"
-dest_files=["res://.godot/imported/Layer2.png-9671a23513b89522c9af17d1a7397a94.ctex"]
+source_file="res://NagatoSpire2/images/combatui/energy_counter/Layer2.png"
+dest_files=["res://.godot/imported/Layer2.png-b614b873db3e5398cb749da4c54ae52e.ctex"]
 
 [params]
 

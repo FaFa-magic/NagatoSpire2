@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2ly0ogws6a2b"
-path="res://.godot/imported/PawPrintPotion.png-b0c1b25705957c8ebf4875240a480aec.ctex"
+path="res://.godot/imported/PawPrintPotion.png-6fd918d7198f909bdd568027dd4494b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/potions/outline/PawPrintPotion.png"
-dest_files=["res://.godot/imported/PawPrintPotion.png-b0c1b25705957c8ebf4875240a480aec.ctex"]
+source_file="res://NagatoSpire2/images/potions/outline/PawPrintPotion.png"
+dest_files=["res://.godot/imported/PawPrintPotion.png-6fd918d7198f909bdd568027dd4494b2.ctex"]
 
 [params]
 

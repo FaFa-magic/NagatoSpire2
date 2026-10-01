@@ -1,0 +1,7 @@
+{
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "临时集中",
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "获得集中，直到你的回合结束。",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子形态",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "每回合前3次从手牌打出卡牌后，选择任意张手牌洗入抽牌堆，然后抽取等量的牌。",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "选择任意张手牌洗入抽牌堆"
+}

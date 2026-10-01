@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2cxg4uc7h6ph"
-path="res://.godot/imported/multiplayer_hand_janus_rock.png-34055f4066cc68d74a5c8c8a7abba23b.ctex"
+path="res://.godot/imported/multiplayer_hand_janus_rock.png-57128b1fbb4e513dd961516711a1e6e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/characters/hands/multiplayer_hand_janus_rock.png"
-dest_files=["res://.godot/imported/multiplayer_hand_janus_rock.png-34055f4066cc68d74a5c8c8a7abba23b.ctex"]
+source_file="res://NagatoSpire2/images/characters/hands/multiplayer_hand_janus_rock.png"
+dest_files=["res://.godot/imported/multiplayer_hand_janus_rock.png-57128b1fbb4e513dd961516711a1e6e5.ctex"]
 
 [params]
 

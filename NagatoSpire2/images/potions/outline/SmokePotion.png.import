@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck8cqcyyj26cn"
-path="res://.godot/imported/SmokePotion.png-091c0eda99d859e3d36eaa1a77d028a5.ctex"
+path="res://.godot/imported/SmokePotion.png-d232efdcca4af5b9bed3b88096d2cec5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/potions/outline/SmokePotion.png"
-dest_files=["res://.godot/imported/SmokePotion.png-091c0eda99d859e3d36eaa1a77d028a5.ctex"]
+source_file="res://NagatoSpire2/images/potions/outline/SmokePotion.png"
+dest_files=["res://.godot/imported/SmokePotion.png-d232efdcca4af5b9bed3b88096d2cec5.ctex"]
 
 [params]
 

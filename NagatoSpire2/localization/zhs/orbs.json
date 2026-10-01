@@ -1,0 +1,11 @@
+{
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.title": "高爆弹",
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.description": "被激发时，激发左右相邻的高爆弹。对所有敌人造成3点伤害。",
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.smartDescription": "被激发时，激发左右相邻的高爆弹。对所有敌人造成[blue]{Evoke}[/blue]点伤害。",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.title": "穿甲弹",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.description": "被激发时，激发左右相邻的穿甲弹。对生命值最高的敌人造成3点伤害，并获得1点临时集中。",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.smartDescription": "被激发时，激发左右相邻的穿甲弹。对生命值最高的敌人造成[blue]{Evoke}[/blue]点伤害，并获得1点临时集中。",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.title": "三式弹",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.description": "被激发时，激发左右相邻的三式弹。获得1点覆甲。不受集中影响。",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.smartDescription": "被激发时，激发左右相邻的三式弹。获得[blue]{Evoke}[/blue]点覆甲。不受集中影响。"
+}

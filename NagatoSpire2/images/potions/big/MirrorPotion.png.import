@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4ni0ng0ubwh6"
-path="res://.godot/imported/MirrorPotion.png-0fea40d98c455a4bb4bd378a1ef16a3f.ctex"
+path="res://.godot/imported/MirrorPotion.png-eb3e3e551b65b64d35f401ac73013d16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JanusSpire2/images/potions/big/MirrorPotion.png"
-dest_files=["res://.godot/imported/MirrorPotion.png-0fea40d98c455a4bb4bd378a1ef16a3f.ctex"]
+source_file="res://NagatoSpire2/images/potions/big/MirrorPotion.png"
+dest_files=["res://.godot/imported/MirrorPotion.png-eb3e3e551b65b64d35f401ac73013d16.ctex"]
 
 [params]
 

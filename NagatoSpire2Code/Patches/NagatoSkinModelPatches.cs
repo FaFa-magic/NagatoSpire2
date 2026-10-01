@@ -1,8 +1,11 @@
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Ancients;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Screens.CardLibrary;
 using MegaCrit.Sts2.Core.Nodes.Screens.GameOverScreen;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using NagatoSpire2.NagatoSpire2Code.Characters;
 using STS2RitsuLib;
@@ -30,6 +33,39 @@ public sealed class NagatoSkinEnumerationPatch : IPatchMethod
 	{
 		__result = __result.Where(character =>
 			character is not NagatoCharacter nagato || nagato.CurrentSkin == NagatoSkin.Default);
+	}
+}
+
+public sealed class NagatoSkinCardLibrarySelectionPatch : IPatchMethod
+{
+	public static string PatchId => "nagato_skin_card_library_selection";
+	public static string Description => "Use the Nagato card-pool filter for the active skin variant";
+	public static bool IsCritical => true;
+	public static ModPatchTarget[] GetTargets() =>
+	[
+		new(typeof(NCardLibrary), nameof(NCardLibrary.OnSubmenuOpened))
+	];
+
+	[HarmonyPrefix]
+	public static void Prefix(
+		IRunState? ____runState,
+		Dictionary<CharacterModel, NCardPoolFilter> ____cardPoolFilters,
+		NCardPoolFilter ____ironcladFilter)
+	{
+		CharacterModel? character = LocalContext.GetMe(____runState)?.Character;
+		if (character is not NagatoSkinVariant || ____cardPoolFilters.ContainsKey(character))
+			return;
+
+		ModelId baseId = ModelDb.GetId<NagatoCharacter>();
+		NCardPoolFilter? filter = ____cardPoolFilters
+			.FirstOrDefault(entry => entry.Key.Id == baseId).Value;
+		if (filter == null)
+		{
+			MainFile.Logger.Warn("[CardLibrary] Nagato pool filter is unavailable; selecting the vanilla fallback for this skin.");
+			filter = ____ironcladFilter;
+		}
+
+		____cardPoolFilters[character] = filter;
 	}
 }
 

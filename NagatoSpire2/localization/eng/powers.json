@@ -1,0 +1,7 @@
+{
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "Temporary Focus",
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "Gain Focus until the end of your turn.",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "Sakura Form",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards.",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "Choose cards to shuffle into your draw pile"
+}

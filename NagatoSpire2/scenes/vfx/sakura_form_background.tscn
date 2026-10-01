@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/background/sakura_tree.png" id="1_texture"]
+[ext_resource type="Shader" path="res://NagatoSpire2/shaders/sakura_form_reveal.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sakura"]
+shader = ExtResource("2_shader")
+shader_parameter/reveal = 0.0
+
+[node name="SakuraFormBackground" type="TextureRect"]
+material = SubResource("ShaderMaterial_sakura")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_texture")
+expand_mode = 1
+stretch_mode = 6

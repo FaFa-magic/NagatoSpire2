@@ -2,5 +2,7 @@
   "NAGATO_SPIRE2_CARD_STRIKE.title": "Strike",
   "NAGATO_SPIRE2_CARD_STRIKE.description": "Deal {Damage:diff()} damage.",
   "NAGATO_SPIRE2_CARD_DEFEND.title": "Defend",
-  "NAGATO_SPIRE2_CARD_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold]."
+  "NAGATO_SPIRE2_CARD_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
+  "NAGATO_SPIRE2_CARD_SAKURA_FORM.title": "Sakura Form",
+  "NAGATO_SPIRE2_CARD_SAKURA_FORM.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards."
 }

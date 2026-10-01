@@ -21,6 +21,7 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 	public override CharacterGender Gender => CharacterGender.Feminine;
 	public override int StartingHp => 70;
 	public override int StartingGold => 99;
+	public override int BaseOrbSlotCount => 8;
 
 	public override Color NameColor => new("#9A72A1");
 	public override Color EnergyLabelOutlineColor => new("1E283CFF");
@@ -68,8 +69,23 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 	public override float CastAnimDelay => 0f;
 	public override bool RequiresEpochAndTimeline => false;
 
-	protected override NCreatureVisuals? TryCreateCreatureVisuals() =>
-		RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(AssetProfile.Scenes!.VisualsPath!);
+	protected override NCreatureVisuals? TryCreateCreatureVisuals()
+	{
+		var visuals = RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(AssetProfile.Scenes!.VisualsPath!);
+		if (visuals is null || CurrentSkin == NagatoSkin.Default)
+			return visuals;
+
+		// The game-over screen creates visuals directly, without NCreature._Ready.
+		var spineNode = visuals.GetNodeOrNull<Node2D>("%Visuals");
+		if (!GodotObject.IsInstanceValid(spineNode) || spineNode.GetClass() != MegaSprite.spineClassName)
+			return visuals;
+
+		var skeletonData = ResourceLoader.Load<Resource>(CurrentSkinDefinition.SpineSkeletonDataPath);
+		if (skeletonData is not null)
+			new MegaSprite((Variant)(GodotObject)spineNode).SetSkeletonDataRes(new MegaSkeletonDataResource(skeletonData));
+
+		return visuals;
+	}
 
 	protected override CreatureAnimator? SetupCustomCreatureAnimator(MegaSprite controller) =>
 		ModAnimStateMachines.Standard(
