@@ -53,17 +53,10 @@ public sealed class SakuraEmblem : NagatoRelicModel
 		try
 		{
 			Flash();
-			OrbModel[] shells =
-			[
-				ModelDb.Orb<HighExplosiveShellOrb>(),
-				ModelDb.Orb<ArmorPiercingShellOrb>(),
-				ModelDb.Orb<TypeThreeShellOrb>()
-			];
 			while (queue.Orbs.Count < queue.Capacity && !CombatManager.Instance.IsOverOrEnding)
 			{
-				OrbModel shell = Owner.RunState.Rng.CombatOrbGeneration.NextItem(shells)!;
 				int count = queue.Orbs.Count;
-				await OrbCmd.Channel(choiceContext, shell.ToMutable(), Owner);
+				await OrbCmd.Channel(choiceContext, NagatoShellOrb.CreateRandom(Owner), Owner);
 				if (queue.Orbs.Count <= count)
 					break;
 			}

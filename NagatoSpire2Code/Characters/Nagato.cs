@@ -19,13 +19,13 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 	public NagatoSkinDefinition CurrentSkinDefinition => NagatoSkinManager.GetDefinition(CurrentSkin);
 
 	public override CharacterGender Gender => CharacterGender.Feminine;
-	public override int StartingHp => 70;
+	public override int StartingHp => 80;
 	public override int StartingGold => 99;
 	public override int BaseOrbSlotCount => 8;
 
 	public override Color NameColor => new("#9A72A1");
-	public override Color EnergyLabelOutlineColor => new("521326FF");
-	public override Color MapDrawingColor => new("#9A72A1");
+	public override Color EnergyLabelOutlineColor => new("#806018");
+	public override Color MapDrawingColor => new("#FFB7C5");
 	public override Color DialogueColor => new("#9A72A1");
 	public override Color RemoteTargetingLineColor => new("#AAAAAA");
 	public override Color RemoteTargetingLineOutline => Colors.Black;
