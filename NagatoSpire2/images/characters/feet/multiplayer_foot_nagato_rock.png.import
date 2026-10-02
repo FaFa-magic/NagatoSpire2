@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b24nrytp27umx"
-path="res://.godot/imported/coronet.png-28634791aae0bdd3e77437171c63f37f.ctex"
+uid="uid://chotw2m5ry7b8"
+path="res://.godot/imported/multiplayer_foot_nagato_rock.png-f47a7ac9c73e133dbce66865691ace8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/vfx/coronet.png"
-dest_files=["res://.godot/imported/coronet.png-28634791aae0bdd3e77437171c63f37f.ctex"]
+source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_rock.png"
+dest_files=["res://.godot/imported/multiplayer_foot_nagato_rock.png-f47a7ac9c73e133dbce66865691ace8a.ctex"]
 
 [params]
 

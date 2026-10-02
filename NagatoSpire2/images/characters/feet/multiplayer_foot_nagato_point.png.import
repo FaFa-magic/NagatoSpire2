@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmpeh22ggiogb"
-path="res://.godot/imported/Layer_bottom_Janus.png-0cd95dc77f8ac1041daa0ca8533398a5.ctex"
+uid="uid://b4biuffl7uruj"
+path="res://.godot/imported/multiplayer_foot_nagato_point.png-2a6ebb589069895eb540bb0f955a8e93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/combatui/energy_counter/Layer_bottom_Janus.png"
-dest_files=["res://.godot/imported/Layer_bottom_Janus.png-0cd95dc77f8ac1041daa0ca8533398a5.ctex"]
+source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_point.png"
+dest_files=["res://.godot/imported/multiplayer_foot_nagato_point.png-2a6ebb589069895eb540bb0f955a8e93.ctex"]
 
 [params]
 

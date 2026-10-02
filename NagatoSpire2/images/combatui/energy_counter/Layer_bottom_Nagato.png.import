@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp3v6iieo3sh0"
-path="res://.godot/imported/multiplayer_foot_janus_rock.png-d234488ee2ac777bd2bc3c04c448472b.ctex"
+uid="uid://c46xujcmq0dy4"
+path="res://.godot/imported/Layer_bottom_Nagato.png-3245430fdef6a895c672ebede0f1e68c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_janus_rock.png"
-dest_files=["res://.godot/imported/multiplayer_foot_janus_rock.png-d234488ee2ac777bd2bc3c04c448472b.ctex"]
+source_file="res://NagatoSpire2/images/combatui/energy_counter/Layer_bottom_Nagato.png"
+dest_files=["res://.godot/imported/Layer_bottom_Nagato.png-3245430fdef6a895c672ebede0f1e68c.ctex"]
 
 [params]
 

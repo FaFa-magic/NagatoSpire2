@@ -24,7 +24,7 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 	public override int BaseOrbSlotCount => 8;
 
 	public override Color NameColor => new("#9A72A1");
-	public override Color EnergyLabelOutlineColor => new("1E283CFF");
+	public override Color EnergyLabelOutlineColor => new("521326FF");
 	public override Color MapDrawingColor => new("#9A72A1");
 	public override Color DialogueColor => new("#9A72A1");
 	public override Color RemoteTargetingLineColor => new("#AAAAAA");
@@ -54,6 +54,12 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 			),
 			Spine: new(
 				CombatSkeletonDataPath: CurrentSkinDefinition.SpineSkeletonDataPath
+			),
+			Multiplayer: new(
+				ArmPointingTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_point.png",
+				ArmRockTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_rock.png",
+				ArmPaperTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_paper.png",
+				ArmScissorsTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_scissors.png"
 			),
 			VanillaRelicVisualOverrides:
 			[

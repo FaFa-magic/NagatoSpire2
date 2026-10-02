@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw5fbajk6avvt"
-path="res://.godot/imported/multiplayer_foot_janus_paper.png-2cffd53031c1bb70b73a059208c54f80.ctex"
+uid="uid://dhoibk5vqga0d"
+path="res://.godot/imported/multiplayer_foot_nagato_paper.png-55a3d23dfb684e2f739db53cd7f4f7fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_janus_paper.png"
-dest_files=["res://.godot/imported/multiplayer_foot_janus_paper.png-2cffd53031c1bb70b73a059208c54f80.ctex"]
+source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_paper.png"
+dest_files=["res://.godot/imported/multiplayer_foot_nagato_paper.png-55a3d23dfb684e2f739db53cd7f4f7fd.ctex"]
 
 [params]
 

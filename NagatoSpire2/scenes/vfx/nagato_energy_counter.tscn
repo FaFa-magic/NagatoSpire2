@@ -1,5 +1,142 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://bv8x7xcmdmk85"]
 
-[ext_resource type="PackedScene" path="res://scenes/combat/energy_counters/ironclad_energy_counter.tscn" id="1_counter"]
+[ext_resource type="Script" uid="uid://dt8y23epyffi4" path="res://NagatoSpire2Code/Scripts/NEnergyCounterNagato.cs" id="1_counter"]
+[ext_resource type="PackedScene" path="res://NagatoSpire2/scenes/vfx/nagato_energy_vfx_back.tscn" id="2_back"]
+[ext_resource type="Texture2D" uid="uid://c46xujcmq0dy4" path="res://NagatoSpire2/images/combatui/energy_counter/Layer_bottom_Nagato.png" id="3_bottom"]
+[ext_resource type="Texture2D" uid="uid://bk8u1fvjnn2k6" path="res://NagatoSpire2/images/combatui/energy_counter/Layer2.png" id="4_rotation_a"]
+[ext_resource type="Texture2D" uid="uid://b7bh2y7hka0y3" path="res://NagatoSpire2/images/combatui/energy_counter/Layer3.png" id="5_rotation_b"]
+[ext_resource type="Texture2D" uid="uid://f6a7ujsxfemb" path="res://NagatoSpire2/images/combatui/energy_counter/Layer_top_Nagato.png" id="6_top"]
+[ext_resource type="PackedScene" path="res://NagatoSpire2/scenes/vfx/nagato_energy_vfx_front.tscn" id="7_front"]
+[ext_resource type="FontFile" uid="uid://b7kvvb3itendc" path="res://NagatoSpire2/fonts/kreon_bold.ttf" id="8_font"]
+[ext_resource type="Script" uid="uid://d2fj12qeff8a2" path="res://NagatoSpire2Code/Scripts/MegaLabelNagato.cs" id="9_label"]
 
-[node name="NagatoEnergyCounter" instance=ExtResource("1_counter")]
+[node name="NagatoEnergyCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+script = ExtResource("1_counter")
+
+[node name="EnergyVfxBack" parent="." instance=ExtResource("2_back")]
+unique_name_in_owner = true
+position = Vector2(63, 71)
+
+[node name="Layers" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer1" type="TextureRect" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 7.0
+offset_right = -1.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.22, 1.22)
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("3_bottom")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RotationLayers" type="Control" parent="Layers"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 7.0
+offset_right = -1.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer2" type="TextureRect" parent="Layers/RotationLayers"]
+self_modulate = Color(1, 1, 1, 0.62)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("4_rotation_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer3" type="TextureRect" parent="Layers/RotationLayers"]
+self_modulate = Color(1, 1, 1, 0.48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("5_rotation_b")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer4" type="TextureRect" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.0
+offset_top = -55.0
+offset_right = -39.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.6, 1.6)
+mouse_filter = 2
+texture = ExtResource("6_top")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnergyVfxFront" parent="." instance=ExtResource("7_front")]
+unique_name_in_owner = true
+position = Vector2(63, 71)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -22.0
+offset_right = -17.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.965, 0.886, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.25)
+theme_override_colors/font_outline_color = Color(0.22, 0.04, 0.055, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("8_font")
+theme_override_font_sizes/font_size = 36
+text = "3/3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_label")
+MinFontSize = 32
+MaxFontSize = 36

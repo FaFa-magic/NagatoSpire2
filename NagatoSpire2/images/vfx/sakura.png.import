@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dilmjhymbkefd"
-path="res://.godot/imported/Layer_top_Janus.png-2f331d1e78b101fb924fbbfb21dfca36.ctex"
+uid="uid://c2n8tk0lpvei"
+path="res://.godot/imported/sakura.png-8cb147a1c3fad016dbf42fa33b1a100d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/combatui/energy_counter/Layer_top_Janus.png"
-dest_files=["res://.godot/imported/Layer_top_Janus.png-2f331d1e78b101fb924fbbfb21dfca36.ctex"]
+source_file="res://NagatoSpire2/images/vfx/sakura.png"
+dest_files=["res://.godot/imported/sakura.png-8cb147a1c3fad016dbf42fa33b1a100d.ctex"]
 
 [params]
 

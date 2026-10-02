@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xj7dabb54icf"
-path="res://.godot/imported/multiplayer_hand_janus_paper.png-fc6f788132a7701deae9a4fbc4948835.ctex"
+uid="uid://f6a7ujsxfemb"
+path="res://.godot/imported/Layer_top_Nagato.png-816bc0f1026a3d4637b78a25c5eb08d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/characters/hands/multiplayer_hand_janus_paper.png"
-dest_files=["res://.godot/imported/multiplayer_hand_janus_paper.png-fc6f788132a7701deae9a4fbc4948835.ctex"]
+source_file="res://NagatoSpire2/images/combatui/energy_counter/Layer_top_Nagato.png"
+dest_files=["res://.godot/imported/Layer_top_Nagato.png-816bc0f1026a3d4637b78a25c5eb08d7.ctex"]
 
 [params]
 

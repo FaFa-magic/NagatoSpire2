@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyjab6781moqx"
-path="res://.godot/imported/multiplayer_hand_janus_point.png-410d8f5dd90f32a0e20c96a23a41bf9b.ctex"
+uid="uid://bu06hv5r1j7dc"
+path="res://.godot/imported/multiplayer_foot_nagato_scissors.png-88d27ef972f1002d7ec435d00d02e3ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/characters/hands/multiplayer_hand_janus_point.png"
-dest_files=["res://.godot/imported/multiplayer_hand_janus_point.png-410d8f5dd90f32a0e20c96a23a41bf9b.ctex"]
+source_file="res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_scissors.png"
+dest_files=["res://.godot/imported/multiplayer_foot_nagato_scissors.png-88d27ef972f1002d7ec435d00d02e3ef.ctex"]
 
 [params]
 
