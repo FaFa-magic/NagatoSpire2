@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b4ffylh" path="res://images/atlases/ui_atlas.sprites/settings_tiny_left_arrow.tres" id="1_left"]
 [ext_resource type="Texture2D" uid="uid://kjsi4o" path="res://images/atlases/ui_atlas.sprites/settings_tiny_right_arrow.tres" id="2_right"]
 [ext_resource type="FontVariation" uid="uid://c71uw4aqpsn1b" path="res://themes/spectral_glphy_space_two.tres" id="3_font"]
-[ext_resource type="Texture2D" uid="uid://bxngoh7qrw8fa" path="res://images/ui/tiny_nine_patch.png" id="4_background"]
+[ext_resource type="PackedScene" path="res://NagatoSpire2/scenes/ui/nagato_skin_name_background.tscn" id="4_background"]
 [ext_resource type="Script" path="res://NagatoSpire2Code/Nodes/NagatoSkinSelectPanel.cs" id="5_panel"]
 
 [node name="NagatoSkinSelectPanel" type="Control"]
@@ -77,23 +77,16 @@ theme_override_constants/margin_top = -10
 theme_override_constants/margin_right = -20
 theme_override_constants/margin_bottom = -10
 
-[node name="Background" type="NinePatchRect" parent="VBoxContainer/LabelContainer"]
-modulate = Color(0, 0, 0, 0.45)
+[node name="Background" parent="VBoxContainer/LabelContainer" instance=ExtResource("4_background")]
 layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("4_background")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
 
 [node name="SkinNameLabel" type="Label" parent="VBoxContainer/LabelContainer"]
 custom_minimum_size = Vector2(420, 100)
 layout_mode = 2
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.603922, 0.447059, 0.631373, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.25098)
-theme_override_constants/outline_size = 12
+theme_override_colors/font_color = Color(1, 0.952941, 0.839216, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.054902, 0.062745, 0.9)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 42
 text = "长门"

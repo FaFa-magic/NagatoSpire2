@@ -45,6 +45,10 @@ public static class MainFile
 		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
 		orbPatcher.RegisterPatch<NagatoOrbEvokePatch>();
 		orbPatcher.RegisterPatch<NagatoOrbChannelPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePatch>();
+		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePlayZonePatch>();
+		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.ControllerPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.LayoutPatch>();
 		if (!orbPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato orb patches failed.");
 	}

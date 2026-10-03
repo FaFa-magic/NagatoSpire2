@@ -1,4 +1,4 @@
 {
   "NAGATO_SPIRE2_KEYWORD_LOAD.title": "装填",
-  "NAGATO_SPIRE2_KEYWORD_LOAD.description": "选择充能球时，该球及其前方的充能球前移一位，队首充能球被激发，炮弹进入所选位置。不选择则装填至末位。"
+  "NAGATO_SPIRE2_KEYWORD_LOAD.description": "指定充能球时，激发队首充能球，将目标及其前方的充能球前推一位，再于目标位置装入炮弹。未指定目标则装填至末位。"
 }

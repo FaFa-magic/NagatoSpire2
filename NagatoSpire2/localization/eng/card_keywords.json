@@ -1,4 +1,4 @@
 {
   "NAGATO_SPIRE2_KEYWORD_LOAD.title": "Load",
-  "NAGATO_SPIRE2_KEYWORD_LOAD.description": "When an Orb is chosen, it and all Orbs before it move forward one slot. Evoke the front Orb and insert the shell at the chosen position. If none is chosen, load at the end."
+  "NAGATO_SPIRE2_KEYWORD_LOAD.description": "When an Orb is targeted, Evoke the front Orb, move the target and all Orbs before it forward one slot, then insert the shell at the target's position. Without a target, load at the end."
 }

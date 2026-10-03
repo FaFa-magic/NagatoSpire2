@@ -11,6 +11,8 @@ public abstract class NagatoShellOrb : ModOrbTemplate
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.SingleEvoke;
 	public override bool AllowInRandomOrbPool => false;
 	public override Color DarkenedColor => new("#624B63");
+	protected override string ChannelSfx => "event:/sfx/characters/defect/defect_lightning_channel";
+	protected override string EvokeSfx => "event:/sfx/characters/defect/defect_lightning_evoke";
 
 	public static OrbModel CreateRandom(Player player)
 	{

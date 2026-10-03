@@ -16,6 +16,10 @@ internal static class NagatoSkinSelectPanelController
 
 	public static void OnCharacterSelected(NCharacterSelectScreen screen, CharacterModel character)
 	{
+		var infoPanel = screen.GetNodeOrNull<Control>("%InfoPanel");
+		if (infoPanel is not null)
+			NagatoCharacterInfoPanelChrome.Update(infoPanel, character is NagatoCharacter);
+
 		if (character is not NagatoCharacter nagatoSkin)
 		{
 			if (GodotObject.IsInstanceValid(_panelInstance))
@@ -23,7 +27,6 @@ internal static class NagatoSkinSelectPanelController
 			return;
 		}
 
-		var infoPanel = screen.GetNodeOrNull<Control>("%InfoPanel");
 		if (infoPanel is null)
 			return;
 

@@ -4,9 +4,7 @@
   "NAGATO_SPIRE2_CARD_DEFEND.title": "Defend",
   "NAGATO_SPIRE2_CARD_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.title": "Targeted Reload",
-  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "Gain {Block:diff()} [gold]Block[/gold]. Choose an Orb, then load a random shell.",
-  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.selection": "Choose an Orb or load at the end",
-  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.skip": "Load at End",
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "Choose an Orb. Gain {Block:diff()} [gold]Block[/gold] and load a random shell.",
   "NAGATO_SPIRE2_CARD_SAKURA_FORM.title": "Sakura Form",
   "NAGATO_SPIRE2_CARD_SAKURA_FORM.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards."
 }
