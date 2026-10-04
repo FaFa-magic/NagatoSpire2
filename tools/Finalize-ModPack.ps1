@@ -1,5 +1,7 @@
 param([Parameter(Mandatory)][string]$PackPath)
 $ErrorActionPreference = 'Stop'
+# Godot 4.5 emits standalone-project globals even for --export-pack. A mod must
+# not shadow the host game's configuration or global script/UID registries.
 $stream = [IO.File]::Open($PackPath, [IO.FileMode]::Open, [IO.FileAccess]::ReadWrite)
 try {
     $reader = [IO.BinaryReader]::new($stream, [Text.Encoding]::UTF8, $true)
@@ -20,7 +22,7 @@ try {
         $pathLength = $reader.ReadUInt32()
         if ($pathLength -gt 65536) { throw 'Invalid PCK resource path length.' }
         $path = [Text.Encoding]::UTF8.GetString($reader.ReadBytes($pathLength)).TrimEnd([char]0)
-        $null = $reader.ReadBytes(36)
+        $null = $reader.ReadBytes(36) # offset, size, MD5, flags
         $entryEnd = $stream.Position
         $stream.Position = $entryStart
         $bytes = $reader.ReadBytes([int]($entryEnd - $entryStart))
@@ -32,6 +34,13 @@ try {
         }
     }
     if ($stream.Position -ne $stream.Length) { throw 'Unexpected PCK trailer; refusing to rewrite.' }
+    if ('NagatoSpire2/sfx/Nagato.bank' -notin $paths -or 'NagatoSpire2/sfx/Nagato.guids.txt' -notin $paths) {
+        throw 'Nagato audio bank or GUID mappings are missing.'
+    }
+    if (@($paths | Where-Object { $_ -match '^(addons/fmod/|FMOD/|temp/)|(^|/)Master(\.strings)?\.bank$|^NagatoSpire2/sfx/.*\.mp3(\.import)?$' }).Count) {
+        throw 'Development-only FMOD resources are present in the pack.'
+    }
+    # Keep all resource bytes and offsets intact; rewrite only the final index.
     $stream.Position = $directoryOffset
     $writer = [IO.BinaryWriter]::new($stream, [Text.Encoding]::UTF8, $true)
     $writer.Write([uint32]$entries.Count)

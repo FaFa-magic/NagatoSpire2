@@ -1,4 +1,5 @@
 using Godot;
+using NagatoSpire2.NagatoSpire2Code.Audio;
 using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Characters;
@@ -54,6 +55,13 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 			),
 			Spine: new(
 				CombatSkeletonDataPath: CurrentSkinDefinition.SpineSkeletonDataPath
+			),
+			Audio: new(
+				AttackSfx: NagatoAudio.AttackEvent,
+				CastSfx: NagatoAudio.CastEvent,
+				DeathSfx: NagatoAudio.DeathEvent,
+				CharacterSelectSfx: NagatoAudio.CharacterSelectEvent,
+				CharacterTransitionSfx: NagatoAudio.CharacterTransitionEvent
 			),
 			Multiplayer: new(
 				ArmPointingTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_point.png",

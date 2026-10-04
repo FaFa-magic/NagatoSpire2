@@ -1,4 +1,5 @@
 using Godot;
+using NagatoSpire2.NagatoSpire2Code.Audio;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Scaffolding.Content;
@@ -11,8 +12,9 @@ public abstract class NagatoShellOrb : ModOrbTemplate
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.SingleEvoke;
 	public override bool AllowInRandomOrbPool => false;
 	public override Color DarkenedColor => new("#624B63");
-	protected override string ChannelSfx => "event:/sfx/characters/defect/defect_lightning_channel";
-	protected override string EvokeSfx => "event:/sfx/characters/defect/defect_lightning_evoke";
+	protected override string PassiveSfx => NagatoAudio.OrbPassiveEvent;
+	protected override string ChannelSfx => NagatoAudio.OrbChannelEvent;
+	protected override string EvokeSfx => NagatoAudio.OrbEvokeEvent;
 
 	public static OrbModel CreateRandom(Player player)
 	{

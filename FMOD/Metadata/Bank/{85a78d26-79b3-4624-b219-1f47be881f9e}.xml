@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="Bank" id="{85a78d26-79b3-4624-b219-1f47be881f9e}">
+		<property name="name">
+			<value>Nagato</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b4f8d078-fddc-4658-8a30-a499577f86e5}</destination>
+		</relationship>
+	</object>
+</objects>

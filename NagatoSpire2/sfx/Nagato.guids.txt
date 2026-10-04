@@ -1,0 +1,10 @@
+{85a78d26-79b3-4624-b219-1f47be881f9e} bank:/Nagato
+{52821724-f66a-4efc-8e4a-abb7b0818861} event:/sfx/nagato/attack
+{b4c322e1-72d6-41b9-825c-fe9d2fda4782} event:/sfx/nagato/cast
+{cf32e344-a388-4823-9324-83b694e58905} event:/sfx/nagato/character_select
+{9ece1084-3d18-41c1-9363-a8bedfd25bc2} event:/sfx/nagato/character_transition
+{9ba611a9-6ada-400b-9026-19b4b2aff677} event:/sfx/nagato/combat_start
+{7f1d65de-d9a7-4774-9f7c-cac4a2618baf} event:/sfx/nagato/death
+{3234c676-29c8-4565-ac09-4be5acffedaa} event:/sfx/nagato/orb_channel
+{9855e1a7-f7b6-48fc-9b59-8d54090ec62e} event:/sfx/nagato/orb_evoke
+{5c8655da-a9d6-4d86-a393-cf6aa5f121b5} event:/sfx/nagato/orb_passive

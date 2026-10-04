@@ -15,8 +15,8 @@ public sealed class NagatoCardPool : TypeListCardPoolModel, IModColorfulPhilosop
     public override string TextEnergyIconPath => 
         "res://NagatoSpire2/images/packed/sprite_fonts/Nagato_energy_icon.png";
     
-    public override Color DeckEntryCardColor => new("FFB2FF");
-    public override Color EnergyOutlineColor => new("FFB2FF");
+    public override Color DeckEntryCardColor => new("806018");
+    public override Color EnergyOutlineColor => new("806018");
     
     private static readonly Material? _poolFrameMaterial = MaterialUtils.CreateUnmodulatedHsvShaderMaterial();
     public override Material? PoolFrameMaterial => _poolFrameMaterial;

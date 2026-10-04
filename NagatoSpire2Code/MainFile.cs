@@ -1,4 +1,5 @@
 using System.Reflection;
+using NagatoSpire2.NagatoSpire2Code.Audio;
 using MegaCrit.Sts2.Core.Modding;
 using NagatoSpire2.NagatoSpire2Code.Patches;
 using STS2RitsuLib;
@@ -22,6 +23,15 @@ public static class MainFile
 		Logger = RitsuLibFramework.CreateLogger(ModId);
 		ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 		RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
+		NagatoAudio.Register();
+		NagatoCombatStartVoice.Register();
+
+		var audioPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_audio_patches");
+		audioPatcher.RegisterPatch<NagatoCharacterSelectVoicePatch>();
+		audioPatcher.RegisterPatch<NagatoAttackAudioContextPatch>();
+		audioPatcher.RegisterPatch<NagatoAttackAudioPlaybackPatch>();
+		if (!audioPatcher.PatchAll())
+			Logger.ErrorNoTrace("Nagato audio lifecycle patches failed to apply.");
 
 		var cardVisualPatcher = RitsuLibFramework.CreatePatcher(ModId, "card-visuals");
 		cardVisualPatcher.RegisterPatch<NagatoCardChromePatch>();
