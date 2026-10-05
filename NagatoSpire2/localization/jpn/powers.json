@@ -1,0 +1,7 @@
+{
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "一時的な集中力",
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "このターン終了時まで、[gold]集中力[/gold]を得る。",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子化",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "毎ターン、[gold]手札[/gold]から最初にプレイする3枚のカードそれぞれの後、手札を好きな枚数選んで山札に戻してシャッフルし、同じ枚数のカードを引く。",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "山札に戻す手札を好きな枚数選ぶ"
+}

@@ -8,7 +8,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Basic;
 
-[RegisterCharacterStarterCard(typeof(NagatoCharacter), 5, Order = 0)]
+[RegisterCharacterStarterCard(typeof(NagatoCharacter), 4, Order = 0)]
 public sealed class Strike() : NagatoCardModel(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];

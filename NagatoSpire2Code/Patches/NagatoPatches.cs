@@ -9,9 +9,9 @@ using STS2RitsuLib.Patching.Models;
 namespace NagatoSpire2.NagatoSpire2Code.Patches;
 
 /// <summary>
-/// Keeps the custom portrait border and title banner un-tinted without changing the rarity
-/// material used by the type plaque. The base game intentionally assigns CardModel.BannerMaterial
-/// to all three nodes, so these node-local corrections run after every relevant visual refresh.
+/// Keeps Nagato's custom chrome un-tinted and selects type-plaque artwork by rarity,
+/// including one shared ivory plaque for all Ancient card types. The base game assigns
+/// CardModel.BannerMaterial to these nodes, so corrections run after visual refreshes.
 /// Fits the highlight to Nagato's frame while preserving the base game's shader animations.
 /// </summary>
 [HarmonyAfter("com.ritsukage.sts2-RitsuLib.framework-content-assets")]
@@ -29,6 +29,7 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 	private static Texture2D? _commonPlaque;
 	private static Texture2D? _uncommonPlaque;
 	private static Texture2D? _rarePlaque;
+	private static Texture2D? _ancientPlaque;
 
 	public static string PatchId => "nagato_card_chrome_refresh";
 	public static string Description => "Decouple Nagato chrome and select type plaques by rarity";
@@ -47,25 +48,30 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 
 		NinePatchRect? typePlaque = __instance.GetNodeOrNull<NinePatchRect>("%TypePlaque");
 
-		if (__instance.Model is not NagatoCardModel model || model.Rarity == CardRarity.Ancient)
+		if (__instance.Model is not NagatoCardModel model)
 		{
 			RestorePlaqueIfNeeded(typePlaque);
 			return;
 		}
 
-		TextureRect? portraitBorder = __instance.GetNodeOrNull<TextureRect>("%PortraitBorder");
-		TextureRect? titleBanner = __instance.GetNodeOrNull<TextureRect>("%TitleBanner");
-
-		if (portraitBorder != null)
+		// Ancient cards have separate border/banner nodes; only their type plaque
+		// is customized here. Leave the established Ancient frame binding intact.
+		if (model.Rarity != CardRarity.Ancient)
 		{
-			portraitBorder.UseParentMaterial = false;
-			portraitBorder.Material = NagatoCardModel.UnfilteredChromeMaterial;
-		}
+			TextureRect? portraitBorder = __instance.GetNodeOrNull<TextureRect>("%PortraitBorder");
+			TextureRect? titleBanner = __instance.GetNodeOrNull<TextureRect>("%TitleBanner");
 
-		if (titleBanner != null)
-		{
-			titleBanner.UseParentMaterial = false;
-			titleBanner.Material = NagatoCardModel.UnfilteredChromeMaterial;
+			if (portraitBorder != null)
+			{
+				portraitBorder.UseParentMaterial = false;
+				portraitBorder.Material = NagatoCardModel.UnfilteredChromeMaterial;
+			}
+
+			if (titleBanner != null)
+			{
+				titleBanner.UseParentMaterial = false;
+				titleBanner.Material = NagatoCardModel.UnfilteredChromeMaterial;
+			}
 		}
 
 		if (typePlaque == null)
@@ -104,6 +110,8 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 	{
 		return rarity switch
 		{
+			CardRarity.Ancient =>
+				LoadTexture(ref _ancientPlaque, $"{PlaquePathPrefix}ancient.png"),
 			CardRarity.Basic or CardRarity.Common =>
 				LoadTexture(ref _commonPlaque, $"{PlaquePathPrefix}common.png"),
 			CardRarity.Rare =>

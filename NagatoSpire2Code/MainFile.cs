@@ -38,6 +38,11 @@ public static class MainFile
 		if (!cardVisualPatcher.PatchAll())
 			Logger.ErrorNoTrace("Nagato card visual patches failed to apply.");
 
+		var transitionPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_transition_patches");
+		transitionPatcher.RegisterPatch<NagatoTransitionPatch>();
+		if (!transitionPatcher.PatchAll())
+			Logger.ErrorNoTrace("Nagato character transition patch failed to apply.");
+
 		var spinePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_spine_patches");
 		spinePatcher.RegisterPatch<NagatoSkinEnumerationPatch>();
 		spinePatcher.RegisterPatch<NagatoSkinCardLibrarySelectionPatch>();

@@ -20,5 +20,5 @@ mouse_filter = 2
 
 [node name="CharSelectBgNagato" type="Sprite2D" parent="."]
 position = Vector2(958.00006, 525)
-scale = Vector2(1.53, 1.53)
+scale = Vector2(1.17, 1.17)
 texture = ExtResource("1_background")

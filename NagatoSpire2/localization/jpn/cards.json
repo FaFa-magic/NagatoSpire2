@@ -1,0 +1,20 @@
+{
+  "NAGATO_SPIRE2_CARD_STRIKE.title": "ストライク",
+  "NAGATO_SPIRE2_CARD_STRIKE.description": "{Damage:diff()}ダメージを与える。",
+  "NAGATO_SPIRE2_CARD_DEFEND.title": "防御",
+  "NAGATO_SPIRE2_CARD_DEFEND.description": "[gold]ブロック[/gold]{Block:diff()}を得る。",
+  "NAGATO_SPIRE2_CARD_SAKURA_DANCE.title": "桜の舞",
+  "NAGATO_SPIRE2_CARD_SAKURA_DANCE.description": "このカードを引くたび、左端と右端のオーブを[gold]解放[/gold]する。",
+  "NAGATO_SPIRE2_CARD_SAKURA_KAGURA.title": "桜舞う神楽",
+  "NAGATO_SPIRE2_CARD_SAKURA_KAGURA.description": "このカードを引くたび、すべてのオーブを[gold]解放[/gold]する。",
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.title": "定点装填",
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "[gold]ブロック[/gold]{Block:diff()}を得る。\nオーブを1つ選び、ランダムな砲弾を1発装填する。",
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.title": "海軍休日",
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.description": "",
+  "NAGATO_SPIRE2_CARD_OPERATION_VICTORY.title": "捷号作戦",
+  "NAGATO_SPIRE2_CARD_OPERATION_VICTORY.description": "",
+  "NAGATO_SPIRE2_CARD_SAKURA_FORM.title": "神子化",
+  "NAGATO_SPIRE2_CARD_SAKURA_FORM.description": "毎ターン、[gold]手札[/gold]から最初にプレイする3枚のカードそれぞれの後、手札を好きな枚数選んで山札に戻してシャッフルし、同じ枚数のカードを引く。",
+  "NAGATO_SPIRE2_CARD_.title": "新たな高みへ",
+  "NAGATO_SPIRE2_CARD_.description": ""
+}

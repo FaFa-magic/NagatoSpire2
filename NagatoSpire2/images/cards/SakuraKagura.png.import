@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxi83whu8v1l5"
-path="res://.godot/imported/nagato_sakura_kagura_1212x1704.png-26669cd26c290c76fb2cbec360c9773d.ctex"
+uid="uid://b4u2xsd4ikmf3"
+path="res://.godot/imported/SakuraKagura.png-26d723ada3ec63e1a85eaf98879d84c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/nagato_sakura_kagura_1212x1704.png"
-dest_files=["res://.godot/imported/nagato_sakura_kagura_1212x1704.png-26669cd26c290c76fb2cbec360c9773d.ctex"]
+source_file="res://NagatoSpire2/images/cards/SakuraKagura.png"
+dest_files=["res://.godot/imported/SakuraKagura.png-26d723ada3ec63e1a85eaf98879d84c5.ctex"]
 
 [params]
 

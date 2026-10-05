@@ -1,0 +1,11 @@
+{
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.title": "榴弾",
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.description": "解放時、左右に隣接する榴弾も解放する。すべての敵に3ダメージを与える。",
+  "NAGATO_SPIRE2_ORB_HIGH_EXPLOSIVE_SHELL_ORB.smartDescription": "解放時、左右に隣接する榴弾も解放する。すべての敵に[blue]{Evoke}[/blue]ダメージを与える。",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.title": "徹甲弾",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.description": "解放時、左右に隣接する徹甲弾も解放する。HPが最も高い敵に3ダメージを与え、このターン終了時まで集中力1を得る。",
+  "NAGATO_SPIRE2_ORB_ARMOR_PIERCING_SHELL_ORB.smartDescription": "解放時、左右に隣接する徹甲弾も解放する。HPが最も高い敵に[blue]{Evoke}[/blue]ダメージを与え、このターン終了時まで集中力1を得る。",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.title": "三式弾",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.description": "解放時、左右に隣接する三式弾も解放する。プレート1を得る。集中力の影響を受けない。",
+  "NAGATO_SPIRE2_ORB_TYPE_THREE_SHELL_ORB.smartDescription": "解放時、左右に隣接する三式弾も解放する。[blue]{Evoke}[/blue]プレートを得る。集中力の影響を受けない。"
+}

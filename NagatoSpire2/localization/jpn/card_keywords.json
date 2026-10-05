@@ -1,0 +1,4 @@
+{
+  "NAGATO_SPIRE2_KEYWORD_LOAD.title": "装填",
+  "NAGATO_SPIRE2_KEYWORD_LOAD.description": "オーブを指定した場合、先頭のオーブを解放し、対象とその手前のオーブを1スロットずつ前に詰め、対象の元の位置に砲弾を生成する。指定しない場合は最後尾に装填する。"
+}

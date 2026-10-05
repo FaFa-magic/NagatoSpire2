@@ -8,7 +8,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Basic;
 
-[RegisterCharacterStarterCard(typeof(NagatoCharacter), 5, Order = 1)]
+[RegisterCharacterStarterCard(typeof(NagatoCharacter), 4, Order = 1)]
 public sealed class Defend() : NagatoCardModel(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     public override bool GainsBlock => true;
