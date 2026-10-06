@@ -61,7 +61,7 @@ public static class NagatoOrbResolutionScope
 			refill = state.RefillPending;
 			States.Remove(player);
 		}
-		if (refill && player.GetRelic<SakuraEmblem>() is { } relic)
+		if (refill && player.GetRelic<NagatoShellRefillRelic>() is { } relic)
 			await relic.FillEmptySlots(choiceContext);
 	}
 }
@@ -110,21 +110,28 @@ public sealed class NagatoOrbEvokePatch : IPatchMethod
 			return;
 
 		List<OrbModel> chain = [evokedOrb];
+		bool allAdjacent = player.GetRelic<BigShipsBigGunsDivineMight>() != null;
 		bool leftActive = true;
 		bool rightActive = true;
 		for (int distance = 1; leftActive || rightActive; distance++)
 		{
 			int left = index - distance;
 			int right = index + distance;
-			if (leftActive && left >= 0 && original[left].GetType() == evokedOrb.GetType())
+			if (leftActive && left >= 0)
 			{
-				chain.Add(original[left]);
+				if (original[left].GetType() == evokedOrb.GetType())
+					chain.Add(original[left]);
+				else if (!allAdjacent)
+					leftActive = false;
 			}
 			else
 				leftActive = false;
-			if (rightActive && right < original.Length && original[right].GetType() == evokedOrb.GetType())
+			if (rightActive && right < original.Length)
 			{
-				chain.Add(original[right]);
+				if (original[right].GetType() == evokedOrb.GetType())
+					chain.Add(original[right]);
+				else if (!allAdjacent)
+					rightActive = false;
 			}
 			else
 				rightActive = false;
@@ -136,6 +143,8 @@ public sealed class NagatoOrbEvokePatch : IPatchMethod
 			List<(OrbModel Orb, IEnumerable<Creature> Targets)> resolved = [];
 			foreach (OrbModel orb in chain)
 			{
+				if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead)
+					break;
 				if (!queue.Orbs.Contains(orb))
 					continue;
 				choiceContext.PushModel(orb);
@@ -189,7 +198,7 @@ public sealed class NagatoOrbChannelPatch : IPatchMethod
 	[HarmonyPrefix]
 	public static void Prefix(Player player, out bool __state)
 	{
-		__state = player.GetRelic<SakuraEmblem>() is not null;
+		__state = player.GetRelic<NagatoShellRefillRelic>() is not null;
 		if (__state)
 			NagatoOrbResolutionScope.Enter(player);
 	}

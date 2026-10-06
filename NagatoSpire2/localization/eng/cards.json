@@ -1,14 +1,21 @@
 {
-  "NAGATO_SPIRE2_CARD_STRIKE.title": "Strike",
-  "NAGATO_SPIRE2_CARD_STRIKE.description": "Deal {Damage:diff()} damage.",
   "NAGATO_SPIRE2_CARD_DEFEND.title": "Defend",
   "NAGATO_SPIRE2_CARD_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "NAGATO_SPIRE2_CARD_SAKURA_DANCE.title": "Sakura Dance",
   "NAGATO_SPIRE2_CARD_SAKURA_DANCE.description": "When you draw this card, [gold]Evoke[/gold] your leftmost and rightmost Orbs.",
-  "NAGATO_SPIRE2_CARD_SAKURA_KAGURA.title": "Sakura Kagura",
-  "NAGATO_SPIRE2_CARD_SAKURA_KAGURA.description": "When you draw this card, [gold]Evoke[/gold] all your Orbs.",
+  "NAGATO_SPIRE2_CARD_STRIKE.title": "Strike",
+  "NAGATO_SPIRE2_CARD_STRIKE.description": "Deal {Damage:diff()} damage.",
   "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.title": "Targeted Reload",
   "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "Choose an Orb. Gain {Block:diff()} [gold]Block[/gold] and load a random shell.",
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.title": "Naval Holiday",
+  "NAGATO_SPIRE2_CARD_NAVY_HOLIDAY.description": "Your [gold]Plating[/gold] triggers {Repeat:diff()} additional {Repeat:plural:time|times}.",
+  "NAGATO_SPIRE2_CARD_FATES_RETURN.title": "Fate's Return",
+  "NAGATO_SPIRE2_CARD_FATES_RETURN.description": "Choose a card in your exhaust pile other than Fate's Return. Put it on top of your draw pile.\nDraw {Cards:diff()} card.",
+  "NAGATO_SPIRE2_CARD_FATES_RETURN.selectionScreenPrompt": "Choose a card to put on top of your draw pile",
+  "NAGATO_SPIRE2_CARD_REINCARNATIONS_END.title": "Reincarnation's End",
+  "NAGATO_SPIRE2_CARD_REINCARNATIONS_END.description": "Draw until your hand is full.\nAt the end of your turn, [gold]Exhaust[/gold] your hand.",
   "NAGATO_SPIRE2_CARD_SAKURA_FORM.title": "Sakura Form",
-  "NAGATO_SPIRE2_CARD_SAKURA_FORM.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards."
+  "NAGATO_SPIRE2_CARD_SAKURA_FORM.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards.",
+  "NAGATO_SPIRE2_CARD_SAKURA_KAGURA.title": "Sakura Kagura",
+  "NAGATO_SPIRE2_CARD_SAKURA_KAGURA.description": "When you draw this card, [gold]Evoke[/gold] all your Orbs."
 }

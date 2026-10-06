@@ -7,13 +7,10 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using NagatoSpire2.NagatoSpire2Code.Nodes;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace NagatoSpire2.NagatoSpire2Code.Powers;
 
-[RegisterPower]
-public sealed class SakuraFormPower : ModPowerTemplate
+public sealed class SakuraFormPower : NagatoPowerModel
 {
 	private const int MaxActivationsPerTurn = 3;
 
@@ -28,9 +25,6 @@ public sealed class SakuraFormPower : ModPowerTemplate
 	public override PowerType Type => PowerType.Buff;
 	public override PowerStackType StackType => PowerStackType.Single;
 	public override bool ShouldPlayVfx => false;
-	public override PowerAssetProfile AssetProfile => new(
-		IconPath: "res://images/powers/echo_form_power.png",
-		BigIconPath: "res://images/powers/echo_form_power.png");
 
 	protected override object InitInternalData() => new Data();
 

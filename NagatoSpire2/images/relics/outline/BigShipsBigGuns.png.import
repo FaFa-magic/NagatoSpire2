@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfl2pmosi7irc"
-path="res://.godot/imported/SakuraEmblem.png-592069385043658341458b61c0cb20ee.ctex"
+path="res://.godot/imported/BigShipsBigGuns.png-87c168d57265d23fabdeddb19f09c0eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/relics/outline/SakuraEmblem.png"
-dest_files=["res://.godot/imported/SakuraEmblem.png-592069385043658341458b61c0cb20ee.ctex"]
+source_file="res://NagatoSpire2/images/relics/outline/BigShipsBigGuns.png"
+dest_files=["res://.godot/imported/BigShipsBigGuns.png-87c168d57265d23fabdeddb19f09c0eb.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8bgxjd2xjhh3"
-path="res://.godot/imported/SakuraEmblemUpgraded.png-6b7fa633aa62c8f56adc63b7c6948554.ctex"
+uid="uid://b0iwvbof8mjrq"
+path="res://.godot/imported/ReincarnationsEndPower.png-7b3ac9c76a47e6c3a499af35040e39c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/relics/packed/SakuraEmblemUpgraded.png"
-dest_files=["res://.godot/imported/SakuraEmblemUpgraded.png-6b7fa633aa62c8f56adc63b7c6948554.ctex"]
+source_file="res://NagatoSpire2/images/powers/big/ReincarnationsEndPower.png"
+dest_files=["res://.godot/imported/ReincarnationsEndPower.png-7b3ac9c76a47e6c3a499af35040e39c6.ctex"]
 
 [params]
 

@@ -1,14 +1,15 @@
 {
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM.title": "大艦巨砲",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM.description": "戦闘開始時とオーブの解放後、空いているオーブスロットを埋める。",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM.flavor": "朱の鳥居の下、重桜の旗艦は艦隊を守ると神々に誓う。",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM_UPGRADED.title": "大艦巨砲・神威",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM_UPGRADED.flavor": "金箔の御神門に旗艦の誓いが掲げられ、桜月が大艦巨砲の神威を見届ける。",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.title": "大艦巨砲",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.description": "戦闘開始時とオーブの解放後、空いているオーブスロットを埋める。",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.flavor": "朱の鳥居の下、重桜の旗艦は艦隊を守ると神々に誓う。",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.title": "大艦巨砲・神威",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.flavor": "金箔の御神門に旗艦の誓いが掲げられ、桜月が大艦巨砲の神威を見届ける。",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_CHARACTER.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_TWO.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_THREE.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_FOUR.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_FIVE.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_SIX.title": "桜色のシーグラス",
-  "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_H.title": "桜色のシーグラス"
+  "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_H.title": "桜色のシーグラス",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": "戦闘開始時とオーブの解放後、空いているオーブスロットを埋める。\nすべての砲弾オーブは互いに左右で隣接しているものとみなす。"
 }

@@ -6,9 +6,10 @@
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_FIVE.title": "Sakura Sea Glass",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_SIX.title": "Sakura Sea Glass",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_H.title": "Sakura Sea Glass",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM.title": "Big Fleet, Big Guns",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM.description": "At the start of combat and after an Orb is Evoked, fill your empty Orb slots.",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM.flavor": "Beneath a vermilion torii, the Sakura flagship vows to protect her fleet.",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM_UPGRADED.title": "Big Fleet, Big Guns: Divine Might",
-  "NAGATO_SPIRE2_RELIC_SAKURA_EMBLEM_UPGRADED.flavor": "The gilded gate bears the flagship's oath beneath a crescent of sakura."
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.title": "Big Ships, Big Guns",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.description": "At the start of combat and after an Orb is Evoked, fill your empty Orb slots.",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.flavor": "Beneath a vermilion torii, the Sakura flagship vows to protect her fleet.",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.title": "Big Ships, Big Guns: Divine Might",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.flavor": "The gilded gate bears the flagship's oath beneath a crescent of sakura.",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": "At the start of combat and after an Orb is Evoked, fill your empty Orb slots.\nAll shell Orbs are considered adjacent to one another."
 }

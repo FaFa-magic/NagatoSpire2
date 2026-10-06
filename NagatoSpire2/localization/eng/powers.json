@@ -1,7 +1,12 @@
 {
-  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "Temporary Focus",
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "Gain Focus until the end of your turn.",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "Sakura Form",
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "Temporary Focus",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "Your [gold]Plating[/gold] triggers additional times.",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.smartDescription": "Your [gold]Plating[/gold] triggers [blue]{Amount}[/blue] additional {Amount:plural:time|times}.",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.title": "Naval Holiday",
+  "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.description": "At the end of this turn, [gold]Exhaust[/gold] your hand.",
+  "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.title": "Reincarnation's End",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards.",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "Choose cards to shuffle into your draw pile"
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "Choose cards to shuffle into your draw pile",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "Sakura Form"
 }

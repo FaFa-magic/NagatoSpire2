@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxsdfux87fqmn"
-path="res://.godot/imported/SakuraEmblemUpgraded.png-1a555a3dc747e66d26d8e1cf3a29544a.ctex"
+uid="uid://c55irodu8w6k4"
+path="res://.godot/imported/BigShipsBigGunsDivineMight.png-dc2fd583ffdb24b436d4097bb560d07b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/relics/big/SakuraEmblemUpgraded.png"
-dest_files=["res://.godot/imported/SakuraEmblemUpgraded.png-1a555a3dc747e66d26d8e1cf3a29544a.ctex"]
+source_file="res://NagatoSpire2/images/relics/outline/BigShipsBigGunsDivineMight.png"
+dest_files=["res://.godot/imported/BigShipsBigGunsDivineMight.png-dc2fd583ffdb24b436d4097bb560d07b.ctex"]
 
 [params]
 

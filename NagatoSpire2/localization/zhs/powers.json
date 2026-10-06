@@ -1,7 +1,12 @@
 {
-  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "临时集中",
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "获得集中，直到你的回合结束。",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子形态",
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "临时集中",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "[gold]覆甲[/gold]额外触发。",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.smartDescription": "[gold]覆甲[/gold]额外触发[blue]{Amount}[/blue]次。",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.title": "海军假日",
+  "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.description": "本回合结束时，[gold]消耗[/gold]所有手牌。",
+  "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.title": "轮回尽头",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "每回合前3次从手牌打出卡牌后，选择任意张手牌洗入抽牌堆，然后抽取等量的牌。",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "选择任意张手牌洗入抽牌堆"
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "选择任意张手牌洗入抽牌堆",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子形态"
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3ee334uqkqwi"
-path="res://.godot/imported/SakuraEmblem.png-82dae4cc80b56feec9d03002671f9ca3.ctex"
+uid="uid://2lhwbr5xus1r"
+path="res://.godot/imported/ArmorPiercingFocusPower.png-2180fdf91b0b74566ada6af7301368d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/relics/packed/SakuraEmblem.png"
-dest_files=["res://.godot/imported/SakuraEmblem.png-82dae4cc80b56feec9d03002671f9ca3.ctex"]
+source_file="res://NagatoSpire2/images/powers/big/ArmorPiercingFocusPower.png"
+dest_files=["res://.godot/imported/ArmorPiercingFocusPower.png-2180fdf91b0b74566ada6af7301368d3.ctex"]
 
 [params]
 

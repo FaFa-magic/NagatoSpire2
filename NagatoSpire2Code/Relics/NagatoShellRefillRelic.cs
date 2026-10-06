@@ -2,22 +2,16 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Orbs;
-using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using NagatoSpire2.NagatoSpire2Code.Characters;
 using NagatoSpire2.NagatoSpire2Code.Orbs;
 using NagatoSpire2.NagatoSpire2Code.Patches;
-using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace NagatoSpire2.NagatoSpire2Code.Relics;
 
-[RegisterCharacterStarterRelic(typeof(NagatoCharacter))]
-public sealed class SakuraEmblem : NagatoRelicModel
+public abstract class NagatoShellRefillRelic : NagatoRelicModel
 {
 	private bool _isRefilling;
-
-	public override RelicRarity Rarity => RelicRarity.Starter;
 
 	public override async Task BeforeSideTurnStart(
 		PlayerChoiceContext choiceContext,
@@ -53,7 +47,7 @@ public sealed class SakuraEmblem : NagatoRelicModel
 		try
 		{
 			Flash();
-			while (queue.Orbs.Count < queue.Capacity && !CombatManager.Instance.IsOverOrEnding)
+			while (queue.Orbs.Count < queue.Capacity && !Owner.Creature.IsDead && !CombatManager.Instance.IsOverOrEnding)
 			{
 				int count = queue.Orbs.Count;
 				await OrbCmd.Channel(choiceContext, NagatoShellOrb.CreateRandom(Owner), Owner);

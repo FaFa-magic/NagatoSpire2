@@ -1,24 +1,23 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.ValueProps;
-using NagatoSpire2.NagatoSpire2Code.Cards;
+using MegaCrit.Sts2.Core.Models.Powers;
+using NagatoSpire2.NagatoSpire2Code.Powers;
+
+namespace NagatoSpire2.NagatoSpire2Code.Cards.Uncommon;
 
 public sealed class NavyHoliday() : NagatoCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6M, ValueProp.Move)];
-    
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-        
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this, cardPlay)
-            .Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
-    }
-    
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3M);
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<PlatingPower>()];
+
+	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+	{
+		await PowerCmd.Apply<NavyHolidayPower>(choiceContext, Owner.Creature, DynamicVars.Repeat.BaseValue, Owner.Creature, this);
+	}
+
+	protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1m);
 }

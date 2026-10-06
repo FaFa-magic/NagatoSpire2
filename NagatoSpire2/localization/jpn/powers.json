@@ -1,7 +1,12 @@
 {
-  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "一時的な集中力",
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "このターン終了時まで、[gold]集中力[/gold]を得る。",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子化",
+  "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "一時的な集中力",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "[gold]プレート[/gold]が追加で発動する。",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.smartDescription": "[gold]プレート[/gold]が追加で[blue]{Amount}[/blue]回発動する。",
+  "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.title": "海軍休日",
+  "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.description": "このターン終了時、[gold]手札[/gold]をすべて[gold]廃棄[/gold]する。",
+  "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.title": "輪廻の果て",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "毎ターン、[gold]手札[/gold]から最初にプレイする3枚のカードそれぞれの後、手札を好きな枚数選んで山札に戻してシャッフルし、同じ枚数のカードを引く。",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "山札に戻す手札を好きな枚数選ぶ"
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "山札に戻す手札を好きな枚数選ぶ",
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子化"
 }
