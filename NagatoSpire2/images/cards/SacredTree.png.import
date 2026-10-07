@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcn74r1byc2lc"
-path="res://.godot/imported/SakuraForm.png-6551f8742ff6a10f77f28b49720c3961.ctex"
+uid="uid://v65viuikm01p"
+path="res://.godot/imported/SacredTree.png-5cebe253513482905e62f9a4174fa64c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/SakuraForm.png"
-dest_files=["res://.godot/imported/SakuraForm.png-6551f8742ff6a10f77f28b49720c3961.ctex"]
+source_file="res://NagatoSpire2/images/cards/SacredTree.png"
+dest_files=["res://.godot/imported/SacredTree.png-5cebe253513482905e62f9a4174fa64c.ctex"]
 
 [params]
 

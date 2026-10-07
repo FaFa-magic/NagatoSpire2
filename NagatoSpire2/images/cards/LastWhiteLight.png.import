@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcn74r1byc2lc"
-path="res://.godot/imported/SakuraForm.png-6551f8742ff6a10f77f28b49720c3961.ctex"
+uid="uid://cdnnt164wh032"
+path="res://.godot/imported/LastWhiteLight.png-4f8456988b2f26268fd0d32527deab5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/SakuraForm.png"
-dest_files=["res://.godot/imported/SakuraForm.png-6551f8742ff6a10f77f28b49720c3961.ctex"]
+source_file="res://NagatoSpire2/images/cards/LastWhiteLight.png"
+dest_files=["res://.godot/imported/LastWhiteLight.png-4f8456988b2f26268fd0d32527deab5d.ctex"]
 
 [params]
 

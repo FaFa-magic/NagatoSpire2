@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcn74r1byc2lc"
-path="res://.godot/imported/SakuraForm.png-6551f8742ff6a10f77f28b49720c3961.ctex"
+uid="uid://cbneg1kromxin"
+path="res://.godot/imported/Iai.png-712129fa7f193e852a843f77164a22fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/SakuraForm.png"
-dest_files=["res://.godot/imported/SakuraForm.png-6551f8742ff6a10f77f28b49720c3961.ctex"]
+source_file="res://NagatoSpire2/images/cards/Iai.png"
+dest_files=["res://.godot/imported/Iai.png-712129fa7f193e852a843f77164a22fc.ctex"]
 
 [params]
 

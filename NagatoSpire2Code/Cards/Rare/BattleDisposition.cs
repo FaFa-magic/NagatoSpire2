@@ -6,7 +6,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
 public sealed class BattleDisposition() : NagatoCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
+	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate, CardKeyword.Exhaust];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
 		await NagatoCardOrderCmd.ReorderDrawPile(choiceContext, Owner, SelectionScreenPrompt);

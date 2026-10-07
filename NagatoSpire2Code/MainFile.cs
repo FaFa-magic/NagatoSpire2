@@ -68,5 +68,10 @@ public static class MainFile
 		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.LayoutPatch>();
 		if (!orbPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato orb patches failed.");
+
+		var platingPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_plating_patches");
+		platingPatcher.RegisterPatch<NagatoPlatingTriggerPatch>();
+		if (!platingPatcher.PatchAll())
+			throw new InvalidOperationException("Critical Nagato Plating patches failed.");
 	}
 }
