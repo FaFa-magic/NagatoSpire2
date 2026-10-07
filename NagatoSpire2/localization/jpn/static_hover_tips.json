@@ -1,0 +1,6 @@
+{
+  "NAGATO_SPIRE2_LOAD.title": "装填",
+  "NAGATO_SPIRE2_LOAD.description": "オーブを指定し、対象とその手前のオーブを1スロットずつ前に詰め、対象の元の位置に砲弾を装填する。",
+  "NAGATO_SPIRE2_TEMPORARY_POWER.title": "一時的な効果",
+  "NAGATO_SPIRE2_TEMPORARY_POWER.description": "ターン終了時に消える一時的なバフとデバフ。"
+}

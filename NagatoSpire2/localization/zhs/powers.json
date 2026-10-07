@@ -1,6 +1,15 @@
 {
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "获得集中，直到你的回合结束。",
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "临时集中",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.description": "本回合结束时，失去获得的[gold]集中[/gold]。",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.smartDescription": "本回合结束时，失去[blue]{Amount}[/blue]点[gold]集中[/gold]。",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.title": "临时集中",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.description": "本回合结束时，失去获得的[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.smartDescription": "本回合结束时，失去[blue]{Amount}[/blue]点[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.title": "临时覆甲",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.description": "回合结束时，你可以选择任意张[gold]弃牌堆[/gold]的牌放入[gold]抽牌堆[/gold]。",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.selectionScreenPrompt": "选择任意张弃牌放入抽牌堆",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.title": "再集结",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "[gold]覆甲[/gold]额外触发。",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.smartDescription": "[gold]覆甲[/gold]额外触发[blue]{Amount}[/blue]次。",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.title": "海军假日",
@@ -8,5 +17,8 @@
   "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.title": "轮回尽头",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "每回合前3次从手牌打出卡牌后，选择任意张手牌洗入抽牌堆，然后抽取等量的牌。",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "选择任意张手牌洗入抽牌堆",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子形态"
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子形态",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.description": "回合结束时，[gold]激发[/gold]你的所有[gold]高爆弹[/gold]。",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.smartDescription": "回合结束时，[gold]激发[/gold]你的所有[gold]高爆弹[/gold]。此效果每回合触发[blue]{Amount}[/blue]次。",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.title": "齐射令"
 }

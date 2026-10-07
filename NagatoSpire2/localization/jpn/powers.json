@@ -1,6 +1,15 @@
 {
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "このターン終了時まで、[gold]集中力[/gold]を得る。",
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "一時的な集中力",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.description": "ターン終了時、得た[gold]集中力[/gold]を失う。",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.smartDescription": "ターン終了時、[gold]集中力[/gold]を[blue]{Amount}[/blue]失う。",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.title": "一時的な集中力",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.description": "ターン終了時、得た[gold]プレート[/gold]を失う。",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.smartDescription": "ターン終了時、[gold]プレート[/gold]を[blue]{Amount}[/blue]失う。",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.title": "一時的なプレート",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.description": "ターン終了時、[gold]捨て札[/gold]から好きな枚数のカードを選び、[gold]山札[/gold]に戻すことができる。",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.selectionScreenPrompt": "山札に戻す捨て札を好きな枚数選ぶ",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.title": "再集結",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "[gold]プレート[/gold]が追加で発動する。",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.smartDescription": "[gold]プレート[/gold]が追加で[blue]{Amount}[/blue]回発動する。",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.title": "海軍休日",
@@ -8,5 +17,8 @@
   "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.title": "輪廻の果て",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "毎ターン、[gold]手札[/gold]から最初にプレイする3枚のカードそれぞれの後、手札を好きな枚数選んで山札に戻してシャッフルし、同じ枚数のカードを引く。",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "山札に戻す手札を好きな枚数選ぶ",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子化"
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "神子化",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.description": "ターン終了時、すべての[gold]榴弾[/gold]を[gold]解放[/gold]する。",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.smartDescription": "ターン終了時、すべての[gold]榴弾[/gold]を[gold]解放[/gold]する。この効果は毎ターン[blue]{Amount}[/blue]回発動する。",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.title": "一斉打方"
 }

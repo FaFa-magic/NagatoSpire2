@@ -6,12 +6,13 @@ using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Orbs;
 using MegaCrit.Sts2.Core.GameActions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
-using NagatoSpire2.NagatoSpire2Code.Keywords;
+using NagatoSpire2.NagatoSpire2Code.HoverTips;
 using NagatoSpire2.NagatoSpire2Code.Orbs;
 using NagatoSpire2.NagatoSpire2Code.Patches;
 using STS2RitsuLib.Scaffolding.Content;
@@ -28,7 +29,7 @@ public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRa
 		PortraitPath = "res://NagatoSpire2/images/cards/Defend.png"
 	};
 
-	public override IEnumerable<CardKeyword> CanonicalKeywords => [NagatoKeywords.Load];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [NagatoHoverTips.Load];
 
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
 

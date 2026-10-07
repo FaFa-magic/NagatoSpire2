@@ -1,6 +1,15 @@
 {
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.description": "Gain Focus until the end of your turn.",
   "NAGATO_SPIRE2_POWER_ARMOR_PIERCING_FOCUS_POWER.title": "Temporary Focus",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.description": "At the end of your turn, lose the [gold]Focus[/gold] gained.",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.smartDescription": "At the end of your turn, lose [blue]{Amount}[/blue] [gold]Focus[/gold].",
+  "NAGATO_SPIRE2_POWER_CONCENTRATED_FIRE_FOCUS_POWER.title": "Temporary Focus",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.description": "At the end of your turn, lose the [gold]Plating[/gold] gained.",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.smartDescription": "At the end of your turn, lose [blue]{Amount}[/blue] [gold]Plating[/gold].",
+  "NAGATO_SPIRE2_POWER_EMERGENCY_PLATING_POWER.title": "Temporary Plating",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.description": "At the end of your turn, you may choose any number of cards in your discard pile and shuffle them into your draw pile.",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.selectionScreenPrompt": "Choose cards to put into your draw pile",
+  "NAGATO_SPIRE2_POWER_FLEET_REGROUP_POWER.title": "Fleet Regroup",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "Your [gold]Plating[/gold] triggers additional times.",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.smartDescription": "Your [gold]Plating[/gold] triggers [blue]{Amount}[/blue] additional {Amount:plural:time|times}.",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.title": "Naval Holiday",
@@ -8,5 +17,8 @@
   "NAGATO_SPIRE2_POWER_REINCARNATIONS_END_POWER.title": "Reincarnation's End",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.description": "After the first 3 cards you play from your hand each turn, choose any number of cards in your hand. Shuffle them into your draw pile, then draw that many cards.",
   "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.selectionScreenPrompt": "Choose cards to shuffle into your draw pile",
-  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "Sakura Form"
+  "NAGATO_SPIRE2_POWER_SAKURA_FORM_POWER.title": "Sakura Form",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.description": "At the end of your turn, [gold]Evoke[/gold] all your [gold]High-Explosive Shells[/gold].",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.smartDescription": "At the end of your turn, [gold]Evoke[/gold] all your [gold]High-Explosive Shells[/gold]. This effect triggers [blue]{Amount}[/blue] {Amount:plural:time|times} each turn.",
+  "NAGATO_SPIRE2_POWER_SALVO_FIRE_POWER.title": "Salvo Fire"
 }

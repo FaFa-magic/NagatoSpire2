@@ -58,6 +58,8 @@ public static class MainFile
 			throw new InvalidOperationException("Critical Nagato Spine patches failed.");
 
 		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
+		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.RecordPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.ClearPatch>();
 		orbPatcher.RegisterPatch<NagatoOrbEvokePatch>();
 		orbPatcher.RegisterPatch<NagatoOrbChannelPatch>();
 		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePatch>();

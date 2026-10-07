@@ -9,7 +9,7 @@
 | attack | Nagato_attacksfx.mp3 | 攻击动画，每位玩家每回合仅第一次 |
 | cast | Nagato_castsfx.mp3 | 施法动画 |
 | death | Nagato_deathsfx.mp3 | 角色死亡 |
-| character_select | Nagato_character_select.mp3 | 选角/换肤，替换旧语音 |
+| character_select | Nagato_character_select.mp3 | 正常选角，替换旧语音；换肤不播放也不中断 |
 | character_transition | Nagato_character_transition.mp3 | 开始游戏过渡，先停止选角语音 |
 | combat_start | Nagato_opensfx.mp3 | RitsuLib CombatStartingEvent，一场战斗仅一次 |
 | orb_passive | tashkent_PassiveSfx.mp3 | 充能球被动音效配置 |
@@ -18,7 +18,7 @@
 
 充能球音源复制自 TashkentSpire2-ritsulib，与 TashkentSpire2 的同名文件 SHA-256 相同，因此无需同时安装 Tashkent。只替换声音配置，不新增充能球被动行为。
 
-选角播放使用 Janus 相同的 `UseVanillaRouting=false`、Screen scope、ReplaceExisting 通道及立即停止/释放。切换角色、换肤、出发、关闭选角或退出场景时清理；释放失败保留句柄等待重试。攻击限流只影响表现，不改战斗数据或联机校验。
+选角播放使用 Janus 相同的 `UseVanillaRouting=false`、Screen scope、ReplaceExisting 通道及立即停止/释放。切换角色、出发、关闭选角或退出场景时清理；皮肤箭头只更新大厅角色与预览，不额外播放音频，也不截断当前语音。释放失败保留句柄等待重试。攻击限流只影响表现，不改战斗数据或联机校验。
 
 ## 重建
 

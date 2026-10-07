@@ -1,0 +1,6 @@
+{
+  "NAGATO_SPIRE2_LOAD.title": "装填",
+  "NAGATO_SPIRE2_LOAD.description": "指定充能球，将目标及其前方的充能球向前推一位，再于目标位置装入炮弹。",
+  "NAGATO_SPIRE2_TEMPORARY_POWER.title": "临时能力",
+  "NAGATO_SPIRE2_TEMPORARY_POWER.description": "回合结束时到期的临时增益与减益。"
+}

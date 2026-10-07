@@ -1,0 +1,6 @@
+{
+  "NAGATO_SPIRE2_LOAD.title": "Load",
+  "NAGATO_SPIRE2_LOAD.description": "Target an Orb. Push it and all Orbs before it forward one slot, then load a shell at its original position.",
+  "NAGATO_SPIRE2_TEMPORARY_POWER.title": "Temporary Powers",
+  "NAGATO_SPIRE2_TEMPORARY_POWER.description": "Temporary buffs and debuffs that expire at the end of a turn."
+}
