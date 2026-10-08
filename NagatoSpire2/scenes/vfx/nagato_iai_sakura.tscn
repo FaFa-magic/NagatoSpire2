@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://NagatoSpire2Code/Nodes/Vfx/NIaiSakuraVfx.cs" id="1_script"]
+[ext_resource type="Shader" path="res://NagatoSpire2/shaders/vfx/iai_official_crescent.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/vfx/iai/nagato_iai_cutin.png" id="3_cutin"]
+
+[node name="NagatoIaiSakura" type="Node2D"]
+script = ExtResource("1_script")
+CrescentShader = ExtResource("2_shader")
+CutInTexture = ExtResource("3_cutin")

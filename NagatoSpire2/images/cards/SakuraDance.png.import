@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb0hlak3jdefl"
-path="res://.godot/imported/Defend.png-c583496ce7b83332a5af23e2da97d58b.ctex"
+uid="uid://db4n46i24j6iy"
+path="res://.godot/imported/SakuraDance.png-d25a6ad7f499a9b4c93e1838f3f6a955.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/Defend.png"
-dest_files=["res://.godot/imported/Defend.png-c583496ce7b83332a5af23e2da97d58b.ctex"]
+source_file="res://NagatoSpire2/images/cards/SakuraDance.png"
+dest_files=["res://.godot/imported/SakuraDance.png-d25a6ad7f499a9b4c93e1838f3f6a955.ctex"]
 
 [params]
 

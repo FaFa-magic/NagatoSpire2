@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byn5xfj6xxdb3"
-path="res://.godot/imported/OperationVictory.png-a48db16673e7bdf9b772c8e35e93d46d.ctex"
+uid="uid://bcyoh1ani7mat"
+path="res://.godot/imported/nagato_iai_cutin.png-e4ea0847b7ca3abb3a4dbc8aabd67573.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/OperationVictory.png"
-dest_files=["res://.godot/imported/OperationVictory.png-a48db16673e7bdf9b772c8e35e93d46d.ctex"]
+source_file="res://NagatoSpire2/images/vfx/iai/nagato_iai_cutin.png"
+dest_files=["res://.godot/imported/nagato_iai_cutin.png-e4ea0847b7ca3abb3a4dbc8aabd67573.ctex"]
 
 [params]
 

@@ -12,7 +12,7 @@ public sealed class IaiDrawPower : NagatoPowerModel
 
 	public override PowerStackType StackType => PowerStackType.Counter;
 
-	public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+	public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
 		if (!participants.Contains(Owner) || Owner.IsDead || CombatManager.Instance.IsOverOrEnding || Owner.Player?.PlayerCombatState == null)
 			return;

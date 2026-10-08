@@ -6,12 +6,17 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using NagatoSpire2.NagatoSpire2Code.Powers;
+using NagatoSpire2.NagatoSpire2Code.Nodes.Vfx;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
 public sealed class Iai() : NagatoCardModel(0, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
 {
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move), new CardsVar(1)];
+
+	protected override IEnumerable<string> ExtraRunAssetPaths =>
+		[.. base.ExtraRunAssetPaths, NIaiSakuraVfx.ScenePath, NIaiSakuraVfx.CrescentTexturePath, NIaiSakuraVfx.CutInTexturePath,
+			"res://debug_audio/slash_attack.mp3"];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
@@ -29,11 +34,31 @@ public sealed class Iai() : NagatoCardModel(0, CardType.Attack, CardRarity.Rare,
 			CombatState is not { } combatState || CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead)
 			return;
 
-		await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-			.FromCard(this, null)
-			.TargetingAllOpponents(combatState)
-			.WithHitFx("vfx/vfx_attack_slash", null, "heavy_attack.mp3")
-			.Execute(choiceContext);
+		NIaiSakuraVfx? vfx = NagatoIaiVfx.Create(Owner.Creature, combatState.GetOpponentsOf(Owner.Creature));
+		try
+		{
+			if (vfx is not null && !await vfx.WaitForCutAsync())
+				return;
+			if (CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead || CombatState != combatState)
+				return;
+
+			await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+				.FromCard(this, null)
+				.TargetingAllOpponents(combatState)
+				// An automatic iaido cut should not play the character's ordinary gun attack afterwards.
+				.WithNoAttackerAnim()
+				.WithHitFx(vfx is null ? "vfx/vfx_attack_slash" : null, null, "heavy_attack.mp3")
+				.BeforeDamage(() =>
+				{
+					NagatoIaiVfx.Impact(vfx, combatState.GetOpponentsOf(Owner.Creature));
+					return Task.CompletedTask;
+				})
+				.Execute(choiceContext);
+		}
+		finally
+		{
+			NagatoIaiVfx.Finish(vfx);
+		}
 	}
 
 	protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(15m);
