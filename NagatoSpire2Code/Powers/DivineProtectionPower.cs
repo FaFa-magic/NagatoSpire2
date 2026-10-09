@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Powers;
 using NagatoSpire2.NagatoSpire2Code.Combat;
 
 namespace NagatoSpire2.NagatoSpire2Code.Powers;
@@ -13,7 +14,7 @@ public sealed class DivineProtectionPower : NagatoPowerModel, INagatoChoiceListe
 
 	public override PowerStackType StackType => PowerStackType.Counter;
 
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<DivineProtectionPlatingPower>()];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<PlatingPower>()];
 
 	public async Task AfterNagatoChoice(PlayerChoiceContext choiceContext)
 	{

@@ -12,9 +12,10 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
+using NagatoSpire2.NagatoSpire2Code.Cards.Token;
+using NagatoSpire2.NagatoSpire2Code.Commands;
 using NagatoSpire2.NagatoSpire2Code.HoverTips;
-using NagatoSpire2.NagatoSpire2Code.Orbs;
-using NagatoSpire2.NagatoSpire2Code.Patches;
+using NagatoSpire2.NagatoSpire2Code.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
@@ -24,14 +25,17 @@ public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRa
 	private OrbModel? _pendingOrbTarget;
 
 	public override bool GainsBlock => true;
-	public override CardAssetProfile AssetProfile => base.AssetProfile with
-	{
-		PortraitPath = "res://NagatoSpire2/images/cards/Defend.png"
-	};
 
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [NagatoHoverTips.Load];
+	public override IEnumerable<CardKeyword> CanonicalKeywords => [NagatoKeywords.Choice];
 
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+	[
+		NagatoHoverTips.Load,
+		HoverTipFactory.FromCard<TargetedReloadHighExplosive>(),
+		HoverTipFactory.FromCard<TargetedReloadArmorPiercing>()
+	];
+
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
 
 	public void SetOrbTarget(OrbModel? orb) => _pendingOrbTarget = orb;
 
@@ -39,55 +43,27 @@ public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRa
 	{
 		OrbModel? target = _pendingOrbTarget;
 		_pendingOrbTarget = null;
-		if (Owner.PlayerCombatState is not { } state || CombatManager.Instance.IsOverOrEnding)
+		if (Owner.PlayerCombatState is not { } state || CombatState is not { } combatState ||
+			CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead)
 			return;
 
 		OrbQueue queue = state.OrbQueue;
 		int? selectedIndex = await ResolveTarget(choiceContext, cardPlay, queue, target);
-		if (CombatManager.Instance.IsOverOrEnding)
+		if (CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead || Owner.PlayerCombatState != state)
 			return;
 		OrbModel? selectedOrb = selectedIndex is int slot && slot >= 0 && slot < queue.Orbs.Count
 			? queue.Orbs[slot]
 			: null;
 		await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-		if (queue.Capacity == 0 || CombatManager.Instance.IsOverOrEnding)
+		if (queue.Capacity == 0 || CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead ||
+			Owner.PlayerCombatState != state)
 			return;
 		int index = selectedOrb == null ? -1 : queue.Orbs.ToList().IndexOf(selectedOrb);
-		var prefix = queue.Orbs.Take(index + 1).ToHashSet();
-		var orbManager = index >= 0 ? NagatoOrbTargetingPatches.DeferLayout(Owner) : null;
-
-		NagatoOrbResolutionScope.Enter(Owner);
-		try
-		{
-			if (index >= 0)
-			{
-				await OrbCmd.EvokeNext(choiceContext, Owner);
-				if (CombatManager.Instance.IsOverOrEnding)
-					return;
-
-				OrbModel shell = NagatoShellOrb.CreateRandom(Owner);
-				await OrbCmd.Channel(choiceContext, shell, Owner);
-				if (queue.Remove(shell))
-				{
-					queue.Insert(queue.Orbs.Count(prefix.Contains), shell);
-				}
-			}
-			else
-			{
-				await OrbCmd.Channel(choiceContext, NagatoShellOrb.CreateRandom(Owner), Owner);
-			}
-		}
-		finally
-		{
-			try
-			{
-				await NagatoOrbResolutionScope.Exit(Owner, choiceContext);
-			}
-			finally
-			{
-				NagatoOrbTargetingPatches.ResumeLayout(orbManager, Owner);
-			}
-		}
+		var highExplosive = combatState.CreateCard<TargetedReloadHighExplosive>(Owner);
+		highExplosive.SlotIndex = index >= 0 ? index : null;
+		var armorPiercing = combatState.CreateCard<TargetedReloadArmorPiercing>(Owner);
+		armorPiercing.SlotIndex = highExplosive.SlotIndex;
+		await NagatoChoiceCmd.Choose(choiceContext, Owner, [highExplosive, armorPiercing]);
 	}
 
 	private async Task<int?> ResolveTarget(PlayerChoiceContext choiceContext, CardPlay cardPlay, OrbQueue queue, OrbModel? target)

@@ -18,7 +18,7 @@ public sealed class ConcentratedFire() : NagatoCardModel(1, CardType.Attack, Car
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
-		HoverTipFactory.FromPower<ConcentratedFireFocusPower>(),
+		HoverTipFactory.FromPower<FocusPower>(),
 		NagatoHoverTips.TemporaryPower
 	];
 

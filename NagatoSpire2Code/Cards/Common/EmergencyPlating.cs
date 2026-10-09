@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using NagatoSpire2.NagatoSpire2Code.Commands;
 using NagatoSpire2.NagatoSpire2Code.Powers;
 
@@ -12,7 +13,7 @@ public sealed class EmergencyPlating() : NagatoCardModel(1, CardType.Skill, Card
 {
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EmergencyPlatingPower>(5m)];
 
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<EmergencyPlatingPower>()];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<PlatingPower>()];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{

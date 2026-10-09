@@ -35,6 +35,7 @@ public static class MainFile
 
 		var cardVisualPatcher = RitsuLibFramework.CreatePatcher(ModId, "card-visuals");
 		cardVisualPatcher.RegisterPatch<NagatoCardChromePatch>();
+		cardVisualPatcher.RegisterPatch<NagatoChoiceScreenPatch>();
 		if (!cardVisualPatcher.PatchAll())
 			Logger.ErrorNoTrace("Nagato card visual patches failed to apply.");
 

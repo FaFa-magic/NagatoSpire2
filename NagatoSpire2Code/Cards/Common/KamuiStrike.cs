@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using NagatoSpire2.NagatoSpire2Code.Powers;
 
@@ -22,7 +23,7 @@ public sealed class KamuiStrike() : NagatoCardModel(1, CardType.Attack, CardRari
 		new PowerVar<KamuiStrikeStrengthPower>(2m)
 	];
 
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<KamuiStrikeStrengthPower>()];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
 		await PowerCmd.Apply<KamuiStrikeStrengthPower>(choiceContext, Owner.Creature,

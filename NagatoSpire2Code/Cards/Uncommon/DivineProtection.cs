@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using NagatoSpire2.NagatoSpire2Code.Keywords;
 using NagatoSpire2.NagatoSpire2Code.Powers;
 
@@ -15,7 +16,7 @@ public sealed class DivineProtection() : NagatoCardModel(1, CardType.Power, Card
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
 		HoverTipFactory.FromKeyword(NagatoKeywords.Choice),
-		HoverTipFactory.FromPower<DivineProtectionPlatingPower>()
+		HoverTipFactory.FromPower<PlatingPower>()
 	];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>

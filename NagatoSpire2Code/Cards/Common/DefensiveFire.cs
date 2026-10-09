@@ -34,5 +34,9 @@ public sealed class DefensiveFire() : NagatoCardModel(1, CardType.Skill, CardRar
 		}
 	}
 
-	protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1m);
+	protected override void OnUpgrade()
+	{
+		DynamicVars.Block.UpgradeValueBy(2m);
+		DynamicVars.Repeat.UpgradeValueBy(1m);
+	}
 }

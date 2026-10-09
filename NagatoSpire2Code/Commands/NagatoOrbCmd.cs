@@ -15,6 +15,45 @@ public static class NagatoOrbCmd
 			AccessTools.DeclaredMethod(typeof(OrbCmd), "Evoke",
 				[typeof(PlayerChoiceContext), typeof(Player), typeof(OrbModel), typeof(bool)]));
 
+	public static async Task Load(PlayerChoiceContext choiceContext, Player player, OrbModel shell, int? slotIndex)
+	{
+		if (player.PlayerCombatState is not { } state || CombatManager.Instance.IsOverOrEnding ||
+			player.Creature.IsDead || state.OrbQueue.Capacity == 0)
+			return;
+
+		var queue = state.OrbQueue;
+		int index = slotIndex is int slot && slot >= 0 && slot < queue.Orbs.Count ? slot : -1;
+		var prefix = queue.Orbs.Take(index + 1).ToHashSet();
+		var orbManager = index >= 0 ? NagatoOrbTargetingPatches.DeferLayout(player) : null;
+
+		NagatoOrbResolutionScope.Enter(player);
+		try
+		{
+			if (index >= 0)
+			{
+				await OrbCmd.EvokeNext(choiceContext, player);
+				if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
+					return;
+			}
+
+			await OrbCmd.Channel(choiceContext, shell, player);
+			if (index >= 0 && !CombatManager.Instance.IsOverOrEnding && !player.Creature.IsDead &&
+				player.PlayerCombatState == state && queue.Remove(shell))
+				queue.Insert(queue.Orbs.Count(prefix.Contains), shell);
+		}
+		finally
+		{
+			try
+			{
+				await NagatoOrbResolutionScope.Exit(player, choiceContext);
+			}
+			finally
+			{
+				NagatoOrbTargetingPatches.ResumeLayout(orbManager, player);
+			}
+		}
+	}
+
 	public static async Task Evoke(PlayerChoiceContext choiceContext, Player player, IEnumerable<OrbModel> targets)
 	{
 		if (player.PlayerCombatState is not { } state || CombatManager.Instance.IsOverOrEnding)
