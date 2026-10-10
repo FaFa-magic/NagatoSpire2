@@ -1,7 +1,6 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
 namespace NagatoSpire2.NagatoSpire2Code.Combat;
@@ -13,7 +12,7 @@ public static class NagatoTemporaryPowers
 			(internalPowerType == null || temporary.InternallyAppliedPower.GetType() == internalPowerType))
 		.Sum(power => Math.Abs((decimal)power.Amount));
 
-	public static async Task Reduce(PlayerChoiceContext choiceContext, Creature creature, int amount, CardModel source)
+	public static async Task Reduce(Creature creature, int amount)
 	{
 		if (amount <= 0)
 			return;
@@ -26,8 +25,10 @@ public static class NagatoTemporaryPowers
 			if (!creature.Powers.Contains(power) || power.Amount == 0)
 				continue;
 
-			decimal reduction = Math.Min(Math.Abs((decimal)power.Amount), amount);
-			await PowerCmd.ModifyAmount(choiceContext, power, -Math.Sign(power.Amount) * reduction, null, source);
+			int reduction = Math.Min(Math.Abs(power.Amount), amount);
+			power.SetAmount(power.Amount - Math.Sign(power.Amount) * reduction);
+			if (power.ShouldRemoveDueToAmount())
+				await PowerCmd.Remove(power);
 		}
 	}
 }

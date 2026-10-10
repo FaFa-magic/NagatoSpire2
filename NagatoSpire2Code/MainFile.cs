@@ -74,5 +74,16 @@ public static class MainFile
 		platingPatcher.RegisterPatch<NagatoPlatingTriggerPatch>();
 		if (!platingPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato Plating patches failed.");
+
+		var drawPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_draw_patches");
+		drawPatcher.RegisterPatch<NagatoCardDrawnPatch>();
+		drawPatcher.RegisterPatch<NagatoSealedAutoplayPatch>();
+		if (!drawPatcher.PatchAll())
+			throw new InvalidOperationException("Critical Nagato card draw patches failed.");
+
+		var damagePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_damage_patches");
+		damagePatcher.RegisterPatch<NagatoOrbDamagePatch>();
+		if (!damagePatcher.PatchAll())
+			throw new InvalidOperationException("Critical Nagato orb damage source patch failed.");
 	}
 }

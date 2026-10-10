@@ -9,11 +9,10 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Orbs;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using NagatoSpire2.NagatoSpire2Code.Cards.Common;
+using NagatoSpire2.NagatoSpire2Code.Cards.Basic;
 using STS2RitsuLib.Patching.Models;
 
 namespace NagatoSpire2.NagatoSpire2Code.Patches;

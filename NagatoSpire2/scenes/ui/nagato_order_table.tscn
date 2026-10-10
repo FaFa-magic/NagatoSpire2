@@ -1,0 +1,146 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://NagatoSpire2Code/Nodes/Ui/NagatoOrderTable.cs" id="1"]
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/ui/order/nagato_order_table.png" id="2"]
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/ui/order/nagato_order_command_plate.png" id="3"]
+
+[sub_resource type="SystemFont" id="Font"]
+font_names = PackedStringArray("Microsoft YaHei", "Yu Gothic", "Arial")
+
+[sub_resource type="Theme" id="Theme"]
+default_font = SubResource("Font")
+default_font_size = 24
+Label/colors/font_color = Color(1, 0.93, 0.8, 1)
+Label/colors/font_shadow_color = Color(0.05, 0.02, 0.01, 0.85)
+Label/constants/shadow_offset_y = 2
+
+[node name="NagatoOrderTable" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme")
+script = ExtResource("1")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Design" type="Control" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Guide" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 817.0
+offset_right = 1650.0
+offset_bottom = 856.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.91, 0.77, 0.52, 1)
+theme_override_font_sizes/font_size = 24
+text = "左上为首抽 · 从左到右，再到下一行"
+vertical_alignment = 1
+
+[node name="Status" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 862.0
+offset_right = 1650.0
+offset_bottom = 905.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 26
+text = "部署 12 张牌 · 保持原序"
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="Design"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 922.0
+offset_right = 1060.0
+offset_bottom = 1028.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 22
+text = "拖动插入，或点两张牌交换。右键查看详情。\n确认后执行部署；未调整的牌保留当前顺序。"
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="UndoVisual" type="Control" parent="Design"]
+layout_mode = 0
+offset_left = 1100.0
+offset_top = 937.0
+offset_right = 1350.0
+offset_bottom = 1015.0
+mouse_filter = 2
+
+[node name="Plate" type="TextureRect" parent="Design/UndoVisual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Text" type="Label" parent="Design/UndoVisual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 25
+text = "撤销一步"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResetVisual" type="Control" parent="Design"]
+layout_mode = 0
+offset_left = 1380.0
+offset_top = 937.0
+offset_right = 1630.0
+offset_bottom = 1015.0
+mouse_filter = 2
+
+[node name="Plate" type="TextureRect" parent="Design/ResetVisual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Text" type="Label" parent="Design/ResetVisual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 25
+text = "恢复原序"
+horizontal_alignment = 1
+vertical_alignment = 1
+

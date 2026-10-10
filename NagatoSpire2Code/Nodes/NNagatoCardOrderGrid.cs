@@ -2,11 +2,13 @@ using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.UI;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
+using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using NagatoSpire2.NagatoSpire2Code.Combat;
 
 namespace NagatoSpire2.NagatoSpire2Code.Nodes;
@@ -15,6 +17,9 @@ public partial class NNagatoCardOrderGrid : Control
 {
 	private readonly List<CardModel> _cards = [];
 	private readonly List<NGridCardHolder> _holders = [];
+	private readonly List<Panel> _markers = [];
+	private readonly List<(Callable Focused, Callable Unfocused)> _markerSignals = [];
+	private readonly NagatoCardOrderHistory<CardModel> _history = new();
 	private ScrollContainer _scroll = null!;
 	private GridContainer _slots = null!;
 	private int? _selected;
@@ -25,6 +30,11 @@ public partial class NNagatoCardOrderGrid : Control
 	public Control? NavigationFooter { get; set; }
 	public Control? NavigationSidebar { get; set; }
 	public IReadOnlyList<CardModel> OrderedCards => _cards;
+	public event Action? OrderChanged;
+	public bool CanUndo => _history.CanUndo;
+	public bool IsOriginal => _history.IsOriginal(_cards);
+	public int? SelectedIndex => _selected;
+	public bool CanEdit => Interactive && !IsDragging;
 	public Control? DefaultFocusedControl => _holders.FirstOrDefault();
 	private bool Interactive => IsVisibleInTree() && (CanInteract?.Invoke() ?? true);
 	private bool IsDragging => _draggedIndex.HasValue;
@@ -41,9 +51,28 @@ public partial class NNagatoCardOrderGrid : Control
 		if (_holders.Count > 0)
 			throw new InvalidOperationException("A card-order grid can only be initialized once.");
 		_cards.AddRange(cards);
+		_history.Initialize(_cards);
 		for (int index = 0; index < _cards.Count; index++)
 			CreateSlot(index);
 		UpdateNavigation();
+		OrderChanged?.Invoke();
+	}
+
+	public void Undo()
+	{
+		if (!Interactive || IsDragging || !CanUndo) return;
+		_cards.Clear();
+		_cards.AddRange(_history.Undo());
+		RefreshCards();
+	}
+
+	public void ResetOrder()
+	{
+		if (!Interactive || IsDragging || IsOriginal) return;
+		_history.Remember(_cards);
+		_cards.Clear();
+		_cards.AddRange(_history.Original);
+		RefreshCards();
 	}
 
 	private void CreateSlot(int index)
@@ -51,10 +80,41 @@ public partial class NNagatoCardOrderGrid : Control
 		var slot = new Control
 		{
 			Name = $"Position{index + 1}",
-			CustomMinimumSize = new Vector2(280, NCard.defaultSize.Y),
+			CustomMinimumSize = new Vector2(280, 466),
 			MouseFilter = MouseFilterEnum.Pass
 		};
 		_slots.AddChild(slot);
+		var marker = new Panel
+		{
+			Name = "DeploymentMarker",
+			Position = new Vector2(8, 10),
+			Size = new Vector2(264, 448),
+			MouseFilter = MouseFilterEnum.Ignore
+		};
+		var style = new StyleBoxFlat
+		{
+			BgColor = new Color(0.18f, 0.12f, 0.08f, 0.055f),
+			BorderColor = new Color("96764a88"),
+			CornerRadiusTopLeft = 5, CornerRadiusTopRight = 5,
+			CornerRadiusBottomLeft = 5, CornerRadiusBottomRight = 5
+		};
+		style.SetBorderWidthAll(1);
+		marker.AddThemeStyleboxOverride("panel", style);
+		slot.AddChild(marker);
+		_markers.Add(marker);
+		var ordinal = new Label
+		{
+			Name = "DrawOrder", Text = index == 0
+				? "01 · " + new LocString("gameplay_ui", "NAGATO_ORDER.first").GetFormattedText()
+				: (index + 1).ToString("00"),
+			Position = new Vector2(10, 430), Size = new Vector2(260, 28),
+			HorizontalAlignment = HorizontalAlignment.Center,
+			MouseFilter = MouseFilterEnum.Ignore
+		};
+		ordinal.AddThemeFontSizeOverride("font_size", 20);
+		ordinal.AddThemeColorOverride("font_color", new Color("654524"));
+		ordinal.AddThemeColorOverride("font_shadow_color", Colors.Transparent);
+		slot.AddChild(ordinal);
 		var anchor = new Control
 		{
 			Name = "CardAnchor",
@@ -71,6 +131,19 @@ public partial class NNagatoCardOrderGrid : Control
 		holder.Scale = holder.SmallScale;
 		holder.CardNode!.UpdateVisuals(PileType.Draw, CardPreviewMode.Normal);
 		Callable.From(() => ConfigureDrag(index, holder, slot)).CallDeferred();
+		var focused = Callable.From<NClickableControl>(_ => SetMarker(index, true));
+		var unfocused = Callable.From<NClickableControl>(_ => SetMarker(index, false));
+		holder.Hitbox.Connect(NClickableControl.SignalName.Focused, focused);
+		holder.Hitbox.Connect(NClickableControl.SignalName.Unfocused, unfocused);
+		_markerSignals.Add((focused, unfocused));
+	}
+
+	private void SetMarker(int index, bool hovered)
+	{
+		var style = (StyleBoxFlat)_markers[index].GetThemeStylebox("panel");
+		style.BorderColor = _selected == index ? new Color("b14d32") : hovered ? new Color("bc914a") : new Color("96764a88");
+		style.BgColor = _selected == index ? new Color(0.66f, 0.22f, 0.12f, 0.09f) : new Color(0.18f, 0.12f, 0.08f, 0.055f);
+		style.SetBorderWidthAll(_selected == index || hovered ? 2 : 1);
 	}
 
 	private void ConfigureDrag(int index, NGridCardHolder holder, Control slot)
@@ -105,6 +178,7 @@ public partial class NNagatoCardOrderGrid : Control
 		source.SetDragPreview(preview);
 		card.UpdateVisuals(PileType.Draw, CardPreviewMode.Normal);
 		_draggedIndex = index;
+		OrderChanged?.Invoke();
 		_holders[index].Modulate = new Color(1f, 1f, 1f, 0.3f);
 		_selected = null;
 		RefreshSelection();
@@ -139,6 +213,7 @@ public partial class NNagatoCardOrderGrid : Control
 				_holders[index].Modulate = Colors.White;
 			_draggedIndex = null;
 			_suppressPressUntil = Time.GetTicksMsec() + 150;
+			OrderChanged?.Invoke();
 		}
 	}
 
@@ -163,6 +238,7 @@ public partial class NNagatoCardOrderGrid : Control
 			return;
 		if (_selected is int from)
 		{
+			if (from != index) _history.Remember(_cards);
 			(_cards[from], _cards[index]) = (_cards[index], _cards[from]);
 			RefreshCards();
 		}
@@ -184,6 +260,7 @@ public partial class NNagatoCardOrderGrid : Control
 
 	private void MoveCard(int from, int to)
 	{
+		if (from != to) _history.Remember(_cards);
 		NagatoCardOrder.Move(_cards, from, to);
 		RefreshCards();
 	}
@@ -206,7 +283,9 @@ public partial class NNagatoCardOrderGrid : Control
 				highlight.AnimShow();
 			else
 				highlight.AnimHideInstantly();
+			SetMarker(i, _holders[i].Hitbox.HasFocus());
 		}
+		OrderChanged?.Invoke();
 	}
 
 	private void UpdateNavigation()
@@ -228,6 +307,11 @@ public partial class NNagatoCardOrderGrid : Control
 
 	public override void _ExitTree()
 	{
+		for (int i = 0; i < _holders.Count; i++)
+		{
+			_holders[i].Hitbox.Disconnect(NClickableControl.SignalName.Focused, _markerSignals[i].Focused);
+			_holders[i].Hitbox.Disconnect(NClickableControl.SignalName.Unfocused, _markerSignals[i].Unfocused);
+		}
 		foreach (NGridCardHolder holder in _holders)
 		{
 			holder.Hitbox.SetDragForwarding(default, default, default);
@@ -236,5 +320,7 @@ public partial class NNagatoCardOrderGrid : Control
 			holder.QueueFreeSafely();
 		}
 		_holders.Clear();
+		_markerSignals.Clear();
+		_markers.Clear();
 	}
 }

@@ -33,7 +33,7 @@ public sealed class FallingPetals() : NagatoCardModel(1, CardType.Attack, CardRa
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash", null, "heavy_attack.mp3")
 			.Execute(choiceContext);
-		await NagatoTemporaryPowers.Reduce(choiceContext, Owner.Creature, DynamicVars["Reduction"].IntValue, this);
+		await NagatoTemporaryPowers.Reduce(Owner.Creature, DynamicVars["Reduction"].IntValue);
 	}
 
 	protected override void OnUpgrade() => DynamicVars["Reduction"].UpgradeValueBy(1m);

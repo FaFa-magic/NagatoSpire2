@@ -45,15 +45,22 @@ public static class NagatoChoiceCmd
 			if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
 				break;
 
-			var listeners = player.Creature.Powers.Where(power => power is INagatoChoiceListener).ToArray();
-			await choice.OnChosen(choiceContext);
-			foreach (var power in listeners)
-			{
-				if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
-					break;
-				if (player.Creature.Powers.Contains(power))
-					await ((INagatoChoiceListener)power).AfterNagatoChoice(choiceContext);
-			}
+			await Resolve(choiceContext, player, () => choice.OnChosen(choiceContext));
+		}
+	}
+
+	public static async Task Resolve(PlayerChoiceContext choiceContext, Player player, Func<Task> apply)
+	{
+		if (player.PlayerCombatState is not { } state || player.Creature.IsDead || CombatManager.Instance.IsOverOrEnding)
+			return;
+		var listeners = player.Creature.Powers.Where(power => power is INagatoChoiceListener).ToArray();
+		await apply();
+		foreach (var power in listeners)
+		{
+			if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
+				break;
+			if (player.Creature.Powers.Contains(power))
+				await ((INagatoChoiceListener)power).AfterNagatoChoice(choiceContext);
 		}
 	}
 }

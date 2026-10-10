@@ -1,5 +1,18 @@
 {
-  "NAGATO_CHOICE.title": "军议 · 抉择",
+  "NAGATO_CHOICE.multi": "万象启示 · 选择一项或多项军令后确认",
   "NAGATO_CHOICE.single": "审阅军书，择一颁令",
-  "NAGATO_CHOICE.multi": "万象启示 · 选择一项或多项军令后确认"
+  "NAGATO_CHOICE.title": "军议 · 抉择",
+  "NAGATO_FLEET_VOTE.instruction": "每人选择一项。所有人获得最多票的效果，同票时随机选择。",
+  "NAGATO_FLEET_VOTE.title": "联合舰队 · 作战会议",
+  "NAGATO_FLEET_VOTE.waiting": "已投票，等待其他玩家。",
+  "NAGATO_ORDER.changed": "已调整 · 确认后生效",
+  "NAGATO_ORDER.confirm": "颁令",
+  "NAGATO_ORDER.detail": "右键查看详情。确认后执行部署；牌多时可滚动浏览。",
+  "NAGATO_ORDER.first": "首抽",
+  "NAGATO_ORDER.guide": "左上为首抽 · 从左到右，再到下一行",
+  "NAGATO_ORDER.original": "保持原序",
+  "NAGATO_ORDER.reset": "恢复原序",
+  "NAGATO_ORDER.selected": "已选第 {Position} 张 · 点击另一张交换，点击自身取消",
+  "NAGATO_ORDER.status": "部署 {Count} 张牌 · {State}",
+  "NAGATO_ORDER.undo": "撤销一步"
 }

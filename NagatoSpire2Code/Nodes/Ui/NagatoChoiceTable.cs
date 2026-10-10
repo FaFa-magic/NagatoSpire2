@@ -23,7 +23,7 @@ public partial class NagatoChoiceTable : Control
         UpdateLayout();
     }
 
-    public void Configure(int count, string title, string instruction)
+    public void Configure(int count, string title, string instruction, bool showOrdinals = true)
     {
         _count = count;
         GetNode<Label>("Design/Heading").Text = title;
@@ -31,6 +31,8 @@ public partial class NagatoChoiceTable : Control
         foreach (Label label in _ordinals)
             label.QueueFree();
         _ordinals.Clear();
+        if (!showOrdinals)
+            return;
         for (int i = 0; i < count; i++)
         {
             var label = new Label

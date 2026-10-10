@@ -1,5 +1,18 @@
 {
-  "NAGATO_CHOICE.title": "軍議 · 決断",
+  "NAGATO_CHOICE.multi": "万象の啓示 · 一つ以上の軍令を選び、確定する",
   "NAGATO_CHOICE.single": "軍書を読み、一つの命を下す",
-  "NAGATO_CHOICE.multi": "万象の啓示 · 一つ以上の軍令を選び、確定する"
+  "NAGATO_CHOICE.title": "軍議 · 決断",
+  "NAGATO_FLEET_VOTE.instruction": "一人一票。最多票の効果を全員が得る。同票ならランダム。",
+  "NAGATO_FLEET_VOTE.title": "連合艦隊・作戦会議",
+  "NAGATO_FLEET_VOTE.waiting": "投票済み。他のプレイヤーを待っています。",
+  "NAGATO_ORDER.changed": "配置変更済み · 確定待ち",
+  "NAGATO_ORDER.confirm": "配置確定",
+  "NAGATO_ORDER.detail": "右クリックで詳細。確定で配置を反映。スクロールで続きを表示。",
+  "NAGATO_ORDER.first": "最初",
+  "NAGATO_ORDER.guide": "左上が最初のドロー · 左から右、そして次の段へ",
+  "NAGATO_ORDER.original": "元の順序を維持",
+  "NAGATO_ORDER.reset": "元の順序",
+  "NAGATO_ORDER.selected": "{Position}番目を選択 · 別の札で交換、同じ札で解除",
+  "NAGATO_ORDER.status": "{Count}枚を配置 · {State}",
+  "NAGATO_ORDER.undo": "一手戻す"
 }

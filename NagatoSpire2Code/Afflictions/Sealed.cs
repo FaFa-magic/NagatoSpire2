@@ -1,0 +1,56 @@
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
+
+namespace NagatoSpire2.NagatoSpire2Code.Afflictions;
+
+public sealed class Sealed : NagatoAfflictionModel
+{
+	private bool _autoplaying;
+
+	public override bool HasExtraCardText => true;
+
+	internal bool IsAutoplaying => _autoplaying;
+
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+
+	public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType) =>
+		!HasCard || card != Card || autoPlayType != AutoPlayType.None;
+
+	public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
+		CardLocation cardLocation) =>
+		HasCard && card == Card && isAutoPlay && _autoplaying
+			? cardLocation with { pileType = PileType.Exhaust, position = CardPilePosition.Bottom }
+			: cardLocation;
+
+	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+	{
+		if (!HasCard || card != Card || _autoplaying || card.Owner.PlayerCombatState is not { } state ||
+			card.Pile != state.Hand ||
+			CombatManager.Instance.IsOverOrEnding || card.Owner.Creature.IsDead)
+			return;
+
+		_autoplaying = true;
+		try
+		{
+			await CardCmd.AutoPlay(choiceContext, card, null);
+			if (!CombatManager.Instance.IsOverOrEnding && !card.Owner.Creature.IsDead &&
+				card.Owner.PlayerCombatState == state && !card.HasBeenRemovedFromState &&
+				card.Pile is { Type: not PileType.Exhaust })
+				await CardCmd.Exhaust(choiceContext, card);
+		}
+		finally
+		{
+			_autoplaying = false;
+		}
+	}
+
+	protected override void AfterCloned()
+	{
+		base.AfterCloned();
+		_autoplaying = false;
+	}
+}

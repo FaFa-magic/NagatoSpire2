@@ -9,33 +9,35 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
-using MegaCrit.Sts2.Core.ValueProps;
 using NagatoSpire2.NagatoSpire2Code.Cards.Token;
+using NagatoSpire2.NagatoSpire2Code.Characters;
 using NagatoSpire2.NagatoSpire2Code.Commands;
 using NagatoSpire2.NagatoSpire2Code.HoverTips;
 using NagatoSpire2.NagatoSpire2Code.Keywords;
-using STS2RitsuLib.Scaffolding.Content;
+using NagatoSpire2.NagatoSpire2Code.Powers;
+using STS2RitsuLib.Interop.AutoRegistration;
 
-namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
+namespace NagatoSpire2.NagatoSpire2Code.Cards.Basic;
 
-public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRarity.Common, TargetType.TargetedNoCreature)
+[RegisterCharacterStarterCard(typeof(NagatoCharacter), 1, Order = 3)]
+public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRarity.Basic, TargetType.TargetedNoCreature)
 {
 	private OrbModel? _pendingOrbTarget;
-
-	public override bool GainsBlock => true;
 
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [NagatoKeywords.Choice];
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
+		HoverTipFactory.FromPower<PlatingPower>(),
 		NagatoHoverTips.Load,
 		HoverTipFactory.FromCard<TargetedReloadHighExplosive>(),
 		HoverTipFactory.FromCard<TargetedReloadArmorPiercing>()
 	];
 
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TargetedReloadPlatingPower>(6m)];
 
 	public void SetOrbTarget(OrbModel? orb) => _pendingOrbTarget = orb;
 
@@ -54,7 +56,8 @@ public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRa
 		OrbModel? selectedOrb = selectedIndex is int slot && slot >= 0 && slot < queue.Orbs.Count
 			? queue.Orbs[slot]
 			: null;
-		await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+		await PowerCmd.Apply<TargetedReloadPlatingPower>(choiceContext, Owner.Creature,
+			DynamicVars["TargetedReloadPlatingPower"].BaseValue, Owner.Creature, this);
 		if (queue.Capacity == 0 || CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead ||
 			Owner.PlayerCombatState != state)
 			return;
@@ -91,5 +94,5 @@ public sealed class TargetedReload() : NagatoCardModel(1, CardType.Skill, CardRa
 		}
 	}
 
-	protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3m);
+	protected override void OnUpgrade() => DynamicVars["TargetedReloadPlatingPower"].UpgradeValueBy(3m);
 }
