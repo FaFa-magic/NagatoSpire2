@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="SpineSkeletonDataResource" path="res://NagatoSpire2/animations/characters/Nagato/changmen_spine.tres" id="1_spine"]
 [ext_resource type="Script" path="res://NagatoSpire2Code/Nodes/NagatoRestSiteCharacter.cs" id="2_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/selection_reticle.tscn" id="3_reticle"]
 
 [node name="NagatoRestSite" type="Node2D"]
 script = ExtResource("2_script")
@@ -18,7 +19,7 @@ scale = Vector2(1, 1)
 layout_mode = 3
 anchors_preset = 0
 
-[node name="SelectionReticle" type="Control" parent="ControlRoot"]
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_reticle")]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_left = -210.0

@@ -1,0 +1,93 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/rest_site/glory_rest_site.tscn" id="1_native"]
+[ext_resource type="Script" path="res://NagatoSpire2Code/Nodes/RestSite/NInkStainedSteelSakuraRestSite.cs" id="2_script"]
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/rest_site/ink_stained_steel_sakura_rest_site.png" id="3_background"]
+
+[node name="InkStainedSteelSakuraRestSite" instance=ExtResource("1_native")]
+mouse_filter = 2
+script = ExtResource("2_script")
+
+[node name="RestSiteBG" parent="."]
+mouse_filter = 2
+texture = ExtResource("3_background")
+
+[node name="RestSiteLLog3" parent="."]
+visible = false
+
+[node name="RestSiteRLog3" parent="."]
+visible = false
+
+[node name="RestSiteFireLogs3" parent="."]
+visible = false
+
+[node name="light_small3" parent="."]
+visible = false
+emitting = false
+
+[node name="RestSiteLighting" parent="."]
+position = Vector2(-6, -136)
+mouse_filter = 2
+
+[node name="RestSiteGroundLighting2" parent="RestSiteLighting"]
+visible = false
+emitting = false
+
+[node name="RestSiteLLogShadow2" parent="RestSiteLighting"]
+visible = false
+emitting = false
+
+[node name="RestSiteRLogShadow" parent="RestSiteLighting"]
+visible = false
+emitting = false
+
+[node name="RestSiteLLog2" parent="RestSiteLighting"]
+visible = false
+
+[node name="RestSiteRLog2" parent="RestSiteLighting"]
+visible = false
+
+[node name="WallLight1" parent="RestSiteLighting"]
+visible = false
+
+[node name="WallLight2" parent="RestSiteLighting"]
+visible = false
+
+[node name="WallLight3" parent="RestSiteLighting"]
+visible = false
+
+[node name="WallLight4" parent="RestSiteLighting"]
+visible = false
+
+[node name="LLogHighlight" parent="RestSiteLighting"]
+visible = false
+
+[node name="RLogHighlight" parent="RestSiteLighting"]
+visible = false
+
+[node name="RestSiteFireLogs2" parent="RestSiteLighting"]
+visible = false
+
+[node name="RestSiteForeground" parent="."]
+visible = false
+
+[node name="RestSiteForeground2" parent="."]
+visible = false
+
+[node name="RestSiteForegroundDither2" parent="."]
+visible = false
+
+[node name="overlay_vfx" parent="."]
+visible = false
+
+[node name="ash" parent="overlay_vfx"]
+emitting = false
+
+[node name="ash2" parent="overlay_vfx"]
+emitting = false
+
+[node name="square_specks2" parent="overlay_vfx"]
+emitting = false
+
+[node name="square_specks3" parent="overlay_vfx"]
+emitting = false

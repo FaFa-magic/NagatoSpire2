@@ -4,5 +4,7 @@
   "config.section.general": "General",
   "config.modelMode.label": "Multiplayer model",
   "config.modelMode.hand": "Hand model",
-  "config.modelMode.legs": "Leg model"
+  "config.modelMode.legs": "Leg model",
+  "config.fourthAct.label": "Enter Act IV: Ink-Stained Steel Sakura",
+  "config.fourthAct.description": "Applies to new runs containing Nagato. Multiplayer uses the host's setting. Saved runs retain their original route."
 }

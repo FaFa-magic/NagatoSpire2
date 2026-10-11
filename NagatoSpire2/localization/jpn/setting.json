@@ -4,5 +4,7 @@
   "config.section.general": "一般",
   "config.modelMode.label": "マルチプレイ用モデル",
   "config.modelMode.hand": "手のモデル",
-  "config.modelMode.legs": "脚のモデル"
+  "config.modelMode.legs": "脚のモデル",
+  "config.fourthAct.label": "第四幕「墨染まりし鋼の桜」に進む",
+  "config.fourthAct.description": "長門を含む新しいランに適用。マルチプレイではホストの設定を使用し、保存済みのランは元のルートを維持します。"
 }

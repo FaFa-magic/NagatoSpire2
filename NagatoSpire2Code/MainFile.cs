@@ -1,4 +1,5 @@
 using System.Reflection;
+using NagatoSpire2.NagatoSpire2Code.Acts;
 using NagatoSpire2.NagatoSpire2Code.Audio;
 using NagatoSpire2.NagatoSpire2Code.Configs;
 using NagatoSpire2.NagatoSpire2Code.Networking;
@@ -29,6 +30,29 @@ public static class MainFile
 		NagatoAudio.Register();
 		NagatoCombatStartVoice.Register();
 		NagatoFleetVoteSync.Register();
+		InkStainedSteelSakuraRun.Register();
+
+		var actPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_fourth_act_patches");
+		actPatcher.RegisterPatch<InkStainedSteelSakuraRunPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraMapPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraFloorCountPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraMapRestorePatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraActLoadPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraActSerializePatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraBossSavePatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraMultiplayerScalingPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraTreasureRoomPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraRestSiteActIndexPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraRestSiteReadyPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraRestSiteLayoutPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraBossRewardsPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraMapMarkerPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraMapTexturePatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraBossIconPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraTopBarBossPatch>();
+		actPatcher.RegisterPatch<InkStainedSteelSakuraTopBarRoomPatch>();
+		if (!actPatcher.PatchAll())
+			throw new InvalidOperationException("Critical Nagato fourth-act patches failed.");
 
 		var audioPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_audio_patches");
 		audioPatcher.RegisterPatch<NagatoCharacterSelectVoicePatch>();

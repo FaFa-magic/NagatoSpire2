@@ -22,7 +22,8 @@ public sealed class SoulbindingTorii() : NagatoCardModel(2, CardType.Attack, Car
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => HoverTipFactory.FromAffliction<Sealed>();
 
-	protected override IEnumerable<string> ExtraRunAssetPaths => [.. base.ExtraRunAssetPaths, NSealedCardVfx.ScenePath];
+	protected override IEnumerable<string> ExtraRunAssetPaths =>
+		[.. base.ExtraRunAssetPaths, NSealedCardVfx.ScenePath, .. NagatoSoulbindingToriiVfx.AssetPaths];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
@@ -49,7 +50,7 @@ public sealed class SoulbindingTorii() : NagatoCardModel(2, CardType.Attack, Car
 		await DamageCmd.Attack(DynamicVars.CalculatedDamage)
 			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
-			.WithHitFx("vfx/vfx_attack_slash", null, "heavy_attack.mp3")
+			.BeforeDamage(() => NagatoSoulbindingToriiVfx.Play(Owner.Creature, cardPlay.Target, CountSealedCards(this)))
 			.Execute(choiceContext);
 	}
 

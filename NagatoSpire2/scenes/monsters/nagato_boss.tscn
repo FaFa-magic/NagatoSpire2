@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://NagatoSpire2/scenes/characters/Nagato.tscn" id="1_nagato"]
+
+[node name="NagatoBoss" instance=ExtResource("1_nagato")]
+
+[node name="Visuals" parent="." index="1"]
+scale = Vector2(-0.8, 0.8)

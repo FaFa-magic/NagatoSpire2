@@ -15,6 +15,7 @@ public enum NagatoModelMode
 public sealed class NagatoConfig
 {
     public NagatoModelMode 多人模式使用哪种模型 { get; set; } = NagatoModelMode.手部模型;
+    public bool 进入第四幕 { get; set; } = true;
 }
 
 public static class NagatoConfigPage
@@ -29,6 +30,11 @@ public static class NagatoConfigPage
         MainFile.ModId, DataKey, SaveScope.Profile,
         static s => s.多人模式使用哪种模型,
         static (s, v) => s.多人模式使用哪种模型 = v);
+
+    public static readonly ModSettingsValueBinding<NagatoConfig, bool> FourthActBinding = new(
+        MainFile.ModId, DataKey, SaveScope.Profile,
+        static s => s.进入第四幕,
+        static (s, v) => s.进入第四幕 = v);
 
     public static void Register()
     {
@@ -52,7 +58,10 @@ public static class NagatoConfigPage
                         new(NagatoModelMode.手部模型, Text("config.modelMode.hand", "Hand model")),
                         new(NagatoModelMode.腿部模型, Text("config.modelMode.legs", "Leg model"))
                     ],
-                    presentation: ModSettingsChoicePresentation.Dropdown)));
+                    presentation: ModSettingsChoicePresentation.Dropdown)
+                .AddToggle("fourth_act", Text("config.fourthAct.label", "Enter the fourth act"),
+                    FourthActBinding,
+                    Text("config.fourthAct.description", "Applies to new runs containing Nagato. Multiplayer uses the host's setting. Saved runs retain their original route."))));
     }
 
     private static ModSettingsText Text(string key, string fallback) =>

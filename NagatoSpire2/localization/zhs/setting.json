@@ -4,5 +4,7 @@
   "config.section.general": "通用",
   "config.modelMode.label": "多人模式模型",
   "config.modelMode.hand": "手部模型",
-  "config.modelMode.legs": "腿部模型"
+  "config.modelMode.legs": "腿部模型",
+  "config.fourthAct.label": "进入第四幕：墨染的钢铁之花",
+  "config.fourthAct.description": "仅对包含长门的新跑局生效。多人游戏以房主设置为准，已有存档保留原路线。"
 }
