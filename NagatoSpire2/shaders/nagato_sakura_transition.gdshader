@@ -9,9 +9,11 @@ uniform float petal_softness : hint_range(0.08, 0.45) = 0.23;
 
 const float BACKGROUND_ASPECT = 1920.0 / 1080.0;
 // Match NagatoTransitionPatch.MinimumDuration and the preview AnimationPlayer.
-// 1.8s ink entrance + 0.3s portrait hold + 3.3s petal sweep/black fade.
-const float INK_ENTRANCE_END = 1.8 / 5.4;
-const float PORTRAIT_HOLD_END = 2.1 / 5.4;
+// Only the ink entrance runs 30% faster; retain the hold and petal/fade durations.
+const float INK_ENTRANCE_DURATION = 1.8 / 1.3;
+const float TRANSITION_DURATION = INK_ENTRANCE_DURATION + 0.3 + 3.3;
+const float INK_ENTRANCE_END = INK_ENTRANCE_DURATION / TRANSITION_DURATION;
+const float PORTRAIT_HOLD_END = (INK_ENTRANCE_DURATION + 0.3) / TRANSITION_DURATION;
 
 float hash21(vec2 p) {
 	p = fract(p * vec2(123.34, 456.21));
@@ -42,7 +44,7 @@ vec2 ink_reveal(vec2 screen, float phase, float aspect) {
 	float spread = mix(-0.10, 1.28, phase);
 	float feather = mix(0.045, 0.085, wash);
 	float reveal = 1.0 - smoothstep(spread - feather, spread + feather, field);
-	// Exact transparent/full-image endpoints within the 1.8-second entrance.
+	// Exact transparent/full-image endpoints within the ink entrance.
 	reveal *= smoothstep(0.0, 0.07, phase);
 	reveal = mix(reveal, 1.0, smoothstep(0.82, 1.0, phase));
 	float wet_edge = (1.0 - smoothstep(0.0, feather * 2.1, abs(field - spread)))

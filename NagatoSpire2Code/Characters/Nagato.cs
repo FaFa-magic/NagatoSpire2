@@ -1,5 +1,6 @@
 using Godot;
 using NagatoSpire2.NagatoSpire2Code.Audio;
+using NagatoSpire2.NagatoSpire2Code.Configs;
 using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Characters;
@@ -64,10 +65,18 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 				CharacterTransitionSfx: NagatoAudio.CharacterTransitionEvent
 			),
 			Multiplayer: new(
-				ArmPointingTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_point.png",
-				ArmRockTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_rock.png",
-				ArmPaperTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_paper.png",
-				ArmScissorsTexturePath: "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_scissors.png"
+				ArmPointingTexturePath: NagatoConfigPage.ModelModeBinding.Read() == NagatoModelMode.手部模型
+					? "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_point.png"
+					: "res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_point.png",
+				ArmRockTexturePath: NagatoConfigPage.ModelModeBinding.Read() == NagatoModelMode.手部模型
+					? "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_rock.png"
+					: "res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_rock.png",
+				ArmPaperTexturePath: NagatoConfigPage.ModelModeBinding.Read() == NagatoModelMode.手部模型
+					? "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_paper.png"
+					: "res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_paper.png",
+				ArmScissorsTexturePath: NagatoConfigPage.ModelModeBinding.Read() == NagatoModelMode.手部模型
+					? "res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_scissors.png"
+					: "res://NagatoSpire2/images/characters/feet/multiplayer_foot_nagato_scissors.png"
 			),
 			VanillaRelicVisualOverrides:
 			[

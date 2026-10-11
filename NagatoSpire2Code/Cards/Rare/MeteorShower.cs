@@ -13,7 +13,7 @@ public sealed class MeteorShower() : NagatoCardModel(0, CardType.Attack, CardRar
 {
 	protected override bool HasEnergyCostX => true;
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2m, ValueProp.Move), new IntVar("Hits", 2), new EnergyVar(1)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1m, ValueProp.Move), new IntVar("Hits", 1), new EnergyVar(1)];
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [EnergyHoverTip];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

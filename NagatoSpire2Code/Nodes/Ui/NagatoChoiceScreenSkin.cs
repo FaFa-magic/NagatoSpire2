@@ -66,12 +66,8 @@ public partial class NagatoChoiceScreenSkin : Node
         _hand.MouseFilter = Control.MouseFilterEnum.Ignore;
         _hand.ZIndex = 50;
         _hand.Visible = false;
-        TextureRect texture = _hand.GetNode<TextureRect>("TextureRect");
-        // Alpha-bounds measurement: Nagato's 422x1200 asset starts at fingertip (260.5, 38).
-        texture.Size = new Vector2(211f, 600f);
-        texture.Position = new Vector2(-130.25f, -19f);
-        texture.PivotOffset = new Vector2(130.25f, 19f);
         _screen.AddChild(_hand);
+        NagatoChoicePointingImage.Configure(_hand);
         _hand.Modulate = new Color(1f, 1f, 1f, 0.94f);
         _screen.VisibilityChanged += OnVisibilityChanged;
         _screen.Resized += Layout;

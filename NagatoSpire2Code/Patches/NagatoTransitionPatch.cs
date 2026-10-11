@@ -13,10 +13,10 @@ namespace NagatoSpire2.NagatoSpire2Code.Patches;
 public sealed class NagatoTransitionPatch : IPatchMethod
 {
 	public const string TransitionPath = "res://NagatoSpire2/materials/nagato_transition_mat.tres";
-	public const float MinimumDuration = 5.4f;
+	public const float MinimumDuration = 1.8f / 1.3f + 0.3f + 3.3f;
 
 	public static string PatchId => "nagato_sakura_character_transition";
-	public static string Description => "Play Nagato's 5.4-second ink, shrine-water and sakura transition";
+	public static string Description => "Play Nagato's ink, shrine-water and sakura transition";
 	public static bool IsCritical => false;
 	public static ModPatchTarget[] GetTargets() =>
 	[

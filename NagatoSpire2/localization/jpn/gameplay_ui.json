@@ -4,7 +4,7 @@
   "NAGATO_CHOICE.title": "軍議 · 決断",
   "NAGATO_FLEET_VOTE.instruction": "一人一票。最多票の効果を全員が得る。同票ならランダム。",
   "NAGATO_FLEET_VOTE.title": "連合艦隊・作戦会議",
-  "NAGATO_FLEET_VOTE.waiting": "投票済み。他のプレイヤーを待っています。",
+  "NAGATO_FLEET_VOTE.waiting": "他のプレイヤーを待っています。投票先は変更できます。",
   "NAGATO_ORDER.changed": "配置変更済み · 確定待ち",
   "NAGATO_ORDER.confirm": "配置確定",
   "NAGATO_ORDER.detail": "右クリックで詳細。確定で配置を反映。スクロールで続きを表示。",

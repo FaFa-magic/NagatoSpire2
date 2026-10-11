@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/cards/holders/grid_card_holder.tscn" id="1"]
+[ext_resource type="Script" path="res://NagatoSpire2Code/Nodes/Ui/NNagatoFleetVoteCardHolder.cs" id="2"]
+
+[node name="NNagatoFleetVoteCardHolder" instance=ExtResource("1")]
+script = ExtResource("2")

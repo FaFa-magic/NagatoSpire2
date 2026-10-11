@@ -4,7 +4,7 @@
   "NAGATO_CHOICE.title": "War Council · Decision",
   "NAGATO_FLEET_VOTE.instruction": "One vote each. Everyone gains the most-voted effect; ties are random.",
   "NAGATO_FLEET_VOTE.title": "COMBINED FLEET / COUNCIL",
-  "NAGATO_FLEET_VOTE.waiting": "Vote cast. Waiting for the other players.",
+  "NAGATO_FLEET_VOTE.waiting": "Waiting for the other players. You can still change your vote.",
   "NAGATO_ORDER.changed": "Order changed · Pending confirmation",
   "NAGATO_ORDER.confirm": "Deploy",
   "NAGATO_ORDER.detail": "Right-click to inspect. Confirm to deploy; scroll for more cards.",

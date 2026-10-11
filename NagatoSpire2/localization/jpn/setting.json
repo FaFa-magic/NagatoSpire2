@@ -1,0 +1,8 @@
+{
+  "config.page.title": "長門設定",
+  "config.modDisplayName": "長門",
+  "config.section.general": "一般",
+  "config.modelMode.label": "マルチプレイ用モデル",
+  "config.modelMode.hand": "手のモデル",
+  "config.modelMode.legs": "脚のモデル"
+}

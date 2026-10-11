@@ -55,7 +55,7 @@
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.description": "Take 50% more damage from Orbs.",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.smartDescription": "Take 50% more damage from Orbs.\nLasts [blue]{Amount}[/blue] turns.",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.title": "Lock-On",
-  "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "When making a [gold]Choice[/gold], you may choose multiple options.\nEach counts as a separate [gold]Choice[/gold].",
+  "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "When making an individual [gold]Choice[/gold], you may choose multiple options.",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt": "Choose at least 1 option, up to {MaxCount}",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.title": "Myriad Revelations",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "Your [gold]Plating[/gold] triggers additional times.",

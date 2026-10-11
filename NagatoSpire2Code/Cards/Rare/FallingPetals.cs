@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using NagatoSpire2.NagatoSpire2Code.Combat;
 using NagatoSpire2.NagatoSpire2Code.HoverTips;
+using NagatoSpire2.NagatoSpire2Code.Nodes.Vfx;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
@@ -22,6 +23,9 @@ public sealed class FallingPetals() : NagatoCardModel(1, CardType.Attack, CardRa
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [NagatoHoverTips.TemporaryPower];
 
+	protected override IEnumerable<string> ExtraRunAssetPaths =>
+		[.. base.ExtraRunAssetPaths, NFallingPetalsVfx.ScenePath, NagatoFallingPetalsVfx.ImpactSoundPath];
+
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
 		ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
@@ -31,7 +35,8 @@ public sealed class FallingPetals() : NagatoCardModel(1, CardType.Attack, CardRa
 		await DamageCmd.Attack(DynamicVars.CalculatedDamage)
 			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
-			.WithHitFx("vfx/vfx_attack_slash", null, "heavy_attack.mp3")
+			.BeforeDamage(() => NagatoFallingPetalsVfx.Play(Owner.Creature, cardPlay.Target,
+				NagatoTemporaryPowers.Count(Owner.Creature)))
 			.Execute(choiceContext);
 		await NagatoTemporaryPowers.Reduce(Owner.Creature, DynamicVars["Reduction"].IntValue);
 	}

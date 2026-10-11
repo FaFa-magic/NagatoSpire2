@@ -10,8 +10,10 @@ using NagatoSpire2.NagatoSpire2Code.Nodes.Screens;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
-public sealed class CombinedFleet() : NagatoCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+public sealed class CombinedFleet() : NagatoCardModel(2, CardType.Power, CardRarity.Rare, TargetType.AllAllies)
 {
+	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
+
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [NagatoKeywords.Choice];
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

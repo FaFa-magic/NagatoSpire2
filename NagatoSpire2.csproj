@@ -89,6 +89,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="NagatoSpire2/localization/eng/setting.json" LogicalName="NagatoSpire2.Settings.eng.json" />
+        <EmbeddedResource Include="NagatoSpire2/localization/zhs/setting.json" LogicalName="NagatoSpire2.Settings.zhs.json" />
+        <EmbeddedResource Include="NagatoSpire2/localization/jpn/setting.json" LogicalName="NagatoSpire2.Settings.jpn.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Folder Include="NagatoSpire2\images\packed\sprite_fonts\" />
         <Folder Include="NagatoSpire2\images\powers\big\"/>
         <Folder Include="NagatoSpire2\images\relics\big\"/>

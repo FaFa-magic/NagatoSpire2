@@ -13,8 +13,7 @@ public sealed class ReincarnationsEnd() : NagatoCardModel(1, CardType.Skill, Car
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
-		HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
-		HoverTipFactory.FromPower<ReincarnationsEndPower>()
+		HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
 	];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

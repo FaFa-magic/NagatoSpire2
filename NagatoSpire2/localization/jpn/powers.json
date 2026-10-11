@@ -55,7 +55,7 @@
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.description": "オーブから受けるダメージが50%増える。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.smartDescription": "オーブから受けるダメージが50%増える。\n[blue]{Amount}[/blue]ターン持続する。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.title": "ロックオン",
-  "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "[gold]選択[/gold]時、複数の選択肢を選べる。\n各選択肢を1回の[gold]選択[/gold]として扱う。",
+  "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "個人で[gold]選択[/gold]する時、複数の選択肢を選べる。",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt": "選択肢を1つ以上、{MaxCount}個まで選ぶ",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.title": "万象の神託",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "[gold]プレート[/gold]が追加で発動する。",

@@ -1,5 +1,7 @@
 using System.Reflection;
 using NagatoSpire2.NagatoSpire2Code.Audio;
+using NagatoSpire2.NagatoSpire2Code.Configs;
+using NagatoSpire2.NagatoSpire2Code.Networking;
 using MegaCrit.Sts2.Core.Modding;
 using NagatoSpire2.NagatoSpire2Code.Patches;
 using STS2RitsuLib;
@@ -23,8 +25,10 @@ public static class MainFile
 		Logger = RitsuLibFramework.CreateLogger(ModId);
 		ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 		RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
+		NagatoConfigPage.Register();
 		NagatoAudio.Register();
 		NagatoCombatStartVoice.Register();
+		NagatoFleetVoteSync.Register();
 
 		var audioPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_audio_patches");
 		audioPatcher.RegisterPatch<NagatoCharacterSelectVoicePatch>();
@@ -36,6 +40,7 @@ public static class MainFile
 		var cardVisualPatcher = RitsuLibFramework.CreatePatcher(ModId, "card-visuals");
 		cardVisualPatcher.RegisterPatch<NagatoCardChromePatch>();
 		cardVisualPatcher.RegisterPatch<NagatoChoiceScreenPatch>();
+		cardVisualPatcher.RegisterPatch<NagatoWhiteLightVisualBootstrapPatch>();
 		if (!cardVisualPatcher.PatchAll())
 			Logger.ErrorNoTrace("Nagato card visual patches failed to apply.");
 
@@ -80,6 +85,17 @@ public static class MainFile
 		drawPatcher.RegisterPatch<NagatoSealedAutoplayPatch>();
 		if (!drawPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato card draw patches failed.");
+
+		var drawPreviewPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_draw_preview_patches");
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.InitializePatch>();
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.AddPatch>();
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.RemovePatch>();
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.ShufflePatch>();
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.RandomizePatch>();
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.MoveToTopPatch>();
+		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.TransformPatch>();
+		if (!drawPreviewPatcher.PatchAll())
+			Logger.ErrorNoTrace("Nagato draw-pile preview patches failed to apply.");
 
 		var damagePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_damage_patches");
 		damagePatcher.RegisterPatch<NagatoOrbDamagePatch>();

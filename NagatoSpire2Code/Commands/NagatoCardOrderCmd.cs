@@ -14,6 +14,7 @@ using MegaCrit.Sts2.Core.Nodes.Screens.Overlays;
 using MegaCrit.Sts2.Core.Runs;
 using NagatoSpire2.NagatoSpire2Code.Combat;
 using NagatoSpire2.NagatoSpire2Code.Nodes;
+using NagatoSpire2.NagatoSpire2Code.Nodes.Ui;
 
 namespace NagatoSpire2.NagatoSpire2Code.Commands;
 
@@ -26,7 +27,10 @@ public static class NagatoCardOrderCmd
 		CardPile draw = state.DrawPile;
 		CardModel[] original = draw.Cards.ToArray();
 		if (original.Length < 2)
+		{
+			NNagatoDrawPilePreviews.RememberOrder(draw);
 			return;
+		}
 
 		CardModel[] ordered = await SelectOrder(choiceContext, player, original, prompt);
 		if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
@@ -35,6 +39,7 @@ public static class NagatoCardOrderCmd
 		ordered = NagatoCardOrder.RetainCurrent(draw.Cards, ordered);
 		if (!draw.Cards.SequenceEqual(ordered))
 			await CardPileCmd.Add(ordered.Reverse(), draw, CardPilePosition.Top, skipVisuals: true);
+		NNagatoDrawPilePreviews.RememberOrder(draw);
 	}
 
 	private static async Task<CardModel[]> SelectOrder(PlayerChoiceContext choiceContext, Player player, CardModel[] original, LocString prompt)

@@ -13,8 +13,7 @@ public sealed class NoRetreat() : NagatoCardModel(0, CardType.Skill, CardRarity.
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
-		HoverTipFactory.FromPower<PlatingPower>(),
-		HoverTipFactory.FromPower<TheGambitPower>()
+		HoverTipFactory.FromPower<PlatingPower>()
 	];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

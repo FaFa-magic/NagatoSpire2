@@ -55,7 +55,7 @@
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.description": "受到充能球造成的伤害增加50%。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.smartDescription": "受到充能球造成的伤害增加50%。\n持续[blue]{Amount}[/blue]回合。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.title": "锁定",
-  "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "[gold]抉择[/gold]时，你可以选择不止一个选项。\n每个选项分别视为一次[gold]抉择[/gold]。",
+  "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "单人[gold]抉择[/gold]时，你可以选择不止一个选项。",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt": "选择至少1个选项，最多{MaxCount}个",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.title": "万象神谕",
   "NAGATO_SPIRE2_POWER_NAVY_HOLIDAY_POWER.description": "[gold]覆甲[/gold]额外触发。",

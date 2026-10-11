@@ -17,7 +17,7 @@ public abstract class NagatoChoiceOption() : NagatoCardModel(-1, CardType.Skill,
 	[
 		.. base.ExtraRunAssetPaths, NagatoChoiceTable.ScenePath, NagatoChoiceTable.BackgroundPath,
 		"res://scenes/ui/hand_image.tscn",
-		"res://NagatoSpire2/images/characters/hands/multiplayer_hand_nagato_point.png"
+		.. NagatoChoicePointingImage.AssetPaths
 	];
 
 	public override CardPoolModel VisualCardPool => ModelDb.CardPool<NagatoCardPool>();

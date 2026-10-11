@@ -4,7 +4,7 @@
   "NAGATO_CHOICE.title": "军议 · 抉择",
   "NAGATO_FLEET_VOTE.instruction": "每人选择一项。所有人获得最多票的效果，同票时随机选择。",
   "NAGATO_FLEET_VOTE.title": "联合舰队 · 作战会议",
-  "NAGATO_FLEET_VOTE.waiting": "已投票，等待其他玩家。",
+  "NAGATO_FLEET_VOTE.waiting": "等待其他玩家，仍可更换选择。",
   "NAGATO_ORDER.changed": "已调整 · 确认后生效",
   "NAGATO_ORDER.confirm": "颁令",
   "NAGATO_ORDER.detail": "右键查看详情。确认后执行部署；牌多时可滚动浏览。",

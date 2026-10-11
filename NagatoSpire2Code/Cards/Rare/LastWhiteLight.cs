@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using NagatoSpire2.NagatoSpire2Code.Nodes.Vfx;
 using NagatoSpire2.NagatoSpire2Code.Powers;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
@@ -11,11 +12,8 @@ public sealed class LastWhiteLight() : NagatoCardModel(0, CardType.Skill, CardRa
 {
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-	[
-		HoverTipFactory.FromPower<LastWhiteLightPower>(),
-		HoverTipFactory.FromPower<LastWhiteLightEchoPower>()
-	];
+	protected override IEnumerable<string> ExtraRunAssetPaths =>
+		[.. base.ExtraRunAssetPaths, .. NagatoWhiteLightVfx.AssetPaths];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
