@@ -5,14 +5,12 @@ using MegaCrit.Sts2.Core.Audio.Debug;
 using MegaCrit.Sts2.Core.ControllerInput;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Orbs;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using NagatoSpire2.NagatoSpire2Code.Cards.Basic;
+using NagatoSpire2.NagatoSpire2Code.Cards;
 using STS2RitsuLib.Patching.Models;
 
 namespace NagatoSpire2.NagatoSpire2Code.Patches;
@@ -21,18 +19,9 @@ public static class NagatoOrbTargetingPatches
 {
 	private sealed record OrbBinding(NOrb Orb, Control Bounds, NSelectionReticle Reticle, Action Enter, Action Exit);
 	private static readonly ConditionalWeakTable<NMouseCardPlay, object> SelectedMousePlays = new();
-	private static readonly Dictionary<NOrbManager, int> DeferredLayouts = [];
 
 	private static readonly AccessTools.FieldRef<NOrbManager, List<NOrb>> OrbNodes =
 		AccessTools.FieldRefAccess<NOrbManager, List<NOrb>>("_orbs");
-
-	private static readonly Action<NOrbManager> TweenLayout =
-		AccessTools.MethodDelegate<Action<NOrbManager>>(
-			AccessTools.DeclaredMethod(typeof(NOrbManager), "TweenLayout"));
-
-	private static readonly Action<NOrbManager> UpdateControllerNavigation =
-		AccessTools.MethodDelegate<Action<NOrbManager>>(
-			AccessTools.DeclaredMethod(typeof(NOrbManager), "UpdateControllerNavigation"));
 
 	private static readonly Action<NCardPlay> TryShowEvokingOrbs =
 		AccessTools.MethodDelegate<Action<NCardPlay>>(
@@ -46,7 +35,7 @@ public static class NagatoOrbTargetingPatches
 		AccessTools.MethodDelegate<Action<NCardPlay, Creature?>>(
 			AccessTools.DeclaredMethod(typeof(NCardPlay), "TryPlayCard", [typeof(Creature)]));
 
-	public static NOrb[] GetOrbs(TargetedReload card)
+	public static NOrb[] GetOrbs(NagatoOrbSlotCardModel card)
 	{
 		if (card.Owner.PlayerCombatState is not { } state)
 			return [];
@@ -55,11 +44,10 @@ public static class NagatoOrbTargetingPatches
 		if (manager == null)
 			return [];
 
-		var active = state.OrbQueue.Orbs.ToHashSet();
-		return OrbNodes(manager)
-			.Where(orb => orb.Model != null && active.Contains(orb.Model))
-			.ToArray();
+		return OrbNodes(manager).Take(state.OrbQueue.Capacity).ToArray();
 	}
+
+	public static int GetSlotIndex(NagatoOrbSlotCardModel card, NOrb orb) => Array.IndexOf(GetOrbs(card), orb);
 
 	public static async Task<NOrb?> SelectOrb(NCardPlay play, TargetMode mode, NOrb[] orbs, Func<bool> shouldExit)
 	{
@@ -104,8 +92,8 @@ public static class NagatoOrbTargetingPatches
 			}
 
 			manager.StartTargeting(TargetType.TargetedNoCreature, play.Holder.CardNode!, mode, shouldExit,
-				node => node is NOrb orb && allowed.Contains(orb) && orb.Model != null &&
-				play.Player.PlayerCombatState?.OrbQueue.Orbs.Contains(orb.Model) == true);
+				node => node is NOrb orb && allowed.Contains(orb) &&
+				play.Holder.CardModel is NagatoOrbSlotCardModel card && GetSlotIndex(card, orb) >= 0);
 
 			if (controller)
 			{
@@ -177,66 +165,10 @@ public static class NagatoOrbTargetingPatches
 		}
 	}
 
-	public static NOrbManager? DeferLayout(Player player)
-	{
-		var manager = NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.OrbManager;
-		if (manager != null)
-			DeferredLayouts[manager] = DeferredLayouts.GetValueOrDefault(manager) + 1;
-		return manager;
-	}
-
-	public static void ResumeLayout(NOrbManager? manager, Player player)
-	{
-		if (manager == null || !DeferredLayouts.TryGetValue(manager, out int depth))
-			return;
-		if (depth > 1)
-		{
-			DeferredLayouts[manager] = depth - 1;
-			return;
-		}
-		DeferredLayouts.Remove(manager);
-		if (!GodotObject.IsInstanceValid(manager) || !manager.IsInsideTree() || player.PlayerCombatState == null)
-			return;
-
-		var queue = player.PlayerCombatState.OrbQueue;
-		List<NOrb> slots = OrbNodes(manager);
-		var ordered = new List<NOrb>(slots.Count);
-		foreach (OrbModel model in queue.Orbs)
-		{
-			NOrb? orb = slots.FirstOrDefault(slot => slot.Model == model);
-			if (orb == null)
-				return;
-			ordered.Add(orb);
-		}
-		ordered.AddRange(slots.Where(orb => orb.Model == null));
-		if (ordered.Count != slots.Count)
-			return;
-
-		slots.Clear();
-		slots.AddRange(ordered);
-		TweenLayout(manager);
-		UpdateControllerNavigation(manager);
-	}
-
-	public sealed class LayoutPatch : IPatchMethod
-	{
-		public static string PatchId => "nagato_orb_targeted_load_layout";
-		public static string Description => "Move orb nodes after targeted loading finishes";
-		public static bool IsCritical => true;
-
-		public static ModPatchTarget[] GetTargets() =>
-		[
-			new(typeof(NOrbManager), "TweenLayout", Type.EmptyTypes)
-		];
-
-		[HarmonyPrefix]
-		public static bool Prefix(NOrbManager __instance) => !DeferredLayouts.ContainsKey(__instance);
-	}
-
 	public sealed class MousePatch : IPatchMethod
 	{
 		public static string PatchId => "nagato_orb_mouse_targeting";
-		public static string Description => "Target Nagato orbs while dragging Targeted Reload";
+		public static string Description => "Target orb slots while dragging orb-slot cards";
 		public static bool IsCritical => true;
 
 		public static ModPatchTarget[] GetTargets() =>
@@ -247,30 +179,33 @@ public static class NagatoOrbTargetingPatches
 		[HarmonyPrefix]
 		public static bool Prefix(NMouseCardPlay __instance, TargetMode targetMode, ref Task __result)
 		{
-			if (__instance.Holder.CardModel is not TargetedReload card)
+			if (__instance.Holder.CardModel is not NagatoOrbSlotCardModel card)
 				return true;
 
 			__result = Run(__instance, card, targetMode);
 			return false;
 		}
 
-		private static async Task Run(NMouseCardPlay play, TargetedReload card, TargetMode mode)
+		private static async Task Run(NMouseCardPlay play, NagatoOrbSlotCardModel card, TargetMode mode)
 		{
-			card.SetOrbTarget(null);
+			card.SetOrbSlotTarget(null);
 			TryShowEvokingOrbs(play);
 			play.Holder.CardNode?.CardHighlight.AnimFlash();
 			NOrb[] orbs = GetOrbs(card);
 			if (orbs.Length == 0)
+			{
+				SelectedMousePlays.GetValue(play, _ => new object());
 				return;
+			}
 
 			CenterCard(play);
 			NOrb? selected = await SelectOrb(play, mode, orbs,
 				() => !GodotObject.IsInstanceValid(play) || !play.IsInsideTree());
 			if (!GodotObject.IsInstanceValid(play))
 				return;
-			if (selected?.Model is { } orb)
+			if (selected != null && GetSlotIndex(card, selected) is var index && index >= 0)
 			{
-				card.SetOrbTarget(orb);
+				card.SetOrbSlotTarget(index);
 				SelectedMousePlays.GetValue(play, _ => new object());
 			}
 			else if (!Input.IsMouseButtonPressed(MouseButton.Right) &&
@@ -286,7 +221,7 @@ public static class NagatoOrbTargetingPatches
 	public sealed class MousePlayZonePatch : IPatchMethod
 	{
 		public static string PatchId => "nagato_orb_mouse_play_zone";
-		public static string Description => "Allow Targeted Reload to resolve on an orb below the normal play zone";
+		public static string Description => "Allow orb-slot cards to resolve below the normal play zone";
 		public static bool IsCritical => true;
 
 		public static ModPatchTarget[] GetTargets() =>
@@ -305,7 +240,7 @@ public static class NagatoOrbTargetingPatches
 	public sealed class ControllerPatch : IPatchMethod
 	{
 		public static string PatchId => "nagato_orb_controller_targeting";
-		public static string Description => "Target Nagato orbs with controller card play";
+		public static string Description => "Target orb slots with controller card play";
 		public static bool IsCritical => true;
 
 		public static ModPatchTarget[] GetTargets() =>
@@ -316,16 +251,16 @@ public static class NagatoOrbTargetingPatches
 		[HarmonyPrefix]
 		public static bool Prefix(NControllerCardPlay __instance)
 		{
-			if (__instance.Holder.CardModel is not TargetedReload card)
+			if (__instance.Holder.CardModel is not NagatoOrbSlotCardModel card)
 				return true;
 
 			TaskHelper.RunSafely(Run(__instance, card));
 			return false;
 		}
 
-		private static async Task Run(NControllerCardPlay play, TargetedReload card)
+		private static async Task Run(NControllerCardPlay play, NagatoOrbSlotCardModel card)
 		{
-			card.SetOrbTarget(null);
+			card.SetOrbSlotTarget(null);
 			if (play.Holder.CardNode == null)
 				return;
 
@@ -351,9 +286,9 @@ public static class NagatoOrbTargetingPatches
 				() => !GodotObject.IsInstanceValid(play) || !play.IsInsideTree());
 			if (!GodotObject.IsInstanceValid(play))
 				return;
-			if (selected?.Model is { } orb)
+			if (selected != null && GetSlotIndex(card, selected) is var index && index >= 0)
 			{
-				card.SetOrbTarget(orb);
+				card.SetOrbSlotTarget(index);
 				TryPlayCard(play, null);
 			}
 			else

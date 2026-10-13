@@ -2,6 +2,7 @@ using System.Reflection;
 using NagatoSpire2.NagatoSpire2Code.Acts;
 using NagatoSpire2.NagatoSpire2Code.Audio;
 using NagatoSpire2.NagatoSpire2Code.Configs;
+using NagatoSpire2.NagatoSpire2Code.Combat;
 using NagatoSpire2.NagatoSpire2Code.Networking;
 using MegaCrit.Sts2.Core.Modding;
 using NagatoSpire2.NagatoSpire2Code.Patches;
@@ -31,6 +32,9 @@ public static class MainFile
 		NagatoCombatStartVoice.Register();
 		NagatoFleetVoteSync.Register();
 		InkStainedSteelSakuraRun.Register();
+		NagatoOrbSlotRun.Register();
+		ModHelper.SubscribeForCombatStateHooks("nagato_card_bound_orbs", state =>
+			state.Players.Where(player => player.IsActiveForHooks).SelectMany(NagatoOrbBindings.GetAttachedOrbs));
 
 		var actPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_fourth_act_patches");
 		actPatcher.RegisterPatch<InkStainedSteelSakuraRunPatch>();
@@ -64,6 +68,7 @@ public static class MainFile
 		var cardVisualPatcher = RitsuLibFramework.CreatePatcher(ModId, "card-visuals");
 		cardVisualPatcher.RegisterPatch<NagatoCardChromePatch>();
 		cardVisualPatcher.RegisterPatch<NagatoChoiceScreenPatch>();
+		cardVisualPatcher.RegisterPatch<NagatoCardOrbVisualPatch>();
 		cardVisualPatcher.RegisterPatch<NagatoWhiteLightVisualBootstrapPatch>();
 		if (!cardVisualPatcher.PatchAll())
 			Logger.ErrorNoTrace("Nagato card visual patches failed to apply.");
@@ -90,12 +95,16 @@ public static class MainFile
 		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.RecordPatch>();
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.ClearPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbEvokePatch>();
-		orbPatcher.RegisterPatch<NagatoOrbChannelPatch>();
 		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePatch>();
 		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePlayZonePatch>();
 		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.ControllerPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.LayoutPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbCardSlotDisplayPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.PileAddPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.ShufflePatch>();
+		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.CardMovedPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.CapacityPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.AddSlotsPatch>();
+		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.TurnEndPatch>();
 		if (!orbPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato orb patches failed.");
 
@@ -109,17 +118,6 @@ public static class MainFile
 		drawPatcher.RegisterPatch<NagatoSealedAutoplayPatch>();
 		if (!drawPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato card draw patches failed.");
-
-		var drawPreviewPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_draw_preview_patches");
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.InitializePatch>();
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.AddPatch>();
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.RemovePatch>();
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.ShufflePatch>();
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.RandomizePatch>();
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.MoveToTopPatch>();
-		drawPreviewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.TransformPatch>();
-		if (!drawPreviewPatcher.PatchAll())
-			Logger.ErrorNoTrace("Nagato draw-pile preview patches failed to apply.");
 
 		var damagePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_damage_patches");
 		damagePatcher.RegisterPatch<NagatoOrbDamagePatch>();

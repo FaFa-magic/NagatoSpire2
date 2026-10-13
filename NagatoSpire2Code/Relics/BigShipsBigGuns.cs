@@ -6,7 +6,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Relics;
 
 [RegisterCharacterStarterRelic(typeof(NagatoCharacter))]
 [RegisterTouchOfOrobasRefinement(typeof(BigShipsBigGunsDivineMight))]
-public sealed class BigShipsBigGuns : NagatoShellRefillRelic
+public sealed class BigShipsBigGuns : NagatoRelicModel
 {
 	public override RelicRarity Rarity => RelicRarity.Starter;
 }

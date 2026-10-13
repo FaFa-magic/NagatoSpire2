@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using NagatoSpire2.NagatoSpire2Code.Commands;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
 
@@ -27,7 +26,7 @@ public sealed class TwinMountStrike() : NagatoCardModel(0, CardType.Attack, Card
 			.FromCard(this, cardPlay).Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
 		if (Owner.PlayerCombatState is { } state && !CombatManager.Instance.IsOverOrEnding && !Owner.Creature.IsDead)
-			await NagatoOrbCmd.Evoke(choiceContext, Owner, state.OrbQueue.Orbs.TakeLast(1));
+			await OrbCmd.EvokeLast(choiceContext, Owner);
 	}
 
 	protected override void OnUpgrade() => DynamicVars["Hits"].UpgradeValueBy(1m);

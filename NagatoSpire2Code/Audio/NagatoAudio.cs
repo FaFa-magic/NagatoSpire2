@@ -17,9 +17,6 @@ public static class NagatoAudio
 	public const string DeathEvent = "event:/sfx/nagato/death";
 	public const string CharacterSelectEvent = "event:/sfx/nagato/character_select";
 	public const string CombatStartEvent = "event:/sfx/nagato/combat_start";
-	public const string OrbPassiveEvent = "event:/sfx/nagato/orb_passive";
-	public const string OrbEvokeEvent = "event:/sfx/nagato/orb_evoke";
-	public const string OrbChannelEvent = "event:/sfx/nagato/orb_channel";
 
 	public const string CharacterTransitionEvent = "event:/sfx/nagato/character_transition";
 
