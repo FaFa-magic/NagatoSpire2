@@ -1,4 +1,6 @@
 {
+  "NAGATO_SPIRE2_RESIDENCE.title": "寄宿",
+  "NAGATO_SPIRE2_RESIDENCE.description": "カードに宿ったオーブが効果を発揮する。\nそのカードが廃棄されると、宿ったオーブを解放する。",
   "NAGATO_SPIRE2_TEMPORARY_POWER.title": "一時的な効果",
   "NAGATO_SPIRE2_TEMPORARY_POWER.description": "ターン終了時に消える一時的なバフとデバフ。"
 }

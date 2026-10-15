@@ -6,7 +6,5 @@
   "config.modelMode.hand": "Hand model",
   "config.modelMode.legs": "Leg model",
   "config.fourthAct.label": "Enter Act IV: Ink-Stained Steel Sakura",
-  "config.fourthAct.description": "Applies to new runs containing Nagato. Multiplayer uses the host's setting. Saved runs retain their original route.",
-  "config.orbSlots.label": "Card-orb slots for other characters",
-  "config.orbSlots.description": "Off by default. Other characters keep their normal orb layout and rules while disabled. Applies to new runs; multiplayer uses the host's setting. Saved runs keep their original setting."
+  "config.fourthAct.description": "Applies to new runs containing Nagato. Multiplayer uses the host's setting. Saved runs retain their original route."
 }

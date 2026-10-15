@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://NagatoSpire2/scenes/orbs/wind_orb.tscn" id="1_base"]
+[ext_resource type="SpineSkeletonDataResource" path="res://NagatoSpire2/animations/orbs/forest_orb_spine.tres" id="2_spine"]
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/orbs/forest_leaf.svg" id="3_particle"]
+
+[sub_resource type="Curve" id="Curve_fade"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18, 1), 0.0, 0.0, 0, 0, Vector2(0.7, 0.65), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="Texture_fade"]
+curve = SubResource("Curve_fade")
+
+[sub_resource type="ParticleProcessMaterial" id="Particles_idle"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_radius = 26.0
+emission_ring_inner_radius = 21.0
+emission_ring_height = 1.0
+spread = 180.0
+angle_min = -40
+angle_max = 40
+angular_velocity_min = -20
+angular_velocity_max = 20
+orbit_velocity_min = 0.025
+orbit_velocity_max = 0.065
+radial_velocity_min = 0
+radial_velocity_max = 2
+gravity = Vector3(0, 4, 0)
+scale_min = 0.09
+scale_max = 0.17
+color = Color(0.72, 0.93, 0.55, 0.75)
+alpha_curve = SubResource("Texture_fade")
+
+[sub_resource type="ParticleProcessMaterial" id="Particles_passive"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_radius = 22.0
+emission_ring_inner_radius = 12.0
+emission_ring_height = 1.0
+spread = 180.0
+angle_min = -40
+angle_max = 40
+angular_velocity_min = -20
+angular_velocity_max = 20
+orbit_velocity_min = 0.025
+orbit_velocity_max = 0.065
+radial_velocity_min = 25
+radial_velocity_max = 80
+gravity = Vector3(0, 4, 0)
+scale_min = 0.11699999999999999
+scale_max = 0.238
+color = Color(0.72, 0.93, 0.55, 1)
+alpha_curve = SubResource("Texture_fade")
+
+[node name="ForestOrb" instance=ExtResource("1_base")]
+PulseScale = 1.12
+EvokeRotation = 0.5
+
+[node name="Mist" parent="." index="0"]
+modulate = Color(0.72, 0.93, 0.55, 1)
+
+[node name="SpineSkeleton" parent="." index="1"]
+skeleton_data_res = ExtResource("2_spine")
+
+[node name="IdleParticles" parent="." index="2"]
+texture = ExtResource("3_particle")
+process_material = SubResource("Particles_idle")
+
+[node name="PassiveParticles" parent="." index="3"]
+texture = ExtResource("3_particle")
+process_material = SubResource("Particles_passive")
+
+[node name="FocusParticles" parent="." index="4"]
+texture = ExtResource("3_particle")

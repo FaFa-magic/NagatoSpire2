@@ -12,7 +12,8 @@ namespace NagatoSpire2.NagatoSpire2Code.Patches;
 /// Keeps Nagato's custom chrome un-tinted and selects type-plaque artwork by rarity,
 /// including one shared ivory plaque for all Ancient card types. The base game assigns
 /// CardModel.BannerMaterial to these nodes, so corrections run after visual refreshes.
-/// Fits the highlight to Nagato's frame while preserving the base game's shader animations.
+/// Aligns the outer frame, portrait rails and overhanging banner as one ordinary torii frame.
+/// Leaves highlight sizing and animations entirely to the base game.
 /// </summary>
 [HarmonyAfter("com.ritsukage.sts2-RitsuLib.framework-content-assets")]
 internal sealed class NagatoCardChromePatch : IPatchMethod
@@ -21,10 +22,11 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 		"res://NagatoSpire2/images/card_frames/nagato_type_plaque_";
 
 	private static readonly ConditionalWeakTable<NinePatchRect, OriginalPlaqueTexture> OriginalPlaques = new();
-	private static readonly ConditionalWeakTable<NCardHighlight, OriginalHighlightLayout> OriginalHighlights = new();
-
-	private const float HighlightWidthScale = 0.95f;
-	private const float HighlightHeightScale = 0.97f;
+	private static readonly ConditionalWeakTable<TextureRect, OriginalTextureLayout> OriginalLayouts = new();
+	private const float ToriiFrameWidthScale = 1.06f;
+	private const float ToriiPortraitBorderWidthScale = 1.14f;
+	private const float ToriiPortraitScale = 1.10f;
+	private const float ToriiBannerScale = 1.12f;
 
 	private static Texture2D? _commonPlaque;
 	private static Texture2D? _uncommonPlaque;
@@ -44,7 +46,7 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 	[HarmonyPostfix]
 	private static void Postfix(NCard __instance)
 	{
-		UpdateHighlightBounds(__instance);
+		UpdateToriiLayout(__instance);
 
 		NinePatchRect? typePlaque = __instance.GetNodeOrNull<NinePatchRect>("%TypePlaque");
 
@@ -86,24 +88,35 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 		typePlaque.Material = NagatoCardModel.UnfilteredChromeMaterial;
 	}
 
-	private static void UpdateHighlightBounds(NCard card)
+	private static void UpdateToriiLayout(NCard card)
 	{
-		NCardHighlight? highlight = card.GetNodeOrNull<NCardHighlight>("%Highlight");
-		if (highlight == null)
+		bool useToriiLayout = card.Model is NagatoCardModel model && model.Rarity != CardRarity.Ancient &&
+			model.Type is CardType.Attack or CardType.Skill or CardType.Power;
+		ApplyNodeLayout(card, "%Frame", useToriiLayout, new Vector2(ToriiFrameWidthScale, 1f));
+		ApplyNodeLayout(card, "%PortraitBorder", useToriiLayout, new Vector2(ToriiPortraitBorderWidthScale, 1f));
+		// Fill the wider opening with an equal-axis zoom, preserving the illustration's proportions.
+		ApplyNodeLayout(card, "%Portrait", useToriiLayout, Vector2.One * ToriiPortraitScale);
+		ApplyNodeLayout(card, "%TitleBanner", useToriiLayout, Vector2.One * ToriiBannerScale);
+	}
+
+	private static void ApplyNodeLayout(NCard card, string path, bool useToriiLayout, Vector2 factor)
+	{
+		TextureRect? node = card.GetNodeOrNull<TextureRect>(path);
+		if (node == null)
 			return;
 
-		if (card.Model is not NagatoCardModel)
+		if (!useToriiLayout)
 		{
-			if (OriginalHighlights.TryGetValue(highlight, out OriginalHighlightLayout? original))
+			if (OriginalLayouts.TryGetValue(node, out OriginalTextureLayout? original))
 			{
-				original.Apply(highlight, 1f, 1f);
-				OriginalHighlights.Remove(highlight);
+				original.Apply(node, Vector2.One);
+				OriginalLayouts.Remove(node);
 			}
 			return;
 		}
 
-		OriginalHighlights.GetValue(highlight, static node => new OriginalHighlightLayout(node))
-			.Apply(highlight, HighlightWidthScale, HighlightHeightScale);
+		// Existing TextureRects only: no additional render pass, texture, shader or overlay.
+		OriginalLayouts.GetValue(node, static texture => new OriginalTextureLayout(texture)).Apply(node, factor);
 	}
 
 	private static Texture2D? LoadPlaque(CardRarity rarity)
@@ -150,20 +163,19 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 		public Texture2D? Value { get; } = value;
 	}
 
-	private sealed class OriginalHighlightLayout(NCardHighlight highlight)
+	private sealed class OriginalTextureLayout(TextureRect node)
 	{
-		private readonly float _left = highlight.OffsetLeft;
-		private readonly float _top = highlight.OffsetTop;
-		private readonly float _right = highlight.OffsetRight;
-		private readonly float _bottom = highlight.OffsetBottom;
-		private readonly Vector2 _scale = highlight.Scale;
-		private readonly Vector2 _centerFromPivot = highlight.Size * 0.5f - highlight.PivotOffset;
+		private readonly float _left = node.OffsetLeft;
+		private readonly float _top = node.OffsetTop;
+		private readonly float _right = node.OffsetRight;
+		private readonly float _bottom = node.OffsetBottom;
+		private readonly Vector2 _scale = node.Scale;
+		private readonly Vector2 _centerFromPivot = node.Size * 0.5f - node.PivotOffset;
 
-		public void Apply(NCardHighlight node, float widthScale, float heightScale)
+		public void Apply(TextureRect node, Vector2 factor)
 		{
-			// Scale the node because its KeepAspectCentered texture ignores independent bounds changes.
-			// Compensate for the off-center pivot, always using the original layout on refresh.
-			Vector2 scale = _scale * new Vector2(widthScale, heightScale);
+			// Derive from the captured layout every refresh; never accumulate scaling on pooled cards.
+			Vector2 scale = _scale * factor;
 			Vector2 shift = (_centerFromPivot * (_scale - scale)).Rotated(node.Rotation);
 			node.Scale = scale;
 			node.OffsetLeft = _left + shift.X;
@@ -172,4 +184,5 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 			node.OffsetBottom = _bottom + shift.Y;
 		}
 	}
+
 }

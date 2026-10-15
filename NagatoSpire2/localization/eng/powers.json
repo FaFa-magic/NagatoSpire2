@@ -53,6 +53,9 @@
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.description": "Take 50% more damage from Orbs.",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.smartDescription": "Take 50% more damage from Orbs.\nLasts [blue]{Amount}[/blue] turns.",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.title": "Lock-On",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.description": "At the end of this turn, lose the [gold]Plating[/gold] gained.",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.smartDescription": "At the end of this turn, lose [blue]{Amount}[/blue] [gold]Plating[/gold].",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.title": "Mountain Plating",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "When making an individual [gold]Choice[/gold], you may choose multiple options.",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt": "Choose at least 1 option, up to {MaxCount}",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.title": "Myriad Revelations",
@@ -75,10 +78,9 @@
   "NAGATO_SPIRE2_POWER_SOUL_WELCOMING_POWER.title": "Soul Welcoming",
   "NAGATO_SPIRE2_POWER_STEADFAST_GUARD_POWER.description": "Whenever you gain [gold]Block[/gold], gain {Amount} additional [gold]Block[/gold].",
   "NAGATO_SPIRE2_POWER_STEADFAST_GUARD_POWER.title": "Steadfast Guard",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.description": "At the end of your turn, lose the [gold]Plating[/gold] gained.",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.smartDescription": "At the end of your turn, lose [blue]{Amount}[/blue] [gold]Plating[/gold].",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.title": "Temporary Plating",
   "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.description": "Every 3 Orbs you [gold]Evoke[/gold], gain 1 [gold]Plating[/gold].",
   "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.smartDescription": "Every 3 Orbs you [gold]Evoke[/gold], gain [blue]{Amount}[/blue] [gold]Plating[/gold].\n[gold]Evoke[/gold] [blue]{OrbsLeft}[/blue] more {OrbsLeft:plural:Orb|Orbs}.",
-  "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.title": "Triple Volley"
+  "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.title": "Triple Volley",
+  "PLATING_POWER.description": "At the end of your turn, gain [gold]Block[/gold].\nAfter each trigger, lose [blue]1[/blue] [gold]Plating[/gold].",
+  "PLATING_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Block[/gold].\nAfter each trigger, lose [blue]1[/blue] [gold]Plating[/gold]."
 }

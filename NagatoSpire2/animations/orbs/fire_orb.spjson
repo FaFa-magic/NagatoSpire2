@@ -1,0 +1,83 @@
+{
+  "skeleton": {
+    "spine": "4.2.43",
+    "width": 56,
+    "height": 56
+  },
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "fire",
+      "parent": "root"
+    }
+  ],
+  "slots": [
+    {
+      "name": "core",
+      "bone": "fire",
+      "attachment": "core"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "core": {
+          "core": {
+            "width": 56,
+            "height": 56
+          }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "idle_loop": {
+      "bones": {
+        "fire": {
+          "scale": [
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "time": 0.18,
+              "x": 0.98,
+              "y": 1.06
+            },
+            {
+              "time": 0.43,
+              "x": 1.02,
+              "y": 0.98
+            },
+            {
+              "time": 0.67,
+              "x": 0.99,
+              "y": 1.04
+            },
+            {
+              "time": 0.9,
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "translate": [
+            {
+              "y": 0
+            },
+            {
+              "time": 0.43,
+              "y": 1
+            },
+            {
+              "time": 0.9,
+              "y": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

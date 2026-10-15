@@ -1,4 +1,6 @@
 {
+  "NAGATO_SPIRE2_RESIDENCE.title": "寄宿",
+  "NAGATO_SPIRE2_RESIDENCE.description": "充能球寄宿于卡牌并发挥效果。\n被寄宿的卡牌消耗时，激发寄宿的充能球。",
   "NAGATO_SPIRE2_TEMPORARY_POWER.title": "临时能力",
   "NAGATO_SPIRE2_TEMPORARY_POWER.description": "回合结束时到期的临时增益与减益。"
 }

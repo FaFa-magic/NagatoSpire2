@@ -6,7 +6,5 @@
   "config.modelMode.hand": "手部模型",
   "config.modelMode.legs": "腿部模型",
   "config.fourthAct.label": "进入第四幕：墨染的钢铁之花",
-  "config.fourthAct.description": "仅对包含长门的新跑局生效。多人游戏以房主设置为准，已有存档保留原路线。",
-  "config.orbSlots.label": "卡牌充能球槽位对其他角色生效",
-  "config.orbSlots.description": "默认关闭。关闭时，其他角色使用原有的充能球布局与规则。新跑局生效，多人游戏以房主设置为准，存档保留原设置。"
+  "config.fourthAct.description": "仅对包含长门的新跑局生效。多人游戏以房主设置为准，已有存档保留原路线。"
 }

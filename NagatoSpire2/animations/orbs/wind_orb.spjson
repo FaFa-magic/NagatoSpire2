@@ -1,0 +1,16 @@
+{
+  "skeleton": {"spine": "4.2.43", "width": 56, "height": 56},
+  "bones": [{"name": "root"}, {"name": "wind", "parent": "root"}],
+  "slots": [{"name": "core", "bone": "wind", "attachment": "core"}],
+  "skins": [{"name": "default", "attachments": {"core": {"core": {"width": 56, "height": 56}}}}],
+  "animations": {
+    "idle_loop": {
+      "bones": {
+        "wind": {
+          "rotate": [{"value": 0}, {"time": 1.6, "value": 180}, {"time": 3.2, "value": 360}],
+          "scale": [{"x": 1, "y": 1}, {"time": 1.6, "x": 1.035, "y": 0.98}, {"time": 3.2, "x": 1, "y": 1}]
+        }
+      }
+    }
+  }
+}

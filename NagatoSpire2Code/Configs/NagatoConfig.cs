@@ -16,7 +16,6 @@ public sealed class NagatoConfig
 {
     public NagatoModelMode 多人模式使用哪种模型 { get; set; } = NagatoModelMode.手部模型;
     public bool 进入第四幕 { get; set; } = true;
-    public bool 卡牌充能球槽位对其他角色生效 { get; set; }
 }
 
 public static class NagatoConfigPage
@@ -36,11 +35,6 @@ public static class NagatoConfigPage
         MainFile.ModId, DataKey, SaveScope.Profile,
         static s => s.进入第四幕,
         static (s, v) => s.进入第四幕 = v);
-
-    public static readonly ModSettingsValueBinding<NagatoConfig, bool> OtherCharactersOrbSlotsBinding = new(
-        MainFile.ModId, DataKey, SaveScope.Profile,
-        static s => s.卡牌充能球槽位对其他角色生效,
-        static (s, v) => s.卡牌充能球槽位对其他角色生效 = v);
 
     public static void Register()
     {
@@ -67,10 +61,7 @@ public static class NagatoConfigPage
                     presentation: ModSettingsChoicePresentation.Dropdown)
                 .AddToggle("fourth_act", Text("config.fourthAct.label", "Enter the fourth act"),
                     FourthActBinding,
-                    Text("config.fourthAct.description", "Applies to new runs containing Nagato. Multiplayer uses the host's setting. Saved runs retain their original route."))
-                .AddToggle("other_characters_orb_slots", Text("config.orbSlots.label", "Card-orb slots for other characters"),
-                    OtherCharactersOrbSlotsBinding,
-                    Text("config.orbSlots.description", "Disabled by default. Applies to new runs; multiplayer uses the host's setting."))));
+                    Text("config.fourthAct.description", "Applies to new runs containing Nagato. Multiplayer uses the host's setting. Saved runs retain their original route."))));
     }
 
     private static ModSettingsText Text(string key, string fallback) =>

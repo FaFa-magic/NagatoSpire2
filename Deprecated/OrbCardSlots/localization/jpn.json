@@ -1,0 +1,9 @@
+{
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.title": "定点装填",
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "このターン、[gold]プレート[/gold]{TargetedReloadPlatingPower:diff()}を得る。",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.description": "ターン終了時、得た[gold]プレート[/gold]を失う。",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.smartDescription": "ターン終了時、[gold]プレート[/gold]を[blue]{Amount}[/blue]失う。",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.title": "一時的なプレート",
+  "config.orbSlots.label": "他のキャラクターにもカード連動オーブスロットを適用",
+  "config.orbSlots.description": "初期設定はオフ。オフの場合、他のキャラクターは通常のオーブ配置とルールを使用します。新しいランに適用され、マルチプレイではホストの設定を使用します。保存済みのランは元の設定を維持します。"
+}

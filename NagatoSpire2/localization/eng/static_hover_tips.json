@@ -1,4 +1,6 @@
 {
+  "NAGATO_SPIRE2_RESIDENCE.title": "Residence",
+  "NAGATO_SPIRE2_RESIDENCE.description": "An Orb resides in a card and applies its effects.\nWhen that card is Exhausted, Evoke its resident Orb.",
   "NAGATO_SPIRE2_TEMPORARY_POWER.title": "Temporary Powers",
   "NAGATO_SPIRE2_TEMPORARY_POWER.description": "Temporary buffs and debuffs that expire at the end of a turn."
 }

@@ -5,15 +5,18 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using NagatoSpire2.NagatoSpire2Code.Capabilities;
+using NagatoSpire2.NagatoSpire2Code.Orbs;
+using STS2RitsuLib.Models.Capabilities;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
 
-public sealed class SakuraBlizzard() : NagatoCardModel(1, CardType.Attack, CardRarity.Common, TargetType.Self)
+public sealed class SakuraBlizzard() : NagatoCardModel(1, CardType.Attack, CardRarity.Common, TargetType.Self), IModelCapabilitySource
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DamageVar(7m, ValueProp.Move)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move)];
 
-	protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-		CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+	public void BuildDefaultCapabilities(ModelCapabilityList capabilities) =>
+		capabilities.Add<CardOrbCapability>().SetOrb(ModelDb.Orb<WindOrb>().ToMutable());
 
 	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
 	{
@@ -30,7 +33,6 @@ public sealed class SakuraBlizzard() : NagatoCardModel(1, CardType.Attack, CardR
 
 	protected override void OnUpgrade()
 	{
-		DynamicVars.Cards.UpgradeValueBy(1m);
-		DynamicVars.Damage.UpgradeValueBy(2m);
+		DynamicVars.Damage.UpgradeValueBy(3m);
 	}
 }

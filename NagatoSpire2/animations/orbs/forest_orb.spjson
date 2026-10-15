@@ -1,0 +1,73 @@
+{
+  "skeleton": {
+    "spine": "4.2.43",
+    "width": 56,
+    "height": 56
+  },
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "forest",
+      "parent": "root"
+    }
+  ],
+  "slots": [
+    {
+      "name": "core",
+      "bone": "forest",
+      "attachment": "core"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "core": {
+          "core": {
+            "width": 56,
+            "height": 56
+          }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "idle_loop": {
+      "bones": {
+        "forest": {
+          "rotate": [
+            {
+              "value": -2
+            },
+            {
+              "time": 1.4,
+              "value": 2
+            },
+            {
+              "time": 2.8,
+              "value": -2
+            }
+          ],
+          "scale": [
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "time": 1.4,
+              "x": 1.01,
+              "y": 1.025
+            },
+            {
+              "time": 2.8,
+              "x": 1,
+              "y": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
-using NagatoSpire2.NagatoSpire2Code.Powers;
+using NagatoSpire2.NagatoSpire2Code.Commands;
 using STS2RitsuLib.Patching.Models;
 
 namespace NagatoSpire2.NagatoSpire2Code.Patches;
@@ -11,7 +11,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Patches;
 public sealed class NagatoPlatingTriggerPatch : IPatchMethod
 {
 	public static string PatchId => "nagato_plating_trigger";
-	public static string Description => "Resolve Nagato's damage after each Plating trigger";
+	public static string Description => "Resolve Plating triggers and decrement after each activation";
 	public static bool IsCritical => true;
 
 	public static ModPatchTarget[] GetTargets() =>
@@ -21,27 +21,11 @@ public sealed class NagatoPlatingTriggerPatch : IPatchMethod
 	];
 
 	[HarmonyPrefix]
-	public static void Prefix(PlatingPower __instance, IEnumerable<Creature> participants, out TriggerState? __state)
+	public static bool Prefix(PlatingPower __instance, PlayerChoiceContext choiceContext,
+		IEnumerable<Creature> participants, ref Task __result)
 	{
-		__state = null;
-		if (__instance.Amount > 0 && participants.Contains(__instance.Owner) &&
-			__instance.Owner.GetPower<ArmoredReprisalPower>() is { } power)
-			__state = new TriggerState(power, __instance.Amount);
+		__result = participants.Contains(__instance.Owner)
+			? NagatoPlatingCmd.Trigger(choiceContext, __instance) : Task.CompletedTask;
+		return false;
 	}
-
-	[HarmonyPostfix]
-	public static void Postfix(PlayerChoiceContext choiceContext, TriggerState? __state, ref Task __result)
-	{
-		if (__state != null)
-			__result = AfterTrigger(__result, choiceContext, __state);
-	}
-
-	private static async Task AfterTrigger(Task trigger, PlayerChoiceContext choiceContext, TriggerState state)
-	{
-		await trigger;
-		if (state.Power.Owner.Powers.Contains(state.Power))
-			await state.Power.AfterPlatingTriggered(choiceContext, state.PlatingAmount);
-	}
-
-	public sealed record TriggerState(ArmoredReprisalPower Power, int PlatingAmount);
 }

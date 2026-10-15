@@ -53,6 +53,9 @@
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.description": "オーブから受けるダメージが50%増える。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.smartDescription": "オーブから受けるダメージが50%増える。\n[blue]{Amount}[/blue]ターン持続する。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.title": "ロックオン",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.description": "このターン終了時、得た[gold]装甲[/gold]を失う。",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.smartDescription": "このターン終了時、[gold]装甲[/gold]を[blue]{Amount}[/blue]失う。",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.title": "山の装甲",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "個人で[gold]選択[/gold]する時、複数の選択肢を選べる。",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt": "選択肢を1つ以上、{MaxCount}個まで選ぶ",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.title": "万象の神託",
@@ -75,10 +78,9 @@
   "NAGATO_SPIRE2_POWER_SOUL_WELCOMING_POWER.title": "魂迎え",
   "NAGATO_SPIRE2_POWER_STEADFAST_GUARD_POWER.description": "[gold]ブロック[/gold]を得るたび、追加で{Amount}[gold]ブロック[/gold]を得る。",
   "NAGATO_SPIRE2_POWER_STEADFAST_GUARD_POWER.title": "堅守不破",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.description": "ターン終了時、得た[gold]プレート[/gold]を失う。",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.smartDescription": "ターン終了時、[gold]プレート[/gold]を[blue]{Amount}[/blue]失う。",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.title": "一時的なプレート",
   "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.description": "オーブを3個[gold]解放[/gold]するたび、[gold]プレート[/gold]1を得る。",
   "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.smartDescription": "オーブを3個[gold]解放[/gold]するたび、[gold]プレート[/gold][blue]{Amount}[/blue]を得る。\nあと[blue]{OrbsLeft}[/blue]個の[gold]解放[/gold]で発動。",
-  "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.title": "三連斉射"
+  "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.title": "三連斉射",
+  "PLATING_POWER.description": "ターン終了時、[gold]ブロック[/gold]を得る。\n発動するたび、[gold]プレート[/gold]が[blue]1[/blue]減少する。",
+  "PLATING_POWER.smartDescription": "ターン終了時、[gold]ブロック[/gold]を[blue]{Amount}[/blue]得る。\n発動するたび、[gold]プレート[/gold]が[blue]1[/blue]減少する。"
 }

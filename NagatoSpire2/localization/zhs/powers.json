@@ -53,6 +53,9 @@
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.description": "受到充能球造成的伤害增加50%。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.smartDescription": "受到充能球造成的伤害增加50%。\n持续[blue]{Amount}[/blue]回合。",
   "NAGATO_SPIRE2_POWER_LOCK_ON_POWER.title": "锁定",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.description": "本回合结束时，失去获得的[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.smartDescription": "本回合结束时，失去[blue]{Amount}[/blue]层[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_MOUNTAIN_PLATING_POWER.title": "山之覆甲",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.description": "单人[gold]抉择[/gold]时，你可以选择不止一个选项。",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt": "选择至少1个选项，最多{MaxCount}个",
   "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.title": "万象神谕",
@@ -75,10 +78,9 @@
   "NAGATO_SPIRE2_POWER_SOUL_WELCOMING_POWER.title": "魂迎",
   "NAGATO_SPIRE2_POWER_STEADFAST_GUARD_POWER.description": "每当你获得[gold]格挡[/gold]时，额外获得{Amount}点[gold]格挡[/gold]。",
   "NAGATO_SPIRE2_POWER_STEADFAST_GUARD_POWER.title": "固守不破",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.description": "本回合结束时，失去获得的[gold]覆甲[/gold]。",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.smartDescription": "本回合结束时，失去[blue]{Amount}[/blue]点[gold]覆甲[/gold]。",
-  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.title": "临时覆甲",
   "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.description": "每[gold]激发[/gold]3个充能球，获得1点[gold]覆甲[/gold]。",
   "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.smartDescription": "每[gold]激发[/gold]3个充能球，获得[blue]{Amount}[/blue]点[gold]覆甲[/gold]。\n还需[gold]激发[/gold][blue]{OrbsLeft}[/blue]个充能球。",
-  "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.title": "三联齐射"
+  "NAGATO_SPIRE2_POWER_TRIPLE_VOLLEY_POWER.title": "三联齐射",
+  "PLATING_POWER.description": "在你的回合结束时获得[gold]格挡[/gold]。\n每次触发后，[gold]覆甲[/gold]减少[blue]1[/blue]层。",
+  "PLATING_POWER.smartDescription": "在你的回合结束时获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。\n每次触发后，[gold]覆甲[/gold]减少[blue]1[/blue]层。"
 }

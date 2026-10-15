@@ -1,0 +1,4 @@
+{
+  "atlas_data": "\nMountainOrb.svg\nsize: 256,256\nformat: RGBA8888\nfilter: Linear,Linear\nrepeat: none\ncore\n  rotate: false\n  xy: 0, 0\n  size: 256, 256\n  orig: 256, 256\n  offset: 0, 0\n  index: -1\n",
+  "source_path": "res://NagatoSpire2/images/orbs/MountainOrb.spatlas"
+}

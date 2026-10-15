@@ -26,10 +26,4 @@ public static class NagatoOrbCmd
 				await EvokeOrb(choiceContext, player, orb, true);
 		}
 	}
-
-	internal static async Task EvokeDetached(PlayerChoiceContext choiceContext, Player player, OrbModel orb)
-	{
-		await EvokeOrb(choiceContext, player, orb, false);
-		orb.RemoveInternal();
-	}
 }

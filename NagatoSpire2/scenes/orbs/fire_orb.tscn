@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://NagatoSpire2/scenes/orbs/wind_orb.tscn" id="1_base"]
+[ext_resource type="SpineSkeletonDataResource" path="res://NagatoSpire2/animations/orbs/fire_orb_spine.tres" id="2_spine"]
+[ext_resource type="Texture2D" path="res://NagatoSpire2/images/orbs/fire_ember.svg" id="3_particle"]
+
+[sub_resource type="Curve" id="Curve_fade"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18, 1), 0.0, 0.0, 0, 0, Vector2(0.7, 0.65), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="Texture_fade"]
+curve = SubResource("Curve_fade")
+
+[sub_resource type="ParticleProcessMaterial" id="Particles_idle"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_radius = 26.0
+emission_ring_inner_radius = 21.0
+emission_ring_height = 1.0
+spread = 180.0
+angle_min = -15
+angle_max = 15
+angular_velocity_min = -10
+angular_velocity_max = 10
+orbit_velocity_min = 0.01
+orbit_velocity_max = 0.04
+radial_velocity_min = 0
+radial_velocity_max = 3
+gravity = Vector3(0, -12, 0)
+scale_min = 0.055
+scale_max = 0.125
+color = Color(1, 0.71, 0.34, 0.75)
+alpha_curve = SubResource("Texture_fade")
+
+[sub_resource type="ParticleProcessMaterial" id="Particles_passive"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_radius = 22.0
+emission_ring_inner_radius = 12.0
+emission_ring_height = 1.0
+spread = 180.0
+angle_min = -15
+angle_max = 15
+angular_velocity_min = -10
+angular_velocity_max = 10
+orbit_velocity_min = 0.01
+orbit_velocity_max = 0.04
+radial_velocity_min = 25
+radial_velocity_max = 80
+gravity = Vector3(0, -12, 0)
+scale_min = 0.07150000000000001
+scale_max = 0.175
+color = Color(1, 0.71, 0.34, 1)
+alpha_curve = SubResource("Texture_fade")
+
+[node name="FireOrb" instance=ExtResource("1_base")]
+PulseScale = 1.2
+EvokeRotation = 0.2
+
+[node name="Mist" parent="." index="0"]
+modulate = Color(1, 0.71, 0.34, 1)
+
+[node name="SpineSkeleton" parent="." index="1"]
+skeleton_data_res = ExtResource("2_spine")
+
+[node name="IdleParticles" parent="." index="2"]
+texture = ExtResource("3_particle")
+process_material = SubResource("Particles_idle")
+
+[node name="PassiveParticles" parent="." index="3"]
+texture = ExtResource("3_particle")
+process_material = SubResource("Particles_passive")
+
+[node name="FocusParticles" parent="." index="4"]
+texture = ExtResource("3_particle")

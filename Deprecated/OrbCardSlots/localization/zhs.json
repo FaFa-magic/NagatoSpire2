@@ -1,0 +1,9 @@
+{
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.title": "定点装填",
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "本回合获得{TargetedReloadPlatingPower:diff()}点[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.description": "本回合结束时，失去获得的[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.smartDescription": "本回合结束时，失去[blue]{Amount}[/blue]点[gold]覆甲[/gold]。",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.title": "临时覆甲",
+  "config.orbSlots.label": "卡牌充能球槽位对其他角色生效",
+  "config.orbSlots.description": "默认关闭。关闭时，其他角色使用原有的充能球布局与规则。新跑局生效，多人游戏以房主设置为准，存档保留原设置。"
+}

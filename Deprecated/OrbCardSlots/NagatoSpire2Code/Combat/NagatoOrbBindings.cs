@@ -46,6 +46,11 @@ public static class NagatoOrbBindings
 		NagatoOrbSlotRun.AppliesTo(card.Owner) && States.TryGetValue(combat, out var state)
 			? state.Attached.GetValueOrDefault(card) : null;
 
+	public static bool IsMapped(CardModel card, OrbModel orb) => card.IsMutable && card.Pile?.Type == PileType.Draw &&
+		card.Owner?.PlayerCombatState is { } combat && NagatoOrbSlotRun.AppliesTo(card.Owner) &&
+		States.TryGetValue(combat, out var state) && state.Mapped.TryGetValue(card, out var mapped) && mapped == orb &&
+		combat.OrbQueue.Orbs.Contains(orb);
+
 	public static IEnumerable<OrbModel> GetAttachedOrbs(Player player)
 	{
 		if (!NagatoOrbSlotRun.AppliesTo(player) || player.PlayerCombatState is not { } combat ||

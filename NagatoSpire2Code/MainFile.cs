@@ -32,9 +32,8 @@ public static class MainFile
 		NagatoCombatStartVoice.Register();
 		NagatoFleetVoteSync.Register();
 		InkStainedSteelSakuraRun.Register();
-		NagatoOrbSlotRun.Register();
 		ModHelper.SubscribeForCombatStateHooks("nagato_card_bound_orbs", state =>
-			state.Players.Where(player => player.IsActiveForHooks).SelectMany(NagatoOrbBindings.GetAttachedOrbs));
+			state.Players.Where(player => player.IsActiveForHooks).SelectMany(NagatoCardOrbs.GetAll));
 
 		var actPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_fourth_act_patches");
 		actPatcher.RegisterPatch<InkStainedSteelSakuraRunPatch>();
@@ -95,21 +94,23 @@ public static class MainFile
 		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.RecordPatch>();
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.ClearPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePatch>();
-		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.MousePlayZonePatch>();
-		orbPatcher.RegisterPatch<NagatoOrbTargetingPatches.ControllerPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbCardSlotDisplayPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.PileAddPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.ShufflePatch>();
-		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.CardMovedPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.CapacityPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.AddSlotsPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbBindingPatches.TurnEndPatch>();
 		if (!orbPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato orb patches failed.");
 
+		var previewPatcher = RitsuLibFramework.CreatePatcher(ModId, "draw-pile-previews");
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.InitializePatch>();
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.AddPatch>();
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.RemovePatch>();
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.ShufflePatch>();
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.RandomizePatch>();
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.MoveToTopPatch>();
+		previewPatcher.RegisterPatch<NagatoDrawPilePreviewPatches.TransformPatch>();
+		if (!previewPatcher.PatchAll())
+			Logger.ErrorNoTrace("Nagato draw-pile preview patches failed to apply.");
+
 		var platingPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_plating_patches");
 		platingPatcher.RegisterPatch<NagatoPlatingTriggerPatch>();
+		platingPatcher.RegisterPatch<NagatoPlatingTurnStartPatch>();
 		if (!platingPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato Plating patches failed.");
 

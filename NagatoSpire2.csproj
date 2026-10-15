@@ -62,6 +62,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Remove="Deprecated/**" />
         <PackageReference Include="STS2.RitsuLib" Version="0.6.2" PrivateAssets="All" GeneratePathProperty="true" />
         <AdditionalFiles Include="NagatoSpire2/localization/**/*.json"/>
     </ItemGroup>
@@ -76,6 +77,7 @@
         <Compile Remove="NagatoSpire2/materials/**" />
         <Compile Remove="NagatoSpire2/shaders/**" />
         <EmbeddedResource Remove="NagatoSpire2/**" />
+        <EmbeddedResource Remove="Deprecated/**" />
         <EmbeddedResource Remove="materials/**" />
         <EmbeddedResource Remove="shaders/**" />
         <EmbeddedResource Remove="images/**" />

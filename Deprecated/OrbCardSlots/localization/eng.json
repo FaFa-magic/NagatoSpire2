@@ -1,0 +1,9 @@
+{
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.title": "Targeted Reload",
+  "NAGATO_SPIRE2_CARD_TARGETED_RELOAD.description": "Gain {TargetedReloadPlatingPower:diff()} [gold]Plating[/gold] this turn.",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.description": "At the end of your turn, lose the [gold]Plating[/gold] gained.",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.smartDescription": "At the end of your turn, lose [blue]{Amount}[/blue] [gold]Plating[/gold].",
+  "NAGATO_SPIRE2_POWER_TARGETED_RELOAD_PLATING_POWER.title": "Temporary Plating",
+  "config.orbSlots.label": "Card-orb slots for other characters",
+  "config.orbSlots.description": "Off by default. Other characters keep their normal orb layout and rules while disabled. Applies to new runs; multiplayer uses the host's setting. Saved runs keep their original setting."
+}

@@ -22,17 +22,7 @@ public sealed class AllOrNothingArmor() : NagatoCardModel(2, CardType.Skill, Car
 		await PowerCmd.Apply<PlatingPower>(choiceContext, Owner.Creature, DynamicVars["PlatingPower"].BaseValue, Owner.Creature, this);
 		while (!CombatManager.Instance.IsOverOrEnding && !Owner.Creature.IsDead &&
 			Owner.Creature.GetPower<PlatingPower>() is { Amount: > 0 })
-		{
 			await NagatoPlatingCmd.Trigger(choiceContext, Owner);
-			if (CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead ||
-				Owner.Creature.GetPower<PlatingPower>() is not { Amount: > 0 } current)
-				break;
-
-			int amount = current.Amount;
-			await PowerCmd.ModifyAmount(choiceContext, current, -1m, null, null);
-			if (Owner.Creature.GetPower<PlatingPower>() == current && current.Amount >= amount)
-				break;
-		}
 	}
 
 	protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);

@@ -22,6 +22,12 @@ public partial class NNagatoOrbCardSlots : Control
 		public CardModel? Model;
 		public NCard? Node;
 		public Action? Refresh;
+		public CardModel? LinkedCard;
+		public OrbModel? LinkedOrb;
+		public float LinkAlpha;
+		public readonly Vector2[] Cord = new Vector2[17];
+		public readonly Vector2[] Knot = new Vector2[17];
+		public readonly Vector2[] Paper = new Vector2[4];
 	}
 
 	private static readonly AccessTools.FieldRef<NOrbManager, NCreature> CreatureNode =
@@ -41,6 +47,7 @@ public partial class NNagatoOrbCardSlots : Control
 	private Vector2 _layoutCenter;
 	private float _layoutSpacing;
 	private int _layoutCount;
+	private float _linkTime;
 	private static bool IsTargeting => NRun.Instance?.GlobalUi?.TargetManager?.IsInSelection == true;
 	private static bool IsPreviewBlocked => IsTargeting ||
 		NRun.Instance?.GlobalUi?.Overlays?.ScreenCount > 0 ||
@@ -76,6 +83,7 @@ public partial class NNagatoOrbCardSlots : Control
 		var viewport = GetViewportRect();
 		Vector2 top = creature.GetTopOfHitbox();
 		Vector2 globalScale = _manager.GetGlobalTransform().Scale;
+		Size = viewport.Size / globalScale;
 		_spacing = _manager.IsLocal ? 52f : 40f;
 		foreach (var player in _player.RunState.Players.Where(player => player != _player))
 		{
@@ -89,12 +97,12 @@ public partial class NNagatoOrbCardSlots : Control
 		_spacing = Mathf.Max(18f, _spacing);
 		float width = _spacing * count * globalScale.X;
 		top.X = Mathf.Clamp(top.X, viewport.Position.X + width * 0.5f + 12f, viewport.End.X - width * 0.5f - 12f);
-		top.Y = Mathf.Max(top.Y - 110f * globalScale.Y, viewport.Position.Y + 180f);
+		top.Y = Mathf.Max(top.Y - 128f * globalScale.Y, viewport.Position.Y + 180f);
 		var others = _player.RunState.Players.Where(player => player != _player)
 			.Select(player => NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.Hitbox.GetGlobalRect())
 			.OfType<Rect2>().ToArray();
 		bool Fits(Vector2 center) => !others.Any(bounds => bounds.Intersects(
-			new Rect2(center - new Vector2(width * 0.5f, 24f), new Vector2(width, 100f * globalScale.Y))));
+			new Rect2(center - new Vector2(width * 0.5f, 24f * globalScale.Y), new Vector2(width, 140f * globalScale.Y))));
 		if (!Fits(top))
 		{
 			Rect2 bounds = creature.Hitbox.GetGlobalRect();
@@ -186,6 +194,7 @@ public partial class NNagatoOrbCardSlots : Control
 		Show();
 		LayoutOrbs();
 		RefreshSlots();
+		RefreshConnections((float)delta);
 		if (_hovered != null && IsPreviewBlocked)
 			ClearPreview();
 	}
@@ -223,7 +232,7 @@ public partial class NNagatoOrbCardSlots : Control
 			if (entry.Model != cards[i])
 				Bind(entry, cards[i]);
 			entry.Bounds.Size = size;
-			entry.Bounds.Position = SlotPosition(i) + new Vector2(-size.X * 0.5f, 26f);
+			entry.Bounds.Position = SlotPosition(i) + new Vector2(-size.X * 0.5f, 44f);
 			entry.Bounds.SelfModulate = entry.Model == null ? Colors.White : Colors.Transparent;
 			entry.Bounds.MouseFilter = IsTargeting ? MouseFilterEnum.Ignore : MouseFilterEnum.Pass;
 			if (entry.Node is { } card)
@@ -237,6 +246,80 @@ public partial class NNagatoOrbCardSlots : Control
 		if (_refreshRequested && _preview != null)
 			_preview.UpdateVisuals(PileType.Draw, CardPreviewMode.Normal);
 		_refreshRequested = false;
+	}
+
+	private void RefreshConnections(float delta)
+	{
+		_linkTime += delta;
+		var orbs = OrbNodes(_manager);
+		for (int i = 0; i < _entries.Count; i++)
+		{
+			var entry = _entries[i];
+			OrbModel? orb = i < orbs.Count ? orbs[i].Model : null;
+			bool linked = entry.Model is { } card && orb != null && NagatoOrbBindings.IsMapped(card, orb);
+			if (!linked || entry.LinkedCard != entry.Model || entry.LinkedOrb != orb)
+				entry.LinkAlpha = 0f;
+			entry.LinkedCard = linked ? entry.Model : null;
+			entry.LinkedOrb = linked ? orb : null;
+			if (linked)
+				entry.LinkAlpha = Mathf.MoveToward(entry.LinkAlpha, 1f, delta * 4f);
+		}
+		QueueRedraw();
+	}
+
+	public override void _Draw()
+	{
+		if (_manager == null || !NagatoOrbCardSlots.IsEnabled(_player) || _player.Creature.IsDead || CombatManager.Instance.IsOverOrEnding)
+			return;
+		var orbs = OrbNodes(_manager);
+		Transform2D inverse = GetGlobalTransform().AffineInverse();
+		for (int i = 0; i < Math.Min(_entries.Count, orbs.Count); i++)
+		{
+			var entry = _entries[i];
+			var orb = orbs[i];
+			if (entry.LinkAlpha <= 0f || entry.Model is not { } card || orb.Model is not { } model ||
+				entry.LinkedCard != card || entry.LinkedOrb != model || !NagatoOrbBindings.IsMapped(card, model) ||
+				!GodotObject.IsInstanceValid(orb) || orb.IsQueuedForDeletion())
+				continue;
+			Vector2 start = inverse * (orb.GetGlobalTransform() * new Vector2(0f, 22f));
+			Vector2 end = inverse * (entry.Bounds.GetGlobalTransform() * new Vector2(entry.Bounds.Size.X * 0.5f, 1f));
+			if (start.DistanceSquaredTo(end) < 4f)
+				continue;
+			Vector2 tangent = (end - start).Normalized();
+			Vector2 normal = new(-tangent.Y, tangent.X);
+			float phase = _linkTime * 1.8f + i * 0.65f;
+			float alpha = entry.LinkAlpha * (_manager.IsLocal ? 1f : 0.8f);
+			Vector2 Point(float t) => start.Lerp(end, t) + normal *
+				(Mathf.Sin(t * Mathf.Pi) * Mathf.Sin(phase + t * Mathf.Tau) * 1.6f);
+			for (int j = 0; j < entry.Cord.Length; j++)
+				entry.Cord[j] = Point(j / (float)(entry.Cord.Length - 1));
+			DrawPolyline(entry.Cord, new Color(1f, 0.25f, 0.38f, alpha * 0.1f), 7f, true);
+			DrawPolyline(entry.Cord, new Color(0.22f, 0.025f, 0.055f, alpha * 0.85f), 2.8f, true);
+			DrawPolyline(entry.Cord, new Color(0.94f, 0.16f, 0.25f, alpha * 0.9f), 1.5f, true);
+			Vector2 knot = Point(0.6f);
+			for (int side = -1; side <= 1; side += 2)
+			{
+				for (int j = 0; j < entry.Knot.Length; j++)
+				{
+					float t = j / (float)(entry.Knot.Length - 1);
+					entry.Knot[j] = knot + normal * (side * Mathf.Sin(t * Mathf.Pi) * 3.2f) +
+						tangent * (Mathf.Sin(t * Mathf.Tau) * 2.2f);
+				}
+				DrawPolyline(entry.Knot, new Color(1f, 0.3f, 0.36f, alpha), 1.1f, true);
+			}
+			Vector2 paper = Point(0.72f) + normal * 2.5f;
+			entry.Paper[0] = paper - tangent * 2f;
+			entry.Paper[1] = paper + normal * 2.5f;
+			entry.Paper[2] = paper + tangent * 1.5f;
+			entry.Paper[3] = paper + normal * 2.5f + tangent * 3.5f;
+			DrawPolyline(entry.Paper, new Color(1f, 0.94f, 0.78f, alpha * 0.85f), 1.5f, true);
+			float flow = Mathf.PosMod(_linkTime * 0.62f + i * 0.17f, 1f);
+			Vector2 light = Point(flow);
+			float glow = alpha * Mathf.Sin(flow * Mathf.Pi);
+			DrawCircle(light, 4f, new Color(1f, 0.48f, 0.54f, glow * 0.14f));
+			DrawCircle(light, 2.2f, new Color(1f, 0.75f, 0.4f, glow * 0.5f));
+			DrawCircle(light, 0.9f, new Color(1f, 0.96f, 0.8f, glow));
+		}
 	}
 
 	private static NCard CreateCard(CardModel model)
@@ -286,6 +369,9 @@ public partial class NNagatoOrbCardSlots : Control
 		}
 		entry.Refresh = null;
 		entry.Model = null;
+		entry.LinkedCard = null;
+		entry.LinkedOrb = null;
+		entry.LinkAlpha = 0f;
 		if (GodotObject.IsInstanceValid(entry.Node))
 			entry.Node!.QueueFree();
 		entry.Node = null;
