@@ -13,26 +13,34 @@ namespace NagatoSpire2.NagatoSpire2Code.Capabilities;
 public sealed class CardOrbCapability : ModelCapability<CardModel>, ICardDescriptionContributor, ICardHoverTipContributor,
 	ICardOverlayAssetPathContributor
 {
-	private OrbModel? _orb;
+	public const int MaxOrbs = 3;
+	private IReadOnlyList<OrbModel> _orbs = [];
 
-	public OrbModel? Orb
+	public IReadOnlyList<OrbModel> Orbs
 	{
 		get
 		{
-			if (_orb != null && Owner is { IsMutable: true, Owner: { } player } && _orb.Owner != player)
+			if (Owner is { IsMutable: true, Owner: { } player })
 			{
-				_orb.Owner = null!;
-				_orb.Owner = player;
+				foreach (var orb in _orbs)
+					if (orb.Owner != player)
+					{
+						orb.Owner = null!;
+						orb.Owner = player;
+					}
 			}
-			return _orb;
+			return _orbs;
 		}
 	}
 
-	public void SetOrb(OrbModel? orb)
+	public void SetOrbs(params OrbModel[] orbs)
 	{
 		AssertMutable();
-		orb?.AssertMutable();
-		_orb = orb;
+		if (orbs.Length > MaxOrbs || orbs.Distinct().Count() != orbs.Length)
+			throw new InvalidOperationException($"A card can host at most {MaxOrbs} distinct orb instances.");
+		foreach (var orb in orbs)
+			orb.AssertMutable();
+		_orbs = Array.AsReadOnly(orbs.ToArray());
 		if (Owner != null)
 			MarkDirty();
 	}
@@ -40,42 +48,48 @@ public sealed class CardOrbCapability : ModelCapability<CardModel>, ICardDescrip
 	public override IModelCapability CloneFor(AbstractModel clonedOwner)
 	{
 		var clone = (CardOrbCapability)base.CloneFor(clonedOwner);
-		if (_orb != null)
+		clone._orbs = Array.AsReadOnly(_orbs.Select(orb =>
 		{
-			clone._orb = (OrbModel)_orb.MutableClone();
-			clone._orb.Owner = null!;
-		}
+			var copy = (OrbModel)orb.MutableClone();
+			copy.Owner = null!;
+			return copy;
+		}).ToArray());
 		return clone;
 	}
 
-	protected override JsonNode? SaveAdditionalState() => _orb == null ? null : new JsonObject
+	protected override JsonNode? SaveAdditionalState() => _orbs.Count == 0 ? null : new JsonObject
 	{
-		["orb"] = _orb.Id.ToString()
+		["orbs"] = new JsonArray(_orbs.Select(orb => (JsonNode?)JsonValue.Create(orb.Id.ToString())).ToArray())
 	};
 
 	protected override void LoadAdditionalState(JsonNode? state, int schemaVersion) =>
-		_orb = state?["orb"]?.GetValue<string>() is { } id
-			? ModelDb.GetById<OrbModel>(ModelId.Deserialize(id)).ToMutable() : null;
+		SetOrbs(state?["orbs"] is JsonArray orbs
+			? orbs.Select(node => ModelDb.GetById<OrbModel>(ModelId.Deserialize(node!.GetValue<string>())).ToMutable()).ToArray()
+			: state?["orb"]?.GetValue<string>() is { } id
+				? [ModelDb.GetById<OrbModel>(ModelId.Deserialize(id)).ToMutable()] : []);
 
 	public IEnumerable<CardDescriptionFragment> GetDescriptionFragments(CardDescriptionContext context)
 	{
-		if (Orb is not { } orb)
-			yield break;
-		string key = $"{orb.Id.Entry}.cardText";
-		if (!LocString.Exists("orbs", key))
-			yield break;
-		var text = new LocString("orbs", key);
-		text.Add("Passive", orb.PassiveVal);
-		text.Add("Evoke", orb.EvokeVal);
-		yield return new CardDescriptionFragment(text);
+		foreach (var orb in Orbs)
+		{
+			string key = $"{orb.Id.Entry}.cardText";
+			if (!LocString.Exists("orbs", key))
+				continue;
+			var text = new LocString("orbs", key);
+			text.Add("Passive", orb.PassiveVal);
+			text.Add("Evoke", orb.EvokeVal);
+			yield return new CardDescriptionFragment(text);
+		}
 	}
 
 	public IEnumerable<IHoverTip> GetHoverTips(CardModel card)
 	{
-		if (Orb is not { } orb)
+		var orbs = Orbs;
+		if (orbs.Count == 0)
 			return [];
-		return [NagatoHoverTips.Residence, .. card.Pile?.IsCombatPile == true ? orb.HoverTips : [orb.DumbHoverTip]];
+		return [NagatoHoverTips.Residence, .. orbs.SelectMany(orb =>
+			card.Pile?.IsCombatPile == true ? orb.HoverTips : ModelDb.GetById<OrbModel>(orb.Id).HoverTips)];
 	}
 
-	public IEnumerable<string> GetCardOverlayAssetPaths(CardModel card) => Orb?.AssetPaths ?? [];
+	public IEnumerable<string> GetCardOverlayAssetPaths(CardModel card) => Orbs.SelectMany(orb => orb.AssetPaths).Distinct();
 }

@@ -16,7 +16,7 @@ public sealed class SakuraBlizzard() : NagatoCardModel(1, CardType.Attack, CardR
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move)];
 
 	public void BuildDefaultCapabilities(ModelCapabilityList capabilities) =>
-		capabilities.Add<CardOrbCapability>().SetOrb(ModelDb.Orb<WindOrb>().ToMutable());
+		capabilities.Add<CardOrbCapability>().SetOrbs(ModelDb.Orb<WindOrb>().ToMutable());
 
 	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
 	{

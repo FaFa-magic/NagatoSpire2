@@ -22,7 +22,12 @@ try {
         $pathLength = $reader.ReadUInt32()
         if ($pathLength -gt 65536) { throw 'Invalid PCK resource path length.' }
         $path = [Text.Encoding]::UTF8.GetString($reader.ReadBytes($pathLength)).TrimEnd([char]0)
-        $null = $reader.ReadBytes(36) # offset, size, MD5, flags
+        $null = $reader.ReadUInt64()
+        $resourceSize = $reader.ReadUInt64()
+        $null = $reader.ReadBytes(20)
+        if ($path -match '^NagatoSpire2/animations/orbs/(wind|forest|fire|mountain|shadow|thunder)_orb\.spskel$' -and $resourceSize -eq 0) {
+            throw "Empty orb skeleton resource: $path"
+        }
         $entryEnd = $stream.Position
         $stream.Position = $entryStart
         $bytes = $reader.ReadBytes([int]($entryEnd - $entryStart))
@@ -36,6 +41,10 @@ try {
     if ($stream.Position -ne $stream.Length) { throw 'Unexpected PCK trailer; refusing to rewrite.' }
     if ('NagatoSpire2/sfx/Nagato.bank' -notin $paths -or 'NagatoSpire2/sfx/Nagato.guids.txt' -notin $paths) {
         throw 'Nagato audio bank or GUID mappings are missing.'
+    }
+    foreach ($element in @('wind', 'forest', 'fire', 'mountain', 'shadow', 'thunder')) {
+        $skeletonPath = "NagatoSpire2/animations/orbs/${element}_orb.spskel"
+        if ($skeletonPath -notin $paths) { throw "Missing orb skeleton resource: $skeletonPath" }
     }
     if (@($paths | Where-Object { $_ -match '^(addons/fmod/|FMOD/|temp/)|(^|/)Master(\.strings)?\.bank$|^NagatoSpire2/sfx/.*\.mp3(\.import)?$' }).Count) {
         throw 'Development-only FMOD resources are present in the pack.'

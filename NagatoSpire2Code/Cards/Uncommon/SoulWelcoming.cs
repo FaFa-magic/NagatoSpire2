@@ -10,7 +10,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Uncommon;
 
 public sealed class SoulWelcoming() : NagatoCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PlatingPower>(1m)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PlatingPower>(2m)];
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[

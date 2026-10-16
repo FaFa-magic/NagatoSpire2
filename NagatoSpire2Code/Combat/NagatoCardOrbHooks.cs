@@ -34,7 +34,7 @@ public sealed class NagatoCardOrbHooks() : HookedSingletonModel(HookType.Combat)
 		{
 			if (CombatManager.Instance.IsOverOrEnding || !player.IsActiveForHooks || player.PlayerCombatState != combat)
 				break;
-			if (card.Pile == combat?.Hand && NagatoCardOrbs.Get(card) == orb)
+			if (card.Pile == combat?.Hand && NagatoCardOrbs.Get(card).Contains(orb))
 			{
 				choiceContext.PushModel(orb);
 				try

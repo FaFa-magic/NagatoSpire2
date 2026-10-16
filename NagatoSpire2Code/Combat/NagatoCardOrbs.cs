@@ -12,9 +12,9 @@ namespace NagatoSpire2.NagatoSpire2Code.Combat;
 
 public static class NagatoCardOrbs
 {
-	public static OrbModel? Get(CardModel card) =>
+	public static IReadOnlyList<OrbModel> Get(CardModel card) =>
 		(ModelCapabilities.TryGet(card, out var capabilities) ? capabilities.Get<CardOrbCapability>() :
-			card is IModelCapabilitySource ? card.Capability<CardOrbCapability>() : null)?.Orb;
+			card is IModelCapabilitySource ? card.Capability<CardOrbCapability>() : null)?.Orbs ?? [];
 
 	public static void Bind(CardModel card, OrbModel orb)
 	{
@@ -25,53 +25,71 @@ public static class NagatoCardOrbs
 			throw new InvalidOperationException("The orb must not be queued or removed.");
 		if (orb.Owner != null && orb.Owner != card.Owner)
 			throw new InvalidOperationException("The orb and card must have the same owner.");
-		if (Get(card) == orb)
+		var orbs = Get(card);
+		if (orbs.Contains(orb))
 			return;
-		if (Get(card) != null || combat?.AllCards.Any(other => Get(other) == orb) == true)
-			throw new InvalidOperationException("The card or orb is already bound.");
+		if (orbs.Count >= CardOrbCapability.MaxOrbs)
+			throw new InvalidOperationException($"A card can host at most {CardOrbCapability.MaxOrbs} orbs.");
+		if (combat?.AllCards.Any(other => Get(other).Contains(orb)) == true)
+			throw new InvalidOperationException("The orb is already bound.");
 		if (card.Owner is { } owner)
 			orb.Owner = owner;
-		card.GetOrCreateCapability<CardOrbCapability>().SetOrb(orb);
+		card.GetOrCreateCapability<CardOrbCapability>().SetOrbs([.. orbs, orb]);
 		NCard.FindOnTable(card)?.UpdateVisuals(card.Pile?.Type ?? PileType.None, CardPreviewMode.Normal);
 	}
 
-	public static OrbModel? Unbind(CardModel card)
+	public static IReadOnlyList<OrbModel> Unbind(CardModel card)
 	{
-		if (!card.IsMutable || Get(card) is not { } orb)
-			return null;
-		card.Capability<CardOrbCapability>()!.SetOrb(null);
+		if (!card.IsMutable || Get(card) is not { Count: > 0 } orbs)
+			return [];
+		card.Capability<CardOrbCapability>()!.SetOrbs();
 		NCard.FindOnTable(card)?.UpdateVisuals(card.Pile?.Type ?? PileType.None, CardPreviewMode.Normal);
-		return orb;
+		return orbs;
 	}
 
 	public static async Task Evoke(PlayerChoiceContext choiceContext, CardModel card)
 	{
-		if (CombatManager.Instance.IsOverOrEnding || card.Owner.Creature.IsDead || Unbind(card) is not { } orb)
+		if (CombatManager.Instance.IsOverOrEnding || card.Owner.Creature.IsDead)
 			return;
-		choiceContext.PushModel(orb);
+		var orbs = Unbind(card);
 		try
 		{
-			var targets = await orb.Evoke(choiceContext);
-			if (card.Owner.Creature.CombatState is { } combat)
-				await Hook.AfterOrbEvoked(choiceContext, combat, orb, targets);
+			foreach (var orb in orbs)
+			{
+				if (CombatManager.Instance.IsOverOrEnding || card.Owner.Creature.IsDead)
+					break;
+				choiceContext.PushModel(orb);
+				try
+				{
+					var targets = await orb.Evoke(choiceContext);
+					if (card.Owner.Creature.CombatState is { } combat)
+						await Hook.AfterOrbEvoked(choiceContext, combat, orb, targets);
+				}
+				finally
+				{
+					orb.RemoveInternal();
+					choiceContext.PopModel(orb);
+				}
+			}
 		}
 		finally
 		{
-			orb.RemoveInternal();
-			choiceContext.PopModel(orb);
+			foreach (var orb in orbs)
+				if (!orb.HasBeenRemovedFromState)
+					orb.RemoveInternal();
 		}
 	}
 
 	public static IEnumerable<OrbModel> GetAll(Player player) =>
-		player.PlayerCombatState?.AllCards.Select(Get).OfType<OrbModel>().ToArray() ?? [];
+		player.PlayerCombatState?.AllCards.SelectMany(Get).ToArray() ?? [];
 
 	public static (CardModel Card, OrbModel Orb)[] GetHand(Player player) =>
-		player.PlayerCombatState?.Hand.Cards.Select(card => (Card: card, Orb: Get(card)))
-			.Where(pair => pair.Orb != null).Select(pair => (pair.Card, pair.Orb!)).ToArray() ?? [];
+		player.PlayerCombatState?.Hand.Cards.SelectMany(card => Get(card).Select(orb => (card, orb))).ToArray() ?? [];
 
 	public static void Clear(Player player)
 	{
 		foreach (var card in player.PlayerCombatState?.AllCards.ToArray() ?? [])
-			Unbind(card)?.RemoveInternal();
+			foreach (var orb in Unbind(card))
+				orb.RemoveInternal();
 	}
 }

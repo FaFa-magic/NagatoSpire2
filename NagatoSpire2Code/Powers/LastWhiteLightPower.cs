@@ -11,9 +11,11 @@ namespace NagatoSpire2.NagatoSpire2Code.Powers;
 
 public sealed class LastWhiteLightPower : NagatoPowerModel
 {
+	protected override bool UsesPackedIcon => true;
+
 	public override PowerType Type => PowerType.Debuff;
 
-	public override PowerStackType StackType => PowerStackType.Counter;
+	public override PowerStackType StackType => PowerStackType.Single;
 
 	public override Task AfterApplied(Creature? applier, CardModel? cardSource)
 	{
@@ -24,15 +26,6 @@ public sealed class LastWhiteLightPower : NagatoPowerModel
 	public override Task AfterRemoved(Creature oldOwner)
 	{
 		NagatoWhiteLightVfx.FadeAura(oldOwner);
-		return Task.CompletedTask;
-	}
-
-	public override int ModifyCardPlayCount(CardModel card, Creature? target, int playCount) =>
-		card.Owner.Creature == Owner ? playCount + Math.Max(Amount - 1, 0) : playCount;
-
-	public override Task AfterModifyingCardPlayCount(CardModel card)
-	{
-		Flash();
 		return Task.CompletedTask;
 	}
 

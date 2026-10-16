@@ -24,11 +24,14 @@ public abstract class NagatoOrbModel : ModOrbTemplate
 	public virtual bool IsFocusAffected => false;
 	protected virtual bool HasPlayPassive => false;
 
+	protected decimal FocusValue(decimal value) =>
+		IsMutable && Owner?.Creature.CombatState != null ? ModifyOrbValue(value) : value;
+
 	protected override Node2D? TryCreateOrbSprite() =>
 		PreloadManager.Cache.GetScene(VisualsPath).Instantiate<Node2D>();
 
 	public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-		HasPlayPassive && NagatoCardOrbs.Get(cardPlay.Card) == this && cardPlay.Player == Owner
+		HasPlayPassive && NagatoCardOrbs.Get(cardPlay.Card).Contains(this) && cardPlay.Player == Owner
 			? OrbCmd.Passive(choiceContext, this, null, true) : Task.CompletedTask;
 
 	public override Task Passive(PlayerChoiceContext choiceContext, Creature? target)

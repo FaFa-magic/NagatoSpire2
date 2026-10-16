@@ -28,7 +28,7 @@ public abstract class NagatoCardModel : ModCardTemplate
 
 	public override CardAssetProfile AssetProfile => new(
 		PortraitPath: $"res://NagatoSpire2/images/cards/{GetType().Name}.png",
-		BannerTexturePath: "res://NagatoSpire2/images/card_frames/nagato_Banner.png",
+		BannerTexturePath: ResolveBannerTexturePath(),
 		BannerMaterial: UnfilteredChromeMaterial,
 		PortraitBorderPath: ResolvePortraitBorderPath(),
 		PortraitBorderMaterial: UnfilteredChromeMaterial,
@@ -43,6 +43,14 @@ public abstract class NagatoCardModel : ModCardTemplate
 			_ => ""
 		}
 	);
+
+	private string ResolveBannerTexturePath() => Rarity switch
+	{
+		CardRarity.Basic or CardRarity.Common =>
+			"res://NagatoSpire2/images/card_frames/nagato_Banner_common.png",
+		CardRarity.Rare => "res://NagatoSpire2/images/card_frames/nagato_Banner_rare.png",
+		_ => "res://NagatoSpire2/images/card_frames/nagato_Banner.png"
+	};
 
 	private string? ResolvePortraitBorderPath()
 	{

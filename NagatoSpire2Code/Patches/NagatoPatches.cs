@@ -24,7 +24,10 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 	private static readonly ConditionalWeakTable<NinePatchRect, OriginalPlaqueTexture> OriginalPlaques = new();
 	private static readonly ConditionalWeakTable<TextureRect, OriginalTextureLayout> OriginalLayouts = new();
 	private const float ToriiFrameWidthScale = 1.06f;
-	private const float ToriiPortraitBorderWidthScale = 1.14f;
+	// Align the vertical rail centers with each frame's pillar/illustration boundary.
+	private const float ToriiAttackPortraitBorderWidthScale = 1.034f;
+	private const float ToriiSkillPortraitBorderWidthScale = 0.994f;
+	private const float ToriiPowerPortraitBorderWidthScale = 1.009f;
 	private const float ToriiPortraitScale = 1.10f;
 	private const float ToriiBannerScale = 1.12f;
 
@@ -92,8 +95,15 @@ internal sealed class NagatoCardChromePatch : IPatchMethod
 	{
 		bool useToriiLayout = card.Model is NagatoCardModel model && model.Rarity != CardRarity.Ancient &&
 			model.Type is CardType.Attack or CardType.Skill or CardType.Power;
+		float portraitBorderWidthScale = card.Model?.Type switch
+		{
+			CardType.Attack => ToriiAttackPortraitBorderWidthScale,
+			CardType.Skill => ToriiSkillPortraitBorderWidthScale,
+			CardType.Power => ToriiPowerPortraitBorderWidthScale,
+			_ => 1f
+		};
 		ApplyNodeLayout(card, "%Frame", useToriiLayout, new Vector2(ToriiFrameWidthScale, 1f));
-		ApplyNodeLayout(card, "%PortraitBorder", useToriiLayout, new Vector2(ToriiPortraitBorderWidthScale, 1f));
+		ApplyNodeLayout(card, "%PortraitBorder", useToriiLayout, new Vector2(portraitBorderWidthScale, 1f));
 		// Fill the wider opening with an equal-axis zoom, preserving the illustration's proportions.
 		ApplyNodeLayout(card, "%Portrait", useToriiLayout, Vector2.One * ToriiPortraitScale);
 		ApplyNodeLayout(card, "%TitleBanner", useToriiLayout, Vector2.One * ToriiBannerScale);

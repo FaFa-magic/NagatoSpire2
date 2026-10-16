@@ -12,7 +12,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Orbs;
 public sealed class MountainOrb : NagatoOrbModel
 {
 	public override Color DarkenedColor => new("#816a48");
-	public override decimal PassiveVal => IsMutable && Owner?.Creature.CombatState != null ? ModifyOrbValue(4m) : 4m;
+	public override decimal PassiveVal => FocusValue(4m);
 	public override decimal EvokeVal => PassiveVal;
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.Contextual;
 	public override bool IsFocusAffected => true;
