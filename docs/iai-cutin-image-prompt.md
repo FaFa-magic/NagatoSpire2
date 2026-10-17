@@ -1,5 +1,7 @@
 # 居合透明角色特写：生图记录
 
+> 历史版本：该左下角单图特写已由正面闭眼三姿态演出替代，不再被运行时引用。当前素材、提示词与收尾书法记录见 `iai-cinematic-20261016-prompts.md`，演出说明见 `iai-vfx.md`。
+
 工具：内置 imagegen（不是 CLI / API fallback）。
 
 编辑目标：用户提供的 `codex-clipboard-2e67c48e-12f5-4e50-a4ee-7459c7591d3d.png`。GIF 仅用于代码中的特写演出参考，不作为生图目标。

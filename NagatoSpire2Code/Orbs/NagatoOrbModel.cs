@@ -1,11 +1,9 @@
 using Godot;
 using MegaCrit.Sts2.Core.Assets;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
-using NagatoSpire2.NagatoSpire2Code.Combat;
+using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -22,17 +20,13 @@ public abstract class NagatoOrbModel : ModOrbTemplate
 	public override decimal EvokeVal => 0m;
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.Hidden;
 	public virtual bool IsFocusAffected => false;
-	protected virtual bool HasPlayPassive => false;
+	internal CardModel? HostCard { get; set; }
 
 	protected decimal FocusValue(decimal value) =>
 		IsMutable && Owner?.Creature.CombatState != null ? ModifyOrbValue(value) : value;
 
 	protected override Node2D? TryCreateOrbSprite() =>
 		PreloadManager.Cache.GetScene(VisualsPath).Instantiate<Node2D>();
-
-	public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-		HasPlayPassive && NagatoCardOrbs.Get(cardPlay.Card).Contains(this) && cardPlay.Player == Owner
-			? OrbCmd.Passive(choiceContext, this, null, true) : Task.CompletedTask;
 
 	public override Task Passive(PlayerChoiceContext choiceContext, Creature? target)
 	{
@@ -45,5 +39,11 @@ public abstract class NagatoOrbModel : ModOrbTemplate
 		Creature[] targets = [Owner.Creature];
 		ActivateEvoke(targets);
 		return Task.FromResult<IEnumerable<Creature>>(targets);
+	}
+
+	protected override void AfterCloned()
+	{
+		base.AfterCloned();
+		HostCard = null;
 	}
 }

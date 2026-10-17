@@ -1,5 +1,6 @@
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -12,12 +13,14 @@ namespace NagatoSpire2.NagatoSpire2Code.Orbs;
 public sealed class MountainOrb : NagatoOrbModel
 {
 	public override Color DarkenedColor => new("#816a48");
-	public override decimal PassiveVal => FocusValue(4m);
-	public override decimal EvokeVal => PassiveVal;
+	public override decimal PassiveVal => FocusValue(2m);
+	public override decimal EvokeVal => FocusValue(4m);
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.Contextual;
 	public override bool IsFocusAffected => true;
-	protected override bool HasPlayPassive => true;
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<PlatingPower>()];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+		[HoverTipFactory.FromPower<PlatingPower>(), HoverTipFactory.FromKeyword(CardKeyword.Retain)];
+
+	public override Task BeforeTurnEndOrbTrigger(PlayerChoiceContext choiceContext) => TriggerPassive(choiceContext, null);
 
 	public override async Task Passive(PlayerChoiceContext choiceContext, Creature? target)
 	{

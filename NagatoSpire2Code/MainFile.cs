@@ -94,6 +94,7 @@ public static class MainFile
 		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.RecordPatch>();
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.ClearPatch>();
+		orbPatcher.RegisterPatch<NagatoCardOrbKeywordPatch>();
 		if (!orbPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato orb patches failed.");
 

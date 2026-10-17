@@ -15,7 +15,10 @@ public sealed class Iai() : NagatoCardModel(0, CardType.Attack, CardRarity.Rare,
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move), new CardsVar(1)];
 
 	protected override IEnumerable<string> ExtraRunAssetPaths =>
-		[.. base.ExtraRunAssetPaths, NIaiSakuraVfx.ScenePath, NIaiSakuraVfx.CrescentTexturePath, NIaiSakuraVfx.CutInTexturePath,
+		[.. base.ExtraRunAssetPaths, NIaiSakuraVfx.ScenePath, NIaiSakuraVfx.CrescentTexturePath,
+			NIaiCinematicLayer.ReadyTexturePath, NIaiCinematicLayer.DrawTexturePath, NIaiCinematicLayer.ReleaseTexturePath,
+			NIaiCinematicLayer.EarlyDrawTexturePath, NIaiCinematicLayer.PoseBlendShaderPath,
+			NIaiCinematicLayer.VerseATexturePath, NIaiCinematicLayer.VerseBTexturePath, NIaiCinematicLayer.CaptionShaderPath,
 			"res://debug_audio/slash_attack.mp3"];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

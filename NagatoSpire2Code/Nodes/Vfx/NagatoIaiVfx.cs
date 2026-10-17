@@ -28,6 +28,8 @@ public static class NagatoIaiVfx
             return null;
         NIaiSakuraVfx vfx = PreloadManager.Cache.GetScene(NIaiSakuraVfx.ScenePath).Instantiate<NIaiSakuraVfx>();
         vfx.CrescentTexture = PreloadManager.Cache.GetAsset<Texture2D>(NIaiSakuraVfx.CrescentTexturePath);
+        // Cosmetic only, chosen once per cut. Never advance a combat / synchronized RNG stream.
+        vfx.VerseIndex = System.Random.Shared.Next(2);
         room.CombatVfxContainer.AddChild(vfx);
         vfx.IsCombatActive = () => !CombatManager.Instance.IsOverOrEnding && caster.IsAlive;
         vfx.Initialize(casterNode.VfxSpawnPosition, positions,

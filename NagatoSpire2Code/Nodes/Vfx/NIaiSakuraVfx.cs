@@ -8,22 +8,15 @@ public partial class NIaiSakuraVfx : Node2D
     public const string ScenePath = "res://NagatoSpire2/scenes/vfx/nagato_iai_sakura.tscn";
     public const string CrescentTexturePath = "res://images/vfx/slash/slash_flipbook.png";
     public const string CrescentShaderPath = "res://NagatoSpire2/shaders/vfx/iai_official_crescent.gdshader";
-    public const string CutInTexturePath = "res://NagatoSpire2/images/vfx/iai/nagato_iai_cutin.png";
-    public const float CutInBoxFillRatio = 1.00f;
-    public const float CutInMaxOpacity = 0.80f;
-    public const float CutInStart = 0.12f;
-    public const float CutInFadeInDuration = 0.48f;
-    public const float CutInFadeOutDuration = 0.22f;
     public const int AnticipationPetalCount = 216;
     public const float AnticipationDuration = 1.50f;
-    public const float CutInSlideDuration = 1.05f;
     public const float DrawDuration = 0.12f;
     public const float CutDuration = 0.20f;
     public const float CrescentScaleMultiplier = 1.10f;
-    public const float CrescentForwardOffset = 60f;
     public const float CutStart = AnticipationDuration + DrawDuration;
-    public const float DamageTime = CutStart + CutDuration + 0.04f;
-    public const float AfterglowDuration = 0.80f;
+    public const float CaptionStart = CutStart + CutDuration;
+    public const float DamageTime = CaptionStart + 0.62f;
+    public const float AfterglowDuration = 1.10f;
 
     private static readonly Color Sakura = new(1f, 0.62f, 0.76f);
     private static readonly Color Ivory = new(1f, 0.95f, 0.84f);
@@ -31,6 +24,7 @@ public partial class NIaiSakuraVfx : Node2D
     private readonly TaskCompletionSource<bool> _cutFinished = new();
     private Node2D? _light;
     private Node2D? _crescent;
+    private NIaiCinematicLayer? _cinematic;
     private Vector2 _caster;
     private Vector2[] _targets = [];
     private float _age;
@@ -43,7 +37,15 @@ public partial class NIaiSakuraVfx : Node2D
     public Func<bool>? IsCombatActive { get; set; }
     public Texture2D? CrescentTexture { get; set; }
     [Export] public Shader? CrescentShader { get; set; }
-    [Export] public Texture2D? CutInTexture { get; set; }
+    [Export] public Texture2D? ReadyPortrait { get; set; }
+    [Export] public Texture2D? EarlyDrawPortrait { get; set; }
+    [Export] public Texture2D? DrawPortrait { get; set; }
+    [Export] public Texture2D? ReleasePortrait { get; set; }
+    [Export] public Texture2D? VerseA { get; set; }
+    [Export] public Texture2D? VerseB { get; set; }
+    [Export] public Shader? CaptionWipeShader { get; set; }
+    [Export] public Shader? PoseBlendShader { get; set; }
+    public int VerseIndex { get; set; }
 
     public void Initialize(Vector2 caster, IEnumerable<Vector2> targets, float speed = 1f)
     {
@@ -74,6 +76,13 @@ public partial class NIaiSakuraVfx : Node2D
 
     public override void _Ready()
     {
+        _cinematic = new NIaiCinematicLayer
+        {
+            Name = "NagatoIaidoCinematic", CaptionWipeShader = CaptionWipeShader, PoseBlendShader = PoseBlendShader
+        };
+        _cinematic.Configure(ReadyPortrait, EarlyDrawPortrait, DrawPortrait,
+            ReleasePortrait, VerseIndex == 0 ? VerseA : VerseB);
+        AddChild(_cinematic);
         _light = new Node2D
         {
             Name = "BladeLight",
@@ -122,6 +131,7 @@ public partial class NIaiSakuraVfx : Node2D
             return;
         }
         QueueRedraw();
+        _cinematic?.SetTime(_age);
         _light?.QueueRedraw();
         _crescent?.QueueRedraw();
     }
@@ -143,8 +153,6 @@ public partial class NIaiSakuraVfx : Node2D
             screenToLocal * Vector2.Zero, screenToLocal * new Vector2(size.X, 0),
             screenToLocal * size, screenToLocal * new Vector2(0, size.Y)
         ], new Color(0.055f, 0.035f, 0.09f, 0.12f * fade));
-
-        DrawCutIn(screenToLocal, size);
 
         // Viewport-space emission: petals cover the entire screen, independent of creature
         // positions, camera transforms, aspect ratio, or the combat VFX container's offset.
@@ -179,56 +187,6 @@ public partial class NIaiSakuraVfx : Node2D
                 DrawPetal(this, p, 4f + Noise(i + 6) * 6f, angle + t * 4f, new Color(Sakura, alpha));
             }
         }
-    }
-
-    private void DrawCutIn(Transform2D screenToLocal, Vector2 viewportSize)
-    {
-        if (CutInTexture is null)
-            return;
-        float opacity = CutInOpacityAt(_age);
-        if (opacity <= 0f)
-            return;
-
-        // Viewport-space placement stays in the user's lower-left region, independent of shake.
-        DrawSetTransformMatrix(screenToLocal);
-        DrawTextureRect(CutInTexture, CutInRectAt(viewportSize, CutInTexture.GetSize(), _age), false,
-            new Color(1f, 1f, 1f, opacity));
-        DrawSetTransformMatrix(Transform2D.Identity);
-    }
-
-    public static Rect2 CutInRectAt(Vector2 viewportSize, Vector2 textureSize, float age)
-    {
-        Rect2 region = CutInRegionAt(viewportSize);
-        // Fit the annotated box, without stretching or clipping the artwork.
-        float scale = Math.Min(region.Size.Y * CutInBoxFillRatio / Math.Max(1f, textureSize.Y),
-            region.Size.X * CutInBoxFillRatio / Math.Max(1f, textureSize.X));
-        Vector2 drawSize = textureSize * scale;
-        float entrance = Mathf.Clamp((age - CutInStart) / CutInSlideDuration, 0f, 1f);
-        float easedEntrance = 1f - Mathf.Pow(1f - entrance, 3f);
-        float drift = Mathf.Clamp((age - CutInStart) / (AnticipationDuration - CutInStart), 0f, 1f);
-        float motionScale = viewportSize.Y / 1080f;
-        Vector2 center = region.GetCenter() + new Vector2(0f, -drift * 6f * motionScale);
-        float minX = region.Position.X + drawSize.X * 0.5f;
-        float maxX = region.End.X - drawSize.X * 0.5f;
-        float minY = region.Position.Y + drawSize.Y * 0.5f;
-        float maxY = region.End.Y - drawSize.Y * 0.5f;
-        // A full fit can leave zero horizontal slack; roundoff may otherwise invert Clamp bounds.
-        center.X = maxX <= minX ? region.GetCenter().X : Mathf.Clamp(center.X, minX, maxX);
-        center.Y = maxY <= minY ? region.GetCenter().Y : Mathf.Clamp(center.Y, minY, maxY);
-        // Start fully off the left edge, then travel to the settled position while fading in.
-        center.X -= (1f - easedEntrance) * (center.X + drawSize.X * 0.5f + viewportSize.X * 0.02f);
-        return new Rect2(center - drawSize * 0.5f, drawSize);
-    }
-
-    // Normalized from the user's blue box: the left 46% below the upper 28% of the screen.
-    public static Rect2 CutInRegionAt(Vector2 viewportSize) => new(
-        viewportSize * new Vector2(0.005f, 0.28f), viewportSize * new Vector2(0.455f, 0.715f));
-
-    public static float CutInOpacityAt(float age)
-    {
-        float entrance = Mathf.Clamp((age - CutInStart) / CutInFadeInDuration, 0f, 1f);
-        float exit = Mathf.Clamp((AnticipationDuration - age) / CutInFadeOutDuration, 0f, 1f);
-        return CutInMaxOpacity * Mathf.SmoothStep(0f, 1f, entrance) * Mathf.SmoothStep(0f, 1f, exit);
     }
 
     private void DrawLight()
@@ -275,14 +233,14 @@ public partial class NIaiSakuraVfx : Node2D
         int frame = progress switch { < 0.35f => 1, < 0.55f => 2, < 0.70f => 3, < 0.85f => 4, _ => 5 };
         Vector2 cell = CrescentTexture.GetSize() / new Vector2(3, 2);
         Rect2 region = new(new Vector2(frame % 3, frame / 3) * cell, cell);
-        Vector2 center = new((_targets.Min(p => p.X) + _targets.Max(p => p.X)) * 0.5f,
-            _targets.Average(p => p.Y));
-        // "In front" is toward the attacker, including mirrored combat layouts.
-        center.X += Math.Sign(_caster.X - center.X) * CrescentForwardOffset;
-        float side = Mathf.Clamp(_targets.Max(p => p.X) - _targets.Min(p => p.X) + 430f, 680f, 1080f)
-            * CrescentScaleMultiplier;
-        // Match Grand Finale's tilted/skewed moon silhouette, enlarged to encompass the enemy group.
-        _crescent.DrawSetTransformMatrix(new Transform2D(3.403392f, Vector2.One, 1.0471972f, center));
+        // This cut-in deliberately reserves the right half for Nagato's face. Keep the
+        // crescent on the left sakura path instead of flashing over her eyes/upper body.
+        Vector2 viewport = GetViewportRect().Size;
+        Vector2 center = viewport * new Vector2(0.27f, 0.47f);
+        float side = viewport.Y * 0.70f * CrescentScaleMultiplier;
+        Transform2D screenToLocal = _crescent.GetGlobalTransformWithCanvas().AffineInverse();
+        _crescent.DrawSetTransformMatrix(screenToLocal *
+            new Transform2D(3.403392f, Vector2.One, 1.0471972f, center));
         _crescent.DrawTextureRectRegion(CrescentTexture,
             new Rect2(new Vector2(-side * 0.5f, -side * 0.5f), new Vector2(side, side)), region, Colors.White);
         _crescent.DrawSetTransformMatrix(Transform2D.Identity);

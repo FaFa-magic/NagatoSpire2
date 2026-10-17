@@ -1,7 +1,9 @@
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using NagatoSpire2.NagatoSpire2Code.Capabilities;
 using NagatoSpire2.NagatoSpire2Code.Characters;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Models.Capabilities;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards;
@@ -24,6 +26,18 @@ public abstract class NagatoCardModel : ModCardTemplate
 		bool shouldShowInCardLibrary = true)
 		: base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 	{
+	}
+
+	public override void AfterCreated()
+	{
+		base.AfterCreated();
+		this.Capability<CardOrbCapability>()?.ApplyInnateAffliction();
+	}
+
+	protected override void AfterDeserialized()
+	{
+		base.AfterDeserialized();
+		this.Capability<CardOrbCapability>()?.ApplyInnateAffliction();
 	}
 
 	public override CardAssetProfile AssetProfile => new(
