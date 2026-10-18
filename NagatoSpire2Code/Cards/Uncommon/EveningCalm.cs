@@ -18,7 +18,7 @@ public sealed class EveningCalm() : NagatoCardModel(1, CardType.Skill, CardRarit
 		var moved = await CardPileCmd.Add(cards, state.DrawPile, CardPilePosition.Top);
 		int count = moved.Count(result => result.success);
 		if (count > 0 && Owner.PlayerCombatState == state && !CombatManager.Instance.IsOverOrEnding && !Owner.Creature.IsDead)
-			await PowerCmd.Apply<EveningCalmPower>(choiceContext, Owner.Creature, count, Owner.Creature, this);
+			await PowerCmd.Apply<DrawCardsAtTurnEndPower>(choiceContext, Owner.Creature, count, Owner.Creature, this);
 	}
 
 	protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);

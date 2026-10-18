@@ -15,6 +15,7 @@ public sealed class SympatheticDetonationPower : NagatoPowerModel
 
 	public override PowerType Type => PowerType.Debuff;
 	public override PowerStackType StackType => PowerStackType.Single;
+	protected override bool UsesPackedIcon => true;
 
 	public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer,
 		DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
@@ -29,7 +30,7 @@ public sealed class SympatheticDetonationPower : NagatoPowerModel
 		try
 		{
 			Flash();
-			await CreatureCmd.Damage(choiceContext, targets, result.TotalDamage * 0.5m, ValueProp.Unpowered, dealer, null, null);
+			await CreatureCmd.Damage(choiceContext, targets, result.TotalDamage * Amount / 100m, ValueProp.Unpowered, dealer, null, null);
 		}
 		finally
 		{

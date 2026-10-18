@@ -4,6 +4,7 @@ using NagatoSpire2.NagatoSpire2Code.Audio;
 using NagatoSpire2.NagatoSpire2Code.Configs;
 using NagatoSpire2.NagatoSpire2Code.Combat;
 using NagatoSpire2.NagatoSpire2Code.Networking;
+using NagatoSpire2.NagatoSpire2Code.Rewards;
 using MegaCrit.Sts2.Core.Modding;
 using NagatoSpire2.NagatoSpire2Code.Patches;
 using STS2RitsuLib;
@@ -33,6 +34,7 @@ public static class MainFile
 		NagatoFleetVoteSync.Register();
 		InkStainedSteelSakuraRun.Register();
 		NagatoOrbHistory.Register();
+		CardUpgradeReward.Register();
 		ModHelper.SubscribeForCombatStateHooks("nagato_card_bound_orbs", state =>
 			state.Players.Where(player => player.IsActiveForHooks).SelectMany(NagatoCardOrbs.GetAll));
 
@@ -118,6 +120,7 @@ public static class MainFile
 		platingPatcher.RegisterPatch<NagatoPlatingTriggerPatch>();
 		platingPatcher.RegisterPatch<NagatoPlatingTurnStartPatch>();
 		platingPatcher.RegisterPatch<NagatoTemporaryPlatingRemovalPatch>();
+		platingPatcher.RegisterPatch<NagatoDexterityPlatingPatch>();
 		if (!platingPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato Plating patches failed.");
 

@@ -10,7 +10,7 @@ public sealed class WindOrb : NagatoOrbModel
 {
 	public override Color DarkenedColor => new("#477c6b");
 	public override decimal PassiveVal => 1m;
-	public override decimal EvokeVal => FocusValue(3m);
+	public override decimal EvokeVal => FocusValue(2m);
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.Contextual;
 	public override bool IsFocusAffected => true;
 

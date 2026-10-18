@@ -7,13 +7,44 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using NagatoSpire2.NagatoSpire2Code.Cards;
 using NagatoSpire2.NagatoSpire2Code.Combat;
+using NagatoSpire2.NagatoSpire2Code.Nodes.Ui;
 using NagatoSpire2.NagatoSpire2Code.Powers;
 
 namespace NagatoSpire2.NagatoSpire2Code.Commands;
 
 public static class NagatoChoiceCmd
 {
-	public static async Task Choose(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<CardModel> options)
+	private static readonly HashSet<CardModel> ActiveOptions = [];
+
+	public static IEnumerable<string> AssetPaths =>
+	[
+		NagatoChoiceTable.ScenePath, NagatoChoiceTable.BackgroundPath, "res://scenes/ui/hand_image.tscn",
+		.. NagatoChoicePointingImage.AssetPaths
+	];
+
+	internal static bool IsChoiceOption(CardModel card) => card is NagatoChoiceOption || ActiveOptions.Contains(card);
+
+	public static Task Choose(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<CardModel> options) =>
+		Choose(choiceContext, player, options, option => ((NagatoChoiceOption)option).OnChosen(choiceContext));
+
+	public static async Task Choose(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<CardModel> options,
+		Func<CardModel, Task> onChosen)
+	{
+		foreach (var option in options)
+			ActiveOptions.Add(option);
+		try
+		{
+			await ChooseInternal(choiceContext, player, options, onChosen);
+		}
+		finally
+		{
+			foreach (var option in options)
+				ActiveOptions.Remove(option);
+		}
+	}
+
+	private static async Task ChooseInternal(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<CardModel> options,
+		Func<CardModel, Task> onChosen)
 	{
 		if (player.PlayerCombatState is not { } state || player.Creature.IsDead || CombatManager.Instance.IsOverOrEnding)
 			return;
@@ -41,15 +72,15 @@ public static class NagatoChoiceCmd
 
 		if (useGrid && (selected.Length < 1 || selected.Length > maxCount || selected.Distinct().Count() != selected.Length))
 			throw new InvalidOperationException("A choice must select the permitted number of distinct options.");
-		if (selected.Any(card => card is not NagatoChoiceOption || !options.Contains(card)))
+		if (selected.Any(card => !options.Contains(card)))
 			throw new InvalidOperationException("A choice selected a card outside its options.");
 
-		foreach (var choice in options.Where(selected.Contains).Cast<NagatoChoiceOption>())
+		foreach (var choice in options.Where(selected.Contains))
 		{
 			if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
 				break;
 
-			await Resolve(choiceContext, player, () => choice.OnChosen(choiceContext));
+			await Resolve(choiceContext, player, () => onChosen(choice));
 		}
 	}
 

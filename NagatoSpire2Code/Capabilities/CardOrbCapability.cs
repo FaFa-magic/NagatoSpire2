@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using NagatoSpire2.NagatoSpire2Code.Afflictions;
-using NagatoSpire2.NagatoSpire2Code.Cards.Token;
 using NagatoSpire2.NagatoSpire2Code.HoverTips;
 using NagatoSpire2.NagatoSpire2Code.Nodes.Vfx;
 using NagatoSpire2.NagatoSpire2Code.Orbs;
@@ -20,13 +19,13 @@ namespace NagatoSpire2.NagatoSpire2Code.Capabilities;
 
 [RegisterModelCapability]
 public sealed class CardOrbCapability : CardCapability, ICardDescriptionContributor, ICardHoverTipContributor,
-	ICardOverlayAssetPathContributor, ICardOverlayContributor
+	ICardOverlayAssetPathContributor, ICardOverlayContributor, ICardEnergyCostContributor
 {
 	public const int MaxOrbs = 3;
 	private IReadOnlyList<OrbModel> _orbs = [];
 	private int _handFocus;
 	private Player? _focusOwner;
-	private List<int> _shadowTurns = [];
+	private int _shadowDiscount;
 	private int _orbUpgradeLevel;
 
 	public IReadOnlyList<OrbModel> Orbs
@@ -55,10 +54,16 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 			throw new InvalidOperationException($"A card can host at most {MaxOrbs} distinct orb instances.");
 		foreach (var orb in orbs)
 			orb.AssertMutable();
+		int discount = orbs.Count(orb => orb is ShadowOrb && !_orbs.Contains(orb));
+		_shadowDiscount += discount;
 		_orbs = Array.AsReadOnly(orbs.ToArray());
 		ApplyInnateAffliction();
 		if (Owner != null)
+		{
 			MarkDirty();
+			if (discount > 0)
+				Owner.InvokeEnergyCostChanged();
+		}
 	}
 
 	public override IModelCapability CloneFor(AbstractModel clonedOwner)
@@ -72,15 +77,14 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 		}).ToArray());
 		clone._handFocus = 0;
 		clone._focusOwner = null;
-		clone._shadowTurns = [];
 		return clone;
 	}
 
-	protected override JsonNode? SaveAdditionalState() => _orbs.Count == 0 && _shadowTurns.Count == 0 && _handFocus == 0 && _orbUpgradeLevel == 0 ? null : new JsonObject
+	protected override JsonNode? SaveAdditionalState() => _orbs.Count == 0 && _shadowDiscount == 0 && _handFocus == 0 && _orbUpgradeLevel == 0 ? null : new JsonObject
 	{
 		["orbs"] = new JsonArray(_orbs.Select(orb => (JsonNode?)JsonValue.Create(orb.Id.ToString())).ToArray()),
 		["handFocus"] = _handFocus,
-		["shadowTurns"] = new JsonArray(_shadowTurns.Select(turn => (JsonNode?)JsonValue.Create(turn)).ToArray()),
+		["shadowDiscount"] = _shadowDiscount,
 		["orbUpgradeLevel"] = _orbUpgradeLevel
 	};
 
@@ -92,7 +96,7 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 				? [ModelDb.GetById<OrbModel>(ModelId.Deserialize(id)).ToMutable()] : []);
 		_handFocus = state?["handFocus"]?.GetValue<int>() ?? 0;
 		_focusOwner = null;
-		_shadowTurns = state?["shadowTurns"] is JsonArray turns ? turns.Select(turn => turn!.GetValue<int>()).ToList() : [];
+		_shadowDiscount = Math.Max(0, state?["shadowDiscount"]?.GetValue<int>() ?? _orbs.Count(orb => orb is ShadowOrb));
 		_orbUpgradeLevel = state?["orbUpgradeLevel"]?.GetValue<int>() ?? 0;
 	}
 
@@ -151,32 +155,8 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 		}
 	}
 
-	internal void QueueShadowPlay()
-	{
-		if (Owner?.Owner?.PlayerCombatState is not { } state)
-			return;
-		_shadowTurns.Add(state.TurnNumber);
-		MarkDirty();
-	}
-
-	internal async Task PlayPendingShadow(PlayerChoiceContext choiceContext, Player player)
-	{
-		if (Owner is not { HasBeenRemovedFromState: false } card || card.Owner != player ||
-			player.PlayerCombatState is not { } state || card.Pile?.IsCombatPile != true ||
-			CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead)
-			return;
-		int count = _shadowTurns.RemoveAll(turn => turn < state.TurnNumber);
-		if (count == 0)
-			return;
-		MarkDirty();
-		for (int i = 0; i < count; i++)
-		{
-			if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state ||
-				card.HasBeenRemovedFromState || card.Pile?.IsCombatPile != true)
-				break;
-			await CardCmd.AutoPlay(choiceContext, card, null);
-		}
-	}
+	public int ModifyEnergyCost(CardModel card, int currentCost, CostModifiers modifiers) =>
+		card == Owner ? currentCost - _shadowDiscount : currentCost;
 
 	public IEnumerable<CardDescriptionFragment> GetDescriptionFragments(CardDescriptionContext context)
 	{
@@ -213,6 +193,5 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 
 	public IEnumerable<string> GetCardOverlayAssetPaths(CardModel card) =>
 		Orbs.SelectMany(orb => orb.AssetPaths)
-			.Concat(Orbs.Any(orb => orb is ThunderOrb) ? [NSealedCardVfx.ScenePath] : [])
-			.Concat(Orbs.Any(orb => orb is ShadowOrb) ? ModelDb.Card<ShadowReturn>().RunAssetPaths : []).Distinct();
+			.Concat(Orbs.Any(orb => orb is ThunderOrb) ? [NSealedCardVfx.ScenePath] : []).Distinct();
 }

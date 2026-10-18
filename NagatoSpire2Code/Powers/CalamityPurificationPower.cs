@@ -12,8 +12,14 @@ namespace NagatoSpire2.NagatoSpire2Code.Powers;
 
 public sealed class CalamityPurificationPower : NagatoPowerModel
 {
+	private sealed class Data
+	{
+		public bool TriggeredThisTurn;
+	}
+
 	public override PowerType Type => PowerType.Buff;
 	public override PowerStackType StackType => PowerStackType.Counter;
+	protected override object InitInternalData() => new Data();
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => HoverTipFactory.FromAffliction<Sealed>();
 
 	public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
@@ -28,11 +34,23 @@ public sealed class CalamityPurificationPower : NagatoPowerModel
 
 	public override Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw) => SealCard(card);
 
+	public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
+		IReadOnlyList<Creature> participants, ICombatState combatState)
+	{
+		if (side == CombatSide.Player && participants.Contains(Owner))
+			GetInternalData<Data>().TriggeredThisTurn = false;
+		return Task.CompletedTask;
+	}
+
 	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
 	{
 		if (card.Owner != Owner.Player || card.Affliction is not Sealed || Owner.IsDead ||
 			CombatManager.Instance.IsOverOrEnding || Owner.Player is not { PlayerCombatState: not null } player)
 			return;
+		var data = GetInternalData<Data>();
+		if (data.TriggeredThisTurn)
+			return;
+		data.TriggeredThisTurn = true;
 		Flash();
 		await CardPileCmd.Draw(choiceContext, Amount, player);
 	}

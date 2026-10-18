@@ -9,6 +9,7 @@ public sealed class ToriiPower : NagatoPowerModel
 {
 	public override PowerType Type => PowerType.Buff;
 	public override PowerStackType StackType => PowerStackType.Counter;
+	protected override bool UsesPackedIcon => true;
 
 	public override decimal ModifyHpLostAfterOsty(Creature target, decimal amount, ValueProp props,
 		Creature? dealer, CardModel? cardSource) => target == Owner && amount > 1m && amount <= Amount ? 1m : amount;

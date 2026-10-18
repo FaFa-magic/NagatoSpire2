@@ -2,9 +2,9 @@
   "NAGATO_SPIRE2_LOADING.title": "装填",
   "NAGATO_SPIRE2_LOADING.description": "将卡牌加入卡牌槽位。\n槽位满时，进行[gold]齐射[/gold]：依次自动打出其中的所有卡牌。",
   "NAGATO_SPIRE2_RESIDENCE.title": "寄宿",
-  "NAGATO_SPIRE2_RESIDENCE.description": "每张卡牌最多寄宿3个充能球并发挥其效果。\n已满时再寄宿，[gold]激发[/gold]第1个充能球，其余依次上移，新球寄宿在末尾；战斗外不[gold]激发[/gold]，直接替换。\n被寄宿的卡牌[gold]消耗[/gold]时，依次[gold]激发[/gold]寄宿的充能球。",
+  "NAGATO_SPIRE2_RESIDENCE.description": "每张卡牌最多寄宿3个充能球并发挥其效果。已满时再寄宿，则[gold]激发[/gold]第1个充能球、\n被寄宿的卡牌[gold]消耗[/gold]时，依次[gold]激发[/gold]寄宿的充能球。",
   "NAGATO_SPIRE2_SALVO.title": "齐射",
-  "NAGATO_SPIRE2_SALVO.description": "卡牌槽位满时，依次自动打出其中的所有卡牌。\n带有[gold]封印[/gold]的牌打出后[gold]消耗[/gold]。",
+  "NAGATO_SPIRE2_SALVO.description": "卡牌槽位满时，依次自动打出其中的所有卡牌。",
   "NAGATO_SPIRE2_TEMPORARY_POWER.title": "临时能力",
   "NAGATO_SPIRE2_TEMPORARY_POWER.description": "回合结束时到期的临时增益与减益。"
 }

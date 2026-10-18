@@ -25,13 +25,6 @@ public sealed class NagatoCardOrbHooks() : HookedSingletonModel(HookType.Combat)
 		return card.Capability<CardOrbCapability>()?.UpdateHandFocus() ?? Task.CompletedTask;
 	}
 
-	public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
-	{
-		foreach (var card in player.PlayerCombatState?.AllCards.ToArray() ?? [])
-			if (card.Capability<CardOrbCapability>() is { } capability)
-				await capability.PlayPendingShadow(choiceContext, player);
-	}
-
 	public override Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player) =>
 		Trigger(choiceContext, player, true);
 

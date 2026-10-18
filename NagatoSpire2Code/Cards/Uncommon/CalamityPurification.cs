@@ -11,7 +11,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Uncommon;
 
 public sealed class CalamityPurification() : NagatoCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => HoverTipFactory.FromAffliction<Sealed>();
 	protected override IEnumerable<string> ExtraRunAssetPaths => [.. base.ExtraRunAssetPaths, NSealedCardVfx.ScenePath];
 

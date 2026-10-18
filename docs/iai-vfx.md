@@ -1,6 +1,6 @@
 # 居合：闭眼拔刀与樱花书法收尾
 
-只为 `Iai.AfterCardDrawn` 的回合结束抽到触发添加演出，不修改官方特效、其他卡牌或 `IaiDrawPower` 的回合结束钩子。伤害仍由官方 `DamageCmd.Attack` 结算，数值保持 60 / 升级后 75，目标保持全体敌方。
+只为 `Iai.AfterCardDrawn` 的回合结束抽到触发添加演出，不修改官方特效、其他卡牌或 `DrawCardsAtTurnEndPower` 的回合结束钩子。伤害仍由官方 `DamageCmd.Attack` 结算，数值保持 60 / 升级后 75，目标保持全体敌方。
 
 ## 时间与画面
 

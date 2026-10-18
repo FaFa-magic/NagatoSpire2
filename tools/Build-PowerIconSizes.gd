@@ -6,11 +6,21 @@ const POWERS = PROJECT + "NagatoSpire2/images/powers/"
 const NAMES = ["LastWhiteLightEchoPower", "LastWhiteLightPower", "NavyHolidayPower", "SoulWelcomingPower"]
 
 func _initialize() -> void:
+	# Optional batch arguments preserve the original 2026-10-16 defaults.
+	var source_directory: String = SOURCE
+	var names: Array = NAMES
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--source="):
+			source_directory = argument.trim_prefix("--source=").trim_suffix("/") + "/"
+		elif argument.begins_with("--names="):
+			names = Array(argument.trim_prefix("--names=").split(",", false))
+	assert(not names.is_empty(), "No Power names specified")
 	for folder in ["big", "packed"]:
 		var directory_error = DirAccess.make_dir_recursive_absolute(POWERS + folder)
 		assert(directory_error == OK)
-	for name in NAMES:
-		var source = Image.load_from_file(SOURCE + name + "_master.png")
+	for name in names:
+		assert(String(name).is_valid_identifier(), "Invalid Power name")
+		var source = Image.load_from_file(source_directory + name + "_master.png")
 		assert(source != null and not source.is_empty(), "Missing master: " + name)
 		assert(source.get_width() == source.get_height(), "Master must be square: " + name)
 		assert(source.detect_alpha() != Image.ALPHA_NONE, "Master needs transparency: " + name)

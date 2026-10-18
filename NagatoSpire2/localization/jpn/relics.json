@@ -11,11 +11,14 @@
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_FIVE.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_SIX.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_H.title": "桜色のシーグラス",
-  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": "自身のターン終了時、[gold]砲弾[/gold]1枚を[gold]装填[/gold]する。",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": "自身のターン終了時、[gold]雷[/gold]が宿った[gold]砲弾[/gold]1枚を[gold]装填[/gold]する。",
   "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.title": "交差射撃盤",
   "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.description": "敵にカードでダメージを与えるたび、他の敵全体に[blue]{Damage}[/blue]ダメージを与える。",
   "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.flavor": "交差する射線が織り成す弾幕に、逃げ場はない。",
   "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.title": "御神炉",
   "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.description": "ターン開始時、追加で{Energy:energyIcons()}を得る。\n自身のターン中は[gold]エナジー[/gold]を得られない。",
-  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.flavor": "神火が恵みを授けるのは夜明けのみ。その後は祈りにも応えない。"
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.flavor": "神火が恵みを授けるのは夜明けのみ。その後は祈りにも応えない。",
+  "NAGATO_SPIRE2_RELIC_Z_FLAG.title": "Z旗",
+  "NAGATO_SPIRE2_RELIC_Z_FLAG.description": "各戦闘で最初の[gold]斉射[/gold]後、[gold]筋力[/gold][blue]{StrengthPower}[/blue]と[gold]集中力[/gold][blue]{FocusPower}[/blue]を得る。",
+  "NAGATO_SPIRE2_RELIC_Z_FLAG.flavor": "旗が翻る。艦隊の決意は、その一斉射に託された。"
 }

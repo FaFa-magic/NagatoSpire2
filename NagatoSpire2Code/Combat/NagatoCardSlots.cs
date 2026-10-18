@@ -59,6 +59,16 @@ public static class NagatoCardSlots
 		player.PlayerCombatState?.PlayPile.Cards
 			.Where(card => !card.HasBeenRemovedFromState && GetSlot(card) > 0).OrderBy(GetSlot).ToArray() ?? [];
 
+	public static int GetEmptySlotCount(Player player)
+	{
+		if (player.PlayerCombatState is not { } state)
+			return 0;
+		int pending = GetState(player).Pending
+			.Where(entry => entry.Load && IsStored(entry.Card, state) && GetSlot(entry.Card) == 0)
+			.Select(entry => entry.Card).Distinct().Count();
+		return Math.Max(0, InitialCapacity - GetCards(player).Count - pending);
+	}
+
 	private static int GetSlot(CardModel card) => ModelCapabilities.TryGet(card, out var capabilities)
 		? capabilities.Get<LoadedCardCapability>()?.SlotIndex ?? 0 : 0;
 
@@ -201,6 +211,16 @@ public static class NagatoCardSlots
 					{
 						slots.NextSalvoCard = null;
 					}
+				}
+				foreach (var listener in player.Creature.Powers.Cast<AbstractModel>().Concat(player.Relics.Where(relic => !relic.IsMelted))
+					.Where(model => model is INagatoSalvoListener).ToArray())
+				{
+					if (!CanResolve(player, state))
+						break;
+					if (listener is PowerModel power && !player.Creature.Powers.Contains(power) ||
+						listener is RelicModel relic && (!player.Relics.Contains(relic) || relic.IsMelted))
+						continue;
+					await ((INagatoSalvoListener)listener).AfterNagatoSalvo(choiceContext);
 				}
 			}
 		}

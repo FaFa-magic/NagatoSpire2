@@ -28,7 +28,7 @@ public sealed class Iai() : NagatoCardModel(0, CardType.Attack, CardRarity.Rare,
 
 		await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Random);
 		if (!CombatManager.Instance.IsOverOrEnding && !Owner.Creature.IsDead && Owner.PlayerCombatState == state)
-			await PowerCmd.Apply<IaiDrawPower>(choiceContext, Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
+			await PowerCmd.Apply<DrawCardsAtTurnEndPower>(choiceContext, Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
 	}
 
 	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)

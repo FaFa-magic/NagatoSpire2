@@ -6,6 +6,8 @@ namespace NagatoSpire2.NagatoSpire2Code.Powers;
 
 public sealed class StillWatersPower : NagatoPowerModel, IMaxHandSizeModifier
 {
+	protected override bool UsesPackedIcon => true;
+
 	public override PowerType Type => PowerType.Buff;
 	public override PowerStackType StackType => PowerStackType.Counter;
 

@@ -7,9 +7,8 @@ namespace NagatoSpire2.NagatoSpire2Code.Combat;
 
 public static class NagatoTemporaryPowers
 {
-	public static decimal Count(Creature creature, Type? internalPowerType = null) => creature.Powers
-		.Where(power => power is ITemporaryPower temporary &&
-			(internalPowerType == null || temporary.InternallyAppliedPower.GetType() == internalPowerType))
+	public static decimal Count(Creature creature) => creature.Powers
+		.Where(power => power is ITemporaryPower)
 		.Sum(power => Math.Abs((decimal)power.Amount));
 
 	public static async Task Reduce(Creature creature, int amount)

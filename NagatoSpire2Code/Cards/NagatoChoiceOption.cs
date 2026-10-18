@@ -3,7 +3,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using NagatoSpire2.NagatoSpire2Code.Characters;
-using NagatoSpire2.NagatoSpire2Code.Nodes.Ui;
+using NagatoSpire2.NagatoSpire2Code.Commands;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards;
@@ -15,9 +15,7 @@ public abstract class NagatoChoiceOption() : NagatoCardModel(-1, CardType.Skill,
 
 	protected override IEnumerable<string> ExtraRunAssetPaths =>
 	[
-		.. base.ExtraRunAssetPaths, NagatoChoiceTable.ScenePath, NagatoChoiceTable.BackgroundPath,
-		"res://scenes/ui/hand_image.tscn",
-		.. NagatoChoicePointingImage.AssetPaths
+		.. base.ExtraRunAssetPaths, .. NagatoChoiceCmd.AssetPaths
 	];
 
 	public override CardPoolModel VisualCardPool => ModelDb.CardPool<NagatoCardPool>();

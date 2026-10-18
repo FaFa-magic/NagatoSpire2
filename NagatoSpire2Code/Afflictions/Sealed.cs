@@ -27,7 +27,7 @@ public sealed class Sealed : NagatoAfflictionModel
 	public override CardLocation ModifyCardPlayResultLocation(CardModel card, bool isAutoPlay, ResourceInfo resources,
 		CardLocation cardLocation) =>
 		HasCard && card == Card && isAutoPlay && _autoplaying
-			? cardLocation with { pileType = PileType.Exhaust, position = CardPilePosition.Bottom }
+			? cardLocation with { player = card.Owner, pileType = PileType.Exhaust, position = CardPilePosition.Bottom }
 			: cardLocation;
 
 	internal async Task Play(PlayerChoiceContext choiceContext)

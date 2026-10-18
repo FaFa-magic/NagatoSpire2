@@ -3,7 +3,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Screens.CardSelection;
-using NagatoSpire2.NagatoSpire2Code.Cards;
+using NagatoSpire2.NagatoSpire2Code.Commands;
 using NagatoSpire2.NagatoSpire2Code.Nodes.Ui;
 using STS2RitsuLib.Patching.Models;
 
@@ -23,7 +23,7 @@ public sealed class NagatoChoiceScreenPatch : IPatchMethod
     [HarmonyPostfix]
     public static void Postfix(Control __instance, IReadOnlyList<CardModel> ____cards)
     {
-        if (____cards.Count == 0 || ____cards.Any(card => card is not NagatoChoiceOption))
+        if (____cards.Count == 0 || ____cards.Any(card => !NagatoChoiceCmd.IsChoiceOption(card)))
             return;
         // A DLL-only update must not softlock a run if its matching PCK has not been installed yet.
         if (!ResourceLoader.Exists(NagatoChoiceTable.ScenePath) || !ResourceLoader.Exists(NagatoChoiceTable.BackgroundPath))

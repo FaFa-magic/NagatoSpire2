@@ -6,11 +6,17 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace NagatoSpire2.NagatoSpire2Code.Powers;
 
 public sealed class TemporaryPlatingPower : NagatoTempPowerModel<PlatingPower, PlatingPower>
 {
+	public override PowerAssetProfile AssetProfile => new(
+		IconPath: "res://NagatoSpire2/images/powers/packed/TemporaryPlatingPower.png",
+		BigIconPath: "res://NagatoSpire2/images/powers/big/TemporaryPlatingPower.png"
+	);
+
 	private int _internalChanges;
 
 	public override LocString Title => new("powers", Id.Entry + ".title");
