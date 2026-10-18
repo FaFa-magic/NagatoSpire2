@@ -23,7 +23,7 @@ public class NagatoCharacter : ModCharacterTemplate<NagatoCardPool, NagatoRelicP
 	public override CharacterGender Gender => CharacterGender.Feminine;
 	public override int StartingHp => 80;
 	public override int StartingGold => 99;
-	public override int BaseOrbSlotCount => 8;
+	public override int BaseOrbSlotCount => 0;
 
 	public override Color NameColor => new("#9A72A1");
 	public override Color EnergyLabelOutlineColor => new("#806018");

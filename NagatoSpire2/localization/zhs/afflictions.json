@@ -1,5 +1,5 @@
 {
-  "NAGATO_SPIRE2_AFFLICTION_SEALED.description": "不能被手动打出。\n抽到这张牌时，自动打出，然后[gold]消耗[/gold]。",
+  "NAGATO_SPIRE2_AFFLICTION_SEALED.description": "不能被手动打出。\n抽到这张牌后，[gold]装填[/gold]。\n从卡牌槽位自动打出后[gold]消耗[/gold]。",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.extraCardText": "封印",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.title": "封印"
 }

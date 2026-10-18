@@ -1,6 +1,6 @@
 {
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.title": "大艦巨砲",
-  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.description": "",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.description": "自身のターン終了時、[gold]砲弾[/gold]1枚を[gold]装填[/gold]する。",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.flavor": "朱の鳥居の下、重桜の旗艦は艦隊を守ると神々に誓う。",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.title": "大艦巨砲・神威",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.flavor": "金箔の御神門に旗艦の誓いが掲げられ、桜月が大艦巨砲の神威を見届ける。",
@@ -11,5 +11,11 @@
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_FIVE.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_SIX.title": "桜色のシーグラス",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_H.title": "桜色のシーグラス",
-  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": ""
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": "自身のターン終了時、[gold]砲弾[/gold]1枚を[gold]装填[/gold]する。",
+  "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.title": "交差射撃盤",
+  "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.description": "敵にカードでダメージを与えるたび、他の敵全体に[blue]{Damage}[/blue]ダメージを与える。",
+  "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.flavor": "交差する射線が織り成す弾幕に、逃げ場はない。",
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.title": "御神炉",
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.description": "ターン開始時、追加で{Energy:energyIcons()}を得る。\n自身のターン中は[gold]エナジー[/gold]を得られない。",
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.flavor": "神火が恵みを授けるのは夜明けのみ。その後は祈りにも応えない。"
 }

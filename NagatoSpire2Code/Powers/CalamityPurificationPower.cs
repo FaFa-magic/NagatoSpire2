@@ -21,12 +21,12 @@ public sealed class CalamityPurificationPower : NagatoPowerModel
 		if (Owner.Player?.PlayerCombatState is not { } state)
 			return;
 		foreach (var card in state.AllCards.ToArray())
-			await SealStatus(card);
+			await SealCard(card);
 	}
 
-	public override Task AfterCardEnteredCombat(CardModel card) => SealStatus(card);
+	public override Task AfterCardEnteredCombat(CardModel card) => SealCard(card);
 
-	public override Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw) => SealStatus(card);
+	public override Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw) => SealCard(card);
 
 	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
 	{
@@ -37,9 +37,9 @@ public sealed class CalamityPurificationPower : NagatoPowerModel
 		await CardPileCmd.Draw(choiceContext, Amount, player);
 	}
 
-	private async Task SealStatus(CardModel card)
+	private async Task SealCard(CardModel card)
 	{
-		if (card.Owner != Owner.Player || card.Type != CardType.Status || card.Affliction is Sealed ||
+		if (card.Owner != Owner.Player || card.Type is not (CardType.Status or CardType.Curse) || card.Affliction is Sealed ||
 			card.HasBeenRemovedFromState || Owner.IsDead || CombatManager.Instance.IsOverOrEnding)
 			return;
 		if (card.Affliction != null)

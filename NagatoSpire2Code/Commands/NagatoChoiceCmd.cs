@@ -19,12 +19,16 @@ public static class NagatoChoiceCmd
 			return;
 
 		bool multiple = player.Creature.GetPower<MyriadRevelationsPower>() != null;
+		bool useGrid = multiple || options.Count > 3;
+		int maxCount = multiple ? options.Count : 1;
 		CardModel[] selected;
-		if (multiple)
+		if (useGrid)
 			selected = (await CardSelectCmd.FromSimpleGrid(choiceContext, options, player,
-				new CardSelectorPrefs(new LocString("powers", "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt"), 1, options.Count)
+				new CardSelectorPrefs(multiple
+					? new LocString("powers", "NAGATO_SPIRE2_POWER_MYRIAD_REVELATIONS_POWER.selectionScreenPrompt")
+					: new LocString("card_keywords", "NAGATO_SPIRE2_KEYWORD_CHOICE.selectionScreenPrompt"), 1, maxCount)
 				{
-					RequireManualConfirmation = true,
+					RequireManualConfirmation = multiple,
 					Cancelable = false
 				})).ToArray();
 		else
@@ -35,8 +39,8 @@ public static class NagatoChoiceCmd
 		if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.PlayerCombatState != state)
 			return;
 
-		if (multiple && (selected.Length < 1 || selected.Length > options.Count || selected.Distinct().Count() != selected.Length))
-			throw new InvalidOperationException("A multi-choice must select at least one distinct option.");
+		if (useGrid && (selected.Length < 1 || selected.Length > maxCount || selected.Distinct().Count() != selected.Length))
+			throw new InvalidOperationException("A choice must select the permitted number of distinct options.");
 		if (selected.Any(card => card is not NagatoChoiceOption || !options.Contains(card)))
 			throw new InvalidOperationException("A choice selected a card outside its options.");
 

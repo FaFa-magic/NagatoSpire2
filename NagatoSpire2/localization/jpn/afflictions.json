@@ -1,5 +1,5 @@
 {
-  "NAGATO_SPIRE2_AFFLICTION_SEALED.description": "手動でプレイできない。\nこのカードを引くと、自動でプレイしてから[gold]廃棄[/gold]する。",
+  "NAGATO_SPIRE2_AFFLICTION_SEALED.description": "手動でプレイできない。\nこのカードを引いた後、[gold]装填[/gold]する。\nカードスロットから自動プレイした後、[gold]廃棄[/gold]する。",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.extraCardText": "封印",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.title": "封印"
 }

@@ -20,6 +20,7 @@ public abstract class NagatoOrbModel : ModOrbTemplate
 	public override decimal EvokeVal => 0m;
 	public override ModOrbValueDisplayMode ValueDisplayMode => ModOrbValueDisplayMode.Hidden;
 	public virtual bool IsFocusAffected => false;
+	public sealed override bool AllowInRandomOrbPool => false;
 	internal CardModel? HostCard { get; set; }
 
 	protected decimal FocusValue(decimal value) =>

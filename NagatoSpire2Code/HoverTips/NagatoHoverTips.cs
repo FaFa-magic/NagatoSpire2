@@ -7,6 +7,8 @@ public static class NagatoHoverTips
 {
 	public static IHoverTip TemporaryPower => Create("TEMPORARY_POWER");
 	public static IHoverTip Residence => Create("RESIDENCE");
+	public static IHoverTip Loading => Create("LOADING");
+	public static IHoverTip Salvo => Create("SALVO");
 
 	private static IHoverTip Create(string name) => new HoverTip(
 		new LocString("static_hover_tips", $"NAGATO_SPIRE2_{name}.title"),

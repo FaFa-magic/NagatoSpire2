@@ -13,10 +13,12 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
 
 public sealed class SakuraBlizzard() : NagatoCardModel(1, CardType.Attack, CardRarity.Common, TargetType.Self), IModelCapabilitySource
 {
+	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move)];
 
 	public void BuildDefaultCapabilities(ModelCapabilityList capabilities) =>
-		capabilities.Add<CardOrbCapability>().SetOrbs(ModelDb.Orb<WindOrb>().ToMutable());
+		capabilities.Add<CardOrbCapability>().SetOrbs(ModelDb.Orb<WindOrb>().ToMutable(), ModelDb.Orb<WindOrb>().ToMutable());
 
 	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
 	{

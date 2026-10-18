@@ -1,4 +1,5 @@
 {
   "NAGATO_SPIRE2_KEYWORD_CHOICE.title": "Choice",
+  "NAGATO_SPIRE2_KEYWORD_CHOICE.selectionScreenPrompt": "Choose an option",
   "NAGATO_SPIRE2_KEYWORD_CHOICE.description": "Choose [blue]1[/blue] of the displayed options and perform its effect."
 }

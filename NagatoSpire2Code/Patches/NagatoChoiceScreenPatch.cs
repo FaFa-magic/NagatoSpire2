@@ -1,5 +1,6 @@
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Screens.CardSelection;
 using NagatoSpire2.NagatoSpire2Code.Cards;
@@ -33,6 +34,8 @@ public sealed class NagatoChoiceScreenPatch : IPatchMethod
             var tween = (Tween?)AccessTools.Field(typeof(NChooseACardSelectionScreen), "_cardTween").GetValue(__instance);
             tween?.Kill();
         }
-        NagatoChoiceScreenSkin.Attach(__instance, ____cards, __instance is NSimpleCardSelectScreen);
+        bool multiple = __instance is NSimpleCardSelectScreen &&
+            ((CardSelectorPrefs)AccessTools.Field(typeof(NSimpleCardSelectScreen), "_prefs").GetValue(__instance)!).MaxSelect > 1;
+        NagatoChoiceScreenSkin.Attach(__instance, ____cards, multiple);
     }
 }

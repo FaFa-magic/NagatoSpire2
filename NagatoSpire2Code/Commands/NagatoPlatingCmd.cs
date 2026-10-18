@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using NagatoSpire2.NagatoSpire2Code.Powers;
-using STS2RitsuLib.Combat.Powers;
 
 namespace NagatoSpire2.NagatoSpire2Code.Commands;
 
@@ -46,19 +45,7 @@ public static class NagatoPlatingCmd
 			if (CombatManager.Instance.IsOverOrEnding || owner.IsDead || owner.CombatState != combatState ||
 				!owner.Powers.Contains(plating))
 				break;
-			int before = plating.Amount;
 			await PowerCmd.ModifyAmount(choiceContext, plating, -1m, null, null);
-			int consumed = Math.Min(1, Math.Max(before - plating.Amount, 0));
-			foreach (var temporary in owner.Powers.OfType<ModTemporaryPowerTemplate>()
-				.Where(power => power.InternallyAppliedPower is PlatingPower && power.Amount > 0).ToArray())
-			{
-				if (consumed <= 0)
-					break;
-				int decrement = Math.Min(consumed, temporary.Amount);
-				temporary.IgnoreNextInstance();
-				await PowerCmd.ModifyAmount(choiceContext, temporary, -decrement, null, null, true);
-				consumed -= decrement;
-			}
 		}
 	}
 }

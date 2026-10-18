@@ -1,6 +1,10 @@
 {
+  "NAGATO_SPIRE2_LOADING.title": "Load",
+  "NAGATO_SPIRE2_LOADING.description": "Place a card in a card slot.\nWhen all slots are full, fire a [gold]Salvo[/gold]: automatically play all cards in them in order.",
   "NAGATO_SPIRE2_RESIDENCE.title": "Residence",
-  "NAGATO_SPIRE2_RESIDENCE.description": "Up to 3 Orbs can reside in a card and apply their effects.\nWhen that card is Exhausted, Evoke its resident Orbs in order.",
+  "NAGATO_SPIRE2_RESIDENCE.description": "Up to 3 Orbs can reside in a card and apply their effects.\nWhen full, Evoke the first Orb, shift the others up, and append the new Orb. Outside combat, replace it without Evoking.\nWhen that card is Exhausted, Evoke its resident Orbs in order.",
+  "NAGATO_SPIRE2_SALVO.title": "Salvo",
+  "NAGATO_SPIRE2_SALVO.description": "When all card slots are full, automatically play all cards in them in order.\n[gold]Sealed[/gold] cards [gold]Exhaust[/gold] after being played.",
   "NAGATO_SPIRE2_TEMPORARY_POWER.title": "Temporary Powers",
   "NAGATO_SPIRE2_TEMPORARY_POWER.description": "Temporary buffs and debuffs that expire at the end of a turn."
 }

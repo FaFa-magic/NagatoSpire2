@@ -29,6 +29,6 @@ public sealed class ArmoredRefitPower : NagatoPowerModel
 		if (CombatManager.Instance.IsOverOrEnding || Owner.IsDead || Owner.Player.PlayerCombatState != state)
 			return;
 
-		await PowerCmd.Apply<ArmoredRefitPlatingPower>(choiceContext, Owner, block, Owner, null);
+		await PowerCmd.Apply<TemporaryPlatingPower>(choiceContext, Owner, block, Owner, null);
 	}
 }

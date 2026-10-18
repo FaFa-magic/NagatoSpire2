@@ -16,6 +16,7 @@
   "NAGATO_SPIRE2_ORB_SHADOW_ORB.smartDescription": "[gold]Passive[/gold]: After its host card is played, [gold]Choose[/gold]: Put it on top of your draw pile; or [gold]Exhaust[/gold] it.\n[gold]Evoke[/gold]: Autoplay its host card at the start of your next turn.",
   "NAGATO_SPIRE2_ORB_SHADOW_ORB.cardText": "[color=#C7AEE8]Choose: Put this card on top of your draw pile; or Exhaust it.[/color]",
   "NAGATO_SPIRE2_ORB_THUNDER_ORB.title": "Thunder",
+  "NAGATO_SPIRE2_ORB_THUNDER_ORB.cardText": "[purple]{Sealed}[/purple]",
   "NAGATO_SPIRE2_ORB_THUNDER_ORB.description": "[gold]Passive[/gold]: Its host card is [gold]Sealed[/gold].\n[gold]Evoke[/gold]: Deal 3 damage to ALL enemies 3 times.",
   "NAGATO_SPIRE2_ORB_THUNDER_ORB.smartDescription": "[gold]Passive[/gold]: Its host card is [gold]Sealed[/gold].\n[gold]Evoke[/gold]: Deal {Evoke} damage to ALL enemies {Passive} times.",
   "NAGATO_SPIRE2_ORB_WIND_ORB.title": "Wind",

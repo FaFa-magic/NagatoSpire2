@@ -1,10 +1,11 @@
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using NagatoSpire2.NagatoSpire2Code.Combat;
+using NagatoSpire2.NagatoSpire2Code.HoverTips;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
 
@@ -17,7 +18,7 @@ public sealed class TwinMountStrike() : NagatoCardModel(0, CardType.Attack, Card
 	
 	protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 	
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.Static(StaticHoverTip.Evoke)];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [NagatoHoverTips.Loading];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
@@ -25,8 +26,7 @@ public sealed class TwinMountStrike() : NagatoCardModel(0, CardType.Attack, Card
 		await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount(DynamicVars["Hits"].IntValue)
 			.FromCard(this, cardPlay).Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-		if (Owner.PlayerCombatState is { } state && !CombatManager.Instance.IsOverOrEnding && !Owner.Creature.IsDead)
-			await OrbCmd.EvokeLast(choiceContext, Owner);
+		await NagatoCardSlots.Load(choiceContext, this);
 	}
 
 	protected override void OnUpgrade() => DynamicVars["Hits"].UpgradeValueBy(1m);

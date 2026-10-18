@@ -1,19 +1,33 @@
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
-using NagatoSpire2.NagatoSpire2Code.Capabilities;
-using NagatoSpire2.NagatoSpire2Code.Orbs;
-using STS2RitsuLib.Models.Capabilities;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
+using NagatoSpire2.NagatoSpire2Code.Combat;
+using NagatoSpire2.NagatoSpire2Code.HoverTips;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
-public sealed class PiercingOnslaught() : NagatoCardModel(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy), IModelCapabilitySource
+public sealed class PiercingOnslaught() : NagatoCardModel(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
-	public void BuildDefaultCapabilities(ModelCapabilityList capabilities) =>
-		capabilities.Add<CardOrbCapability>().SetOrbs(
-			ModelDb.Orb<ForestOrb>().ToMutable(), ModelDb.Orb<FireOrb>().ToMutable(), ModelDb.Orb<ThunderOrb>().ToMutable());
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new IntVar("Hits", 8)];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [NagatoHoverTips.Salvo];
 
-	protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) => Task.CompletedTask;
+	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+	{
+		ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
+		await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount(DynamicVars["Hits"].IntValue)
+			.FromCard(this, cardPlay).Targeting(cardPlay.Target)
+			.WithHitFx("vfx/vfx_attack_blunt").Execute(choiceContext);
+	}
 
-	protected override void OnUpgrade() { }
+	protected override CardLocation GetResultLocationForCardPlay()
+	{
+		var result = base.GetResultLocationForCardPlay();
+		return NagatoCardSlots.IsSalvo(this) && result.pileType == PileType.Discard
+			? result with { pileType = PileType.Hand } : result;
+	}
+
+	protected override void OnUpgrade() => DynamicVars["Hits"].UpgradeValueBy(2m);
 }

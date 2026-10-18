@@ -1,4 +1,3 @@
-using System.Reflection.Emit;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -117,35 +116,12 @@ public static class NagatoDrawPilePreviewPatches
         public static bool IsCritical => false;
         public static ModPatchTarget[] GetTargets() =>
         [
-            new(typeof(CardCmd), nameof(CardCmd.Transform),
-                [typeof(IEnumerable<CardTransformation>), typeof(Rng), typeof(CardPreviewStyle)], MethodType.Async)
+            new(typeof(CardTransformation), nameof(CardTransformation.GetReplacement), [typeof(Rng)])
         ];
 
-        [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            var original = AccessTools.Method(typeof(CardTransformation), nameof(CardTransformation.GetReplacement));
-            var replacement = AccessTools.Method(typeof(TransformPatch), nameof(GetReplacement));
-            int count = 0;
-            foreach (var instruction in instructions)
-            {
-                if (instruction.Calls(original))
-                {
-                    instruction.opcode = OpCodes.Call;
-                    instruction.operand = replacement;
-                    count++;
-                }
-                yield return instruction;
-            }
-            if (count != 1)
-                throw new InvalidOperationException("Could not locate the native card transformation replacement.");
-        }
-
-        private static CardModel? GetReplacement(ref CardTransformation transformation, Rng? rng)
-        {
-            var replacement = transformation.GetReplacement(rng);
-            NNagatoDrawPilePreviews.RememberTransformation(transformation.Original, replacement);
-            return replacement;
-        }
+        [HarmonyPostfix]
+        [HarmonyPriority(Priority.Last)]
+        public static void Postfix(CardTransformation __instance, CardModel? __result) =>
+            NNagatoDrawPilePreviews.RememberTransformation(__instance.Original, __result);
     }
 }

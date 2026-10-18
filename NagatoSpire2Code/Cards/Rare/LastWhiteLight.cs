@@ -10,6 +10,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
 public sealed class LastWhiteLight() : NagatoCardModel(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
+	public override bool CanBeGeneratedInCombat => false;
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
 	protected override IEnumerable<string> ExtraRunAssetPaths =>

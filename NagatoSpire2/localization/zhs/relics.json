@@ -7,9 +7,15 @@
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_SIX.title": "樱色玻璃",
   "SEA_GLASS.NAGATO_SPIRE2_CHARACTER_NAGATO_VARIANT_H.title": "樱色玻璃",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.title": "大舰巨炮",
-  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.description": "",
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.description": "你的回合结束时，[gold]装填[/gold]1张[gold]炮弹[/gold]。",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS.flavor": "朱红鸟居之下，重樱旗舰向神明许下守护舰队的誓言。",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.title": "大舰巨炮·神威",
   "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.flavor": "漆金御神门高悬旗舰之誓，樱月见证大舰巨炮的神威。",
-  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": ""
+  "NAGATO_SPIRE2_RELIC_BIG_SHIPS_BIG_GUNS_DIVINE_MIGHT.description": "你的回合结束时，[gold]装填[/gold]1张[gold]炮弹[/gold]。",
+  "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.title": "交叉火控仪",
+  "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.description": "你对敌人造成卡牌伤害后，对其他敌人造成[blue]{Damage}[/blue]点伤害。",
+  "NAGATO_SPIRE2_RELIC_CROSSFIRE_DIRECTOR.flavor": "纵横交织的射线，终将汇成无处可避的弹幕。",
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.title": "御神炉",
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.description": "每回合开始时，额外获得{Energy:energyIcons()}。\n你的回合进行中，无法获得[gold]能量[/gold]。",
+  "NAGATO_SPIRE2_RELIC_SACRED_FURNACE.flavor": "神火只在破晓赐予恩惠，此后不再回应祈愿。"
 }

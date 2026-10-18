@@ -22,6 +22,6 @@ public sealed class DivineProtectionPower : NagatoPowerModel, INagatoChoiceListe
 			return;
 
 		Flash();
-		await PowerCmd.Apply<DivineProtectionPlatingPower>(choiceContext, Owner, Amount, Owner, null);
+		await PowerCmd.Apply<TemporaryPlatingPower>(choiceContext, Owner, Amount, Owner, null);
 	}
 }

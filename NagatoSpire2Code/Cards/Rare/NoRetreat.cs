@@ -9,6 +9,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
 public sealed class NoRetreat() : NagatoCardModel(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
+	public override bool CanBeGeneratedInCombat => false;
 	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PlatingPower>(8m)];
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

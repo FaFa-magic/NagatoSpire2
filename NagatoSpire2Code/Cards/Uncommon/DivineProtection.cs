@@ -11,7 +11,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Uncommon;
 
 public sealed class DivineProtection() : NagatoCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DivineProtectionPlatingPower>(3m)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DivineProtectionPower>(3m)];
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
@@ -21,7 +21,7 @@ public sealed class DivineProtection() : NagatoCardModel(1, CardType.Power, Card
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
 		await PowerCmd.Apply<DivineProtectionPower>(choiceContext, Owner.Creature,
-			DynamicVars["DivineProtectionPlatingPower"].BaseValue, Owner.Creature, this);
+			DynamicVars["DivineProtectionPower"].BaseValue, Owner.Creature, this);
 
-	protected override void OnUpgrade() => DynamicVars["DivineProtectionPlatingPower"].UpgradeValueBy(1m);
+	protected override void OnUpgrade() => DynamicVars["DivineProtectionPower"].UpgradeValueBy(1m);
 }

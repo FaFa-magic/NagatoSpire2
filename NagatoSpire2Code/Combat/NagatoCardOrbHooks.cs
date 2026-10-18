@@ -19,8 +19,11 @@ public sealed class NagatoCardOrbHooks() : HookedSingletonModel(HookType.Combat)
 	public override Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal) =>
 		NagatoCardOrbs.Evoke(choiceContext, card);
 
-	public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy) =>
-		card.Capability<CardOrbCapability>()?.UpdateHandFocus() ?? Task.CompletedTask;
+	public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
+	{
+		NagatoCardSlots.AfterCardChangedPiles(card);
+		return card.Capability<CardOrbCapability>()?.UpdateHandFocus() ?? Task.CompletedTask;
+	}
 
 	public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
 	{
@@ -75,6 +78,9 @@ public sealed class NagatoCardOrbHooks() : HookedSingletonModel(HookType.Combat)
 	public override async Task AfterCombatEnd(CombatRoom room)
 	{
 		foreach (var player in room.CombatState.Players)
+		{
+			NagatoCardSlots.Clear(player);
 			await NagatoCardOrbs.Clear(player);
+		}
 	}
 }

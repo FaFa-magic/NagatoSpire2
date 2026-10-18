@@ -15,7 +15,7 @@ namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
 
 public sealed class EmergencyPlating() : NagatoCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self), IModelCapabilitySource
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EmergencyPlatingPower>(5m)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TemporaryPlatingPower>(5m)];
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<PlatingPower>()];
 
@@ -24,10 +24,10 @@ public sealed class EmergencyPlating() : NagatoCardModel(1, CardType.Skill, Card
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		await PowerCmd.Apply<EmergencyPlatingPower>(choiceContext, Owner.Creature,
-			DynamicVars["EmergencyPlatingPower"].BaseValue, Owner.Creature, this);
+		await PowerCmd.Apply<TemporaryPlatingPower>(choiceContext, Owner.Creature,
+			DynamicVars["TemporaryPlatingPower"].BaseValue, Owner.Creature, this);
 		await NagatoPlatingCmd.Trigger(choiceContext, Owner);
 	}
 
-	protected override void OnUpgrade() => DynamicVars["EmergencyPlatingPower"].UpgradeValueBy(2m);
+	protected override void OnUpgrade() => DynamicVars["TemporaryPlatingPower"].UpgradeValueBy(2m);
 }

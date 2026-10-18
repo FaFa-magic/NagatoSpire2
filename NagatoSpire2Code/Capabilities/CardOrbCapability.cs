@@ -27,6 +27,7 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 	private int _handFocus;
 	private Player? _focusOwner;
 	private List<int> _shadowTurns = [];
+	private int _orbUpgradeLevel;
 
 	public IReadOnlyList<OrbModel> Orbs
 	{
@@ -75,11 +76,12 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 		return clone;
 	}
 
-	protected override JsonNode? SaveAdditionalState() => _orbs.Count == 0 && _shadowTurns.Count == 0 && _handFocus == 0 ? null : new JsonObject
+	protected override JsonNode? SaveAdditionalState() => _orbs.Count == 0 && _shadowTurns.Count == 0 && _handFocus == 0 && _orbUpgradeLevel == 0 ? null : new JsonObject
 	{
 		["orbs"] = new JsonArray(_orbs.Select(orb => (JsonNode?)JsonValue.Create(orb.Id.ToString())).ToArray()),
 		["handFocus"] = _handFocus,
-		["shadowTurns"] = new JsonArray(_shadowTurns.Select(turn => (JsonNode?)JsonValue.Create(turn)).ToArray())
+		["shadowTurns"] = new JsonArray(_shadowTurns.Select(turn => (JsonNode?)JsonValue.Create(turn)).ToArray()),
+		["orbUpgradeLevel"] = _orbUpgradeLevel
 	};
 
 	protected override void LoadAdditionalState(JsonNode? state, int schemaVersion)
@@ -91,6 +93,16 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 		_handFocus = state?["handFocus"]?.GetValue<int>() ?? 0;
 		_focusOwner = null;
 		_shadowTurns = state?["shadowTurns"] is JsonArray turns ? turns.Select(turn => turn!.GetValue<int>()).ToList() : [];
+		_orbUpgradeLevel = state?["orbUpgradeLevel"]?.GetValue<int>() ?? 0;
+	}
+
+	internal bool RegisterOrbUpgrade(int level)
+	{
+		if (level <= _orbUpgradeLevel)
+			return false;
+		_orbUpgradeLevel = level;
+		MarkDirty();
+		return true;
 	}
 
 	internal void ApplyInnateAffliction()
@@ -98,7 +110,9 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 		if (Owner is not { IsMutable: true } card || !Orbs.Any(orb => orb is ThunderOrb) || card.Affliction is Sealed)
 			return;
 		card.ClearAfflictionInternal();
-		card.AfflictInternal(ModelDb.Affliction<Sealed>().ToMutable(), 1m);
+		var affliction = ModelDb.Affliction<Sealed>().ToMutable();
+		affliction.Amount = 1;
+		card.AfflictInternal(affliction, 1m);
 	}
 
 	internal async Task UpdateHandFocus()
@@ -166,7 +180,7 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 
 	public IEnumerable<CardDescriptionFragment> GetDescriptionFragments(CardDescriptionContext context)
 	{
-		foreach (var orb in Orbs)
+		foreach (var orb in Orbs.Where(orb => orb is not ThunderOrb))
 		{
 			string key = $"{orb.Id.Entry}.cardText";
 			if (!LocString.Exists("orbs", key))
@@ -177,7 +191,11 @@ public sealed class CardOrbCapability : CardCapability, ICardDescriptionContribu
 			yield return new CardDescriptionFragment(text);
 		}
 		if (Orbs.Any(orb => orb is ThunderOrb) && context.Card.Affliction is not Sealed)
-			yield return new CardDescriptionFragment(ModelDb.Affliction<Sealed>().DynamicExtraCardText!);
+		{
+			var text = new LocString("orbs", $"{ModelDb.Orb<ThunderOrb>().Id.Entry}.cardText");
+			text.Add("Sealed", ModelDb.Affliction<Sealed>().DynamicExtraCardText!.GetFormattedText());
+			yield return new CardDescriptionFragment(text);
+		}
 	}
 
 	public IEnumerable<IHoverTip> GetHoverTips(CardModel card)

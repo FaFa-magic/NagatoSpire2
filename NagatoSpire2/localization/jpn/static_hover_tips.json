@@ -1,6 +1,10 @@
 {
+  "NAGATO_SPIRE2_LOADING.title": "装填",
+  "NAGATO_SPIRE2_LOADING.description": "カードをカードスロットに入れる。\nすべてのスロットが埋まると[gold]斉射[/gold]し、中のカードを順に自動プレイする。",
   "NAGATO_SPIRE2_RESIDENCE.title": "寄宿",
-  "NAGATO_SPIRE2_RESIDENCE.description": "1枚のカードに最大3個のオーブが宿り、効果を発揮する。\nそのカードが廃棄されると、宿ったオーブを順に解放する。",
+  "NAGATO_SPIRE2_RESIDENCE.description": "1枚のカードに最大3個のオーブが宿り、効果を発揮する。\n上限で追加すると、最初のオーブを解放し、残りを上に詰め、新しいオーブを最後に宿す。戦闘外では解放せずに入れ替える。\nそのカードが廃棄されると、宿ったオーブを順に解放する。",
+  "NAGATO_SPIRE2_SALVO.title": "斉射",
+  "NAGATO_SPIRE2_SALVO.description": "カードスロットがすべて埋まると、中のカードを順に自動プレイする。\n[gold]封印[/gold]されたカードはプレイ後に[gold]廃棄[/gold]される。",
   "NAGATO_SPIRE2_TEMPORARY_POWER.title": "一時的な効果",
   "NAGATO_SPIRE2_TEMPORARY_POWER.description": "ターン終了時に消える一時的なバフとデバフ。"
 }

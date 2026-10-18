@@ -16,6 +16,7 @@
   "NAGATO_SPIRE2_ORB_SHADOW_ORB.smartDescription": "[gold]被动[/gold]：被寄宿的牌打出后[gold]抉择[/gold]：加入抽牌堆顶；或[gold]消耗[/gold]。\n[gold]激发[/gold]：被寄宿的牌在下个回合开始时自动打出。",
   "NAGATO_SPIRE2_ORB_SHADOW_ORB.cardText": "[color=#C7AEE8]抉择：加入抽牌堆顶；消耗。[/color]",
   "NAGATO_SPIRE2_ORB_THUNDER_ORB.title": "雷",
+  "NAGATO_SPIRE2_ORB_THUNDER_ORB.cardText": "[purple]{Sealed}[/purple]",
   "NAGATO_SPIRE2_ORB_THUNDER_ORB.description": "[gold]被动[/gold]：被寄宿的牌被[gold]封印[/gold]。\n[gold]激发[/gold]：对所有敌人造成3点伤害3次。",
   "NAGATO_SPIRE2_ORB_THUNDER_ORB.smartDescription": "[gold]被动[/gold]：被寄宿的牌被[gold]封印[/gold]。\n[gold]激发[/gold]：对所有敌人造成{Evoke}点伤害{Passive}次。",
   "NAGATO_SPIRE2_ORB_WIND_ORB.title": "风",

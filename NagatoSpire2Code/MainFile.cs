@@ -32,6 +32,7 @@ public static class MainFile
 		NagatoCombatStartVoice.Register();
 		NagatoFleetVoteSync.Register();
 		InkStainedSteelSakuraRun.Register();
+		NagatoOrbHistory.Register();
 		ModHelper.SubscribeForCombatStateHooks("nagato_card_bound_orbs", state =>
 			state.Players.Where(player => player.IsActiveForHooks).SelectMany(NagatoCardOrbs.GetAll));
 
@@ -87,14 +88,18 @@ public static class MainFile
 		spinePatcher.RegisterPatch<NagatoSkinSelectEmbarkPatch>();
 		spinePatcher.RegisterPatch<NagatoSkinSelectUnreadyPatch>();
 		spinePatcher.RegisterPatch<NagatoCombatSpineIdleBootstrapPatch>();
+		spinePatcher.RegisterPatch<NagatoDeathAnimationCuePatch>();
 
 		if (!spinePatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato Spine patches failed.");
 
 		var orbPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_patches");
 		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.RecordPatch>();
-		orbPatcher.RegisterPatch<NagatoOrbHistoryPatches.ClearPatch>();
 		orbPatcher.RegisterPatch<NagatoCardOrbKeywordPatch>();
+		orbPatcher.RegisterPatch<NagatoCardSlotPatches.DrawPatch>();
+		orbPatcher.RegisterPatch<NagatoCardSlotPatches.PlayPatch>();
+		orbPatcher.RegisterPatch<NagatoCardSlotPatches.ReadyPatch>();
+		orbPatcher.RegisterPatch<NagatoCardSlotPatches.LayoutPatch>();
 		if (!orbPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato orb patches failed.");
 
@@ -112,18 +117,20 @@ public static class MainFile
 		var platingPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_plating_patches");
 		platingPatcher.RegisterPatch<NagatoPlatingTriggerPatch>();
 		platingPatcher.RegisterPatch<NagatoPlatingTurnStartPatch>();
+		platingPatcher.RegisterPatch<NagatoTemporaryPlatingRemovalPatch>();
 		if (!platingPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato Plating patches failed.");
 
 		var drawPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_draw_patches");
 		drawPatcher.RegisterPatch<NagatoCardDrawnPatch>();
-		drawPatcher.RegisterPatch<NagatoSealedAutoplayPatch>();
 		if (!drawPatcher.PatchAll())
 			throw new InvalidOperationException("Critical Nagato card draw patches failed.");
-
-		var damagePatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_orb_damage_patches");
-		damagePatcher.RegisterPatch<NagatoOrbDamagePatch>();
-		if (!damagePatcher.PatchAll())
-			throw new InvalidOperationException("Critical Nagato orb damage source patch failed.");
+		RitsuLibFramework.SubscribeLifecycleOnce<DeferredInitializationCompletedEvent>(_ =>
+		{
+			var overflowPatcher = RitsuLibFramework.CreatePatcher(ModId, "nagato_overflow_draw_patches");
+			overflowPatcher.RegisterPatch<NagatoOverflowDrawPatch>();
+			if (!overflowPatcher.PatchAll())
+				throw new InvalidOperationException("Critical Nagato overflow draw patches failed.");
+		});
 	}
 }

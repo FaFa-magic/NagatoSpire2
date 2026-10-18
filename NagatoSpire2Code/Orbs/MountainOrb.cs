@@ -25,7 +25,7 @@ public sealed class MountainOrb : NagatoOrbModel
 	public override async Task Passive(PlayerChoiceContext choiceContext, Creature? target)
 	{
 		ActivatePassive();
-		await PowerCmd.Apply<MountainPlatingPower>(choiceContext, Owner.Creature, PassiveVal, Owner.Creature, null);
+		await PowerCmd.Apply<TemporaryPlatingPower>(choiceContext, Owner.Creature, PassiveVal, Owner.Creature, null);
 	}
 
 	public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext choiceContext)
