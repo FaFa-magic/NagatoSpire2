@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cshwcneeqs458"
-path="res://.godot/imported/NoRetreat.png-8d1398986d1f77dda8e904a98307aad2.ctex"
+uid="uid://ddb63ghmdf5s6"
+path="res://.godot/imported/DivineDecreeGuardPower.png-20f37643140d12638ef11709a7222c6c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/NoRetreat.png"
-dest_files=["res://.godot/imported/NoRetreat.png-8d1398986d1f77dda8e904a98307aad2.ctex"]
+source_file="res://NagatoSpire2/images/powers/big/DivineDecreeGuardPower.png"
+dest_files=["res://.godot/imported/DivineDecreeGuardPower.png-20f37643140d12638ef11709a7222c6c.ctex"]
 
 [params]
 

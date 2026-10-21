@@ -17,8 +17,7 @@ public static class NagatoFallingPetalsVfx
 {
     public const string ImpactSoundPath = "res://debug_audio/heavy_attack.mp3";
 
-    /// <summary>Runs inside the attack's BeforeDamage hook; no rendered wait in simulations.</summary>
-    public static async Task Play(Creature caster, Creature target, decimal powerStacks)
+    public static async Task Play(Creature caster, Creature target, decimal strength)
     {
         if (TestMode.IsOn || NonInteractiveMode.IsActive ||
             SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant ||
@@ -33,17 +32,16 @@ public static class NagatoFallingPetalsVfx
             GodotObject.IsInstanceValid(room) && ReferenceEquals(NCombatRoom.Instance, room) &&
             GodotObject.IsInstanceValid(targetNode) && targetNode.IsInsideTree();
         vfx.TargetPosition = () => GodotObject.IsInstanceValid(targetNode) ? targetNode.VfxSpawnPosition : null;
-        vfx.Initialize(casterNode.VfxSpawnPosition, targetNode.VfxSpawnPosition, targetNode.Hitbox.Size, powerStacks,
+        vfx.Initialize(casterNode.VfxSpawnPosition, targetNode.VfxSpawnPosition, targetNode.Hitbox.Size, strength,
             SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? 1.6f : 1f);
         try
         {
             if (!await vfx.WaitForArrivalAsync() || !GodotObject.IsInstanceValid(vfx) ||
                 vfx.IsQueuedForDeletion() || !vfx.IsInsideTree() || vfx.IsCombatActive?.Invoke() != true)
                 return;
-            // This frame releases the bloom and the attack coroutine's damage together.
             vfx.CommitImpact();
             NDebugAudioManager.Instance?.Play("heavy_attack.mp3");
-            NGame.Instance?.ScreenShake(powerStacks >= 16m ? ShakeStrength.Medium : ShakeStrength.Weak, ShakeDuration.Short);
+            NGame.Instance?.ScreenShake(strength >= 16m ? ShakeStrength.Medium : ShakeStrength.Weak, ShakeDuration.Short);
         }
         finally
         {

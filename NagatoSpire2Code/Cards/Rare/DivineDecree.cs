@@ -3,24 +3,35 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using NagatoSpire2.NagatoSpire2Code.Capabilities;
 using NagatoSpire2.NagatoSpire2Code.Cards.Token;
 using NagatoSpire2.NagatoSpire2Code.Commands;
 using NagatoSpire2.NagatoSpire2Code.Keywords;
+using NagatoSpire2.NagatoSpire2Code.Combat;
+using NagatoSpire2.NagatoSpire2Code.Orbs;
+using NagatoSpire2.NagatoSpire2Code.Powers;
+using STS2RitsuLib.Models.Capabilities;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
-public sealed class DivineDecree() : NagatoCardModel(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+public sealed class DivineDecree() : NagatoCardModel(0, CardType.Skill, CardRarity.Rare, TargetType.Self), IModelCapabilitySource
 {
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [NagatoKeywords.Choice, CardKeyword.Exhaust];
 
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2), new CardsVar(3)];
+	public void BuildDefaultCapabilities(ModelCapabilityList capabilities) =>
+		capabilities.Add<CardOrbCapability>().SetOrbs(ModelDb.Orb<ShadowOrb>().ToMutable());
 
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
 	[
-		HoverTipFactory.FromCard<DivineDecreeEnergy>(IsUpgraded),
-		HoverTipFactory.FromCard<DivineDecreeDraw>(IsUpgraded)
+		HoverTipFactory.FromPower<DivineDecreeGuardPower>(),
+		HoverTipFactory.FromPower<DivineDecreeWrathPower>()
+	];
+
+	protected override IEnumerable<string> ExtraRunAssetPaths =>
+	[
+		.. base.ExtraRunAssetPaths, .. NagatoChoiceCmd.AssetPaths, .. ModelDb.Orb<WindOrb>().AssetPaths,
+		.. ModelDb.Card<DivineDecreeGuard>().RunAssetPaths, .. ModelDb.Card<DivineDecreeWrath>().RunAssetPaths
 	];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -31,19 +42,12 @@ public sealed class DivineDecree() : NagatoCardModel(0, CardType.Skill, CardRari
 
 		CardModel[] options =
 		[
-			combatState.CreateCard<DivineDecreeEnergy>(Owner),
-			combatState.CreateCard<DivineDecreeDraw>(Owner)
+			combatState.CreateCard<DivineDecreeGuard>(Owner),
+			combatState.CreateCard<DivineDecreeWrath>(Owner)
 		];
-		if (IsUpgraded)
-			foreach (var option in options)
-				CardCmd.Upgrade(option);
 
 		await NagatoChoiceCmd.Choose(choiceContext, Owner, options);
 	}
 
-	protected override void OnUpgrade()
-	{
-		DynamicVars.Energy.UpgradeValueBy(1m);
-		DynamicVars.Cards.UpgradeValueBy(1m);
-	}
+	protected override void OnUpgrade() => NagatoCardOrbs.BindOnUpgrade(this, ModelDb.Orb<WindOrb>().ToMutable());
 }

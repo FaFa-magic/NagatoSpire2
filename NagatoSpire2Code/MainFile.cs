@@ -35,6 +35,7 @@ public static class MainFile
 		InkStainedSteelSakuraRun.Register();
 		NagatoOrbHistory.Register();
 		CardUpgradeReward.Register();
+		CardSealReward.Register();
 		ModHelper.SubscribeForCombatStateHooks("nagato_card_bound_orbs", state =>
 			state.Players.Where(player => player.IsActiveForHooks).SelectMany(NagatoCardOrbs.GetAll));
 

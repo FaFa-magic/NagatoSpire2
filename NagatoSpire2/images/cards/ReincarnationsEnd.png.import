@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkk1ekkb8d2y4"
-path="res://.godot/imported/Strike.png-c32b0f51fa75ac12233e3821d9ff25bb.ctex"
+uid="uid://bd4421wcn6mkx"
+path="res://.godot/imported/ReincarnationsEnd.png-58061bbe6c273c53e82bd02ec2340d0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/Strike.png"
-dest_files=["res://.godot/imported/Strike.png-c32b0f51fa75ac12233e3821d9ff25bb.ctex"]
+source_file="res://NagatoSpire2/images/cards/ReincarnationsEnd.png"
+dest_files=["res://.godot/imported/ReincarnationsEnd.png-58061bbe6c273c53e82bd02ec2340d0d.ctex"]
 
 [params]
 

@@ -7,9 +7,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 using NagatoSpire2.NagatoSpire2Code.Combat;
 using NagatoSpire2.NagatoSpire2Code.HoverTips;
 
-namespace NagatoSpire2.NagatoSpire2Code.Cards.Common;
+namespace NagatoSpire2.NagatoSpire2Code.Cards.Uncommon;
 
-public sealed class RollingBarrage() : NagatoCardModel(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+public sealed class RollingBarrage() : NagatoCardModel(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
 	protected override IEnumerable<DynamicVar> CanonicalVars =>
 	[

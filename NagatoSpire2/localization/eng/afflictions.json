@@ -1,4 +1,5 @@
 {
+  "NAGATO_SPIRE2_AFFLICTION_SEALED.cardText": "[purple]Sealed[/purple]",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.description": "Cannot be played manually.\nAfter drawing this card, [gold]Load[/gold] it.\n[gold]Exhaust[/gold] after it is automatically played from a card slot.",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.extraCardText": "Sealed",
   "NAGATO_SPIRE2_AFFLICTION_SEALED.title": "Sealed"

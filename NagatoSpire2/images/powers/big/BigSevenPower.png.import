@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wnv50dwqk08k"
-path="res://.godot/imported/ConcentratedFire.png-272b54042ce1c0cbca9b6bcde576590d.ctex"
+uid="uid://d3jr3d2mt3468"
+path="res://.godot/imported/BigSevenPower.png-07ae7675c48a748cb9c8abfcdb62802c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NagatoSpire2/images/cards/ConcentratedFire.png"
-dest_files=["res://.godot/imported/ConcentratedFire.png-272b54042ce1c0cbca9b6bcde576590d.ctex"]
+source_file="res://NagatoSpire2/images/powers/big/BigSevenPower.png"
+dest_files=["res://.godot/imported/BigSevenPower.png-07ae7675c48a748cb9c8abfcdb62802c.ctex"]
 
 [params]
 

@@ -7,9 +7,9 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using NagatoSpire2.NagatoSpire2Code.Commands;
 
-namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
+namespace NagatoSpire2.NagatoSpire2Code.Cards.Uncommon;
 
-public sealed class AllOrNothingArmor() : NagatoCardModel(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+public sealed class AllOrNothingArmor() : NagatoCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

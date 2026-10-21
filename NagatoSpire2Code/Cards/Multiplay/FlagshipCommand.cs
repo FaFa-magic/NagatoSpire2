@@ -13,7 +13,7 @@ public sealed class FlagshipCommand() : NagatoCardModel(0, CardType.Attack, Card
 {
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new MaxHpVar(2m)];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new MaxHpVar(3m)];
 	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<FlagshipCommandPower>()];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

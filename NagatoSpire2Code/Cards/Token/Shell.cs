@@ -16,7 +16,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Token;
 
 [RegisterCard(typeof(TokenCardPool))]
-public sealed class Shell() : NagatoCardModel(0, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy)
+public sealed class Shell() : NagatoCardModel(0, CardType.Attack, CardRarity.Token, TargetType.AllEnemies)
 {
 	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -34,16 +34,18 @@ public sealed class Shell() : NagatoCardModel(0, CardType.Attack, CardRarity.Tok
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-
+		if (CombatState is not { } combat)
+			return;
+		var targets = combat.HittableEnemies.ToArray();
 		await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
 			.FromCard(this, cardPlay)
-			.Targeting(cardPlay.Target)
+			.TargetingAllOpponents(combat)
 			.WithHitFx("vfx/vfx_attack_blunt")
 			.Execute(choiceContext);
-		if (HasGunneryManual && !CombatManager.Instance.IsOverOrEnding && cardPlay.Target.IsHittable)
-			await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target,
-				DynamicVars["WeakPower"].BaseValue, Owner.Creature, this);
+		if (HasGunneryManual && !CombatManager.Instance.IsOverOrEnding)
+			foreach (var target in targets.Where(target => target.IsHittable))
+				await PowerCmd.Apply<WeakPower>(choiceContext, target,
+					DynamicVars["WeakPower"].BaseValue, Owner.Creature, this);
 	}
 
 	protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2m);

@@ -2,7 +2,6 @@ using Godot;
 
 namespace NagatoSpire2.NagatoSpire2Code.Nodes.Vfx;
 
-/// <summary>Temporary power takes the form of a petal stream, then scatters on impact.</summary>
 public partial class NFallingPetalsVfx : Node2D
 {
     public const string ScenePath = "res://NagatoSpire2/scenes/vfx/nagato_falling_petals.tscn";
@@ -37,13 +36,12 @@ public partial class NFallingPetalsVfx : Node2D
     public Func<bool>? IsCombatActive { get; set; }
     public Func<Vector2?>? TargetPosition { get; set; }
 
-    public void Initialize(Vector2 caster, Vector2 target, Vector2 targetSize, decimal powerStacks, float speed = 1f)
+    public void Initialize(Vector2 caster, Vector2 target, Vector2 targetSize, decimal strength, float speed = 1f)
     {
         _caster = ToLocal(caster) + new Vector2(0f, -20f);
         _target = ToLocal(target);
         _radius = Mathf.Clamp(Math.Max(targetSize.X, targetSize.Y) * 0.55f, 100f, 210f);
-        // Visual strength only. Never cap/recalculate the actual card damage or consume combat RNG.
-        _intensity = Mathf.Clamp((float)powerStacks / 24f, 0f, 1f);
+        _intensity = Mathf.Clamp((float)strength / 24f, 0f, 1f);
         _petalCount = 48 + (int)(_intensity * 32f);
         _speed = Math.Max(0.1f, speed);
         _initialized = true;
@@ -95,7 +93,6 @@ public partial class NFallingPetalsVfx : Node2D
         if (!_flightStarted && _age >= GatherDuration)
         {
             _flightStarted = true;
-            // A slow frame must still show the stream rather than skipping directly to damage.
             _age = Math.Min(_age, GatherDuration + 0.02f);
         }
         if (!_impactCommitted && _age >= ImpactTime)
@@ -125,7 +122,6 @@ public partial class NFallingPetalsVfx : Node2D
         }
         float t = _age - ImpactTime;
         float fade = Mathf.Pow(Math.Max(0f, 1f - t / AfterglowDuration), 1.5f);
-        // After the brief release, the outward motion gives way to falling sakura.
         for (int i = 0; i < _petalCount; i++)
         {
             float angle = i * 2.399963f;
@@ -153,7 +149,6 @@ public partial class NFallingPetalsVfx : Node2D
             float angle = orbit;
             if (p > 0f)
             {
-                // A curving, staggered stream, not a straight laser or a second iaido slash.
                 position = StreamPointAt(gathered, _target, p);
                 Vector2 tangent = position - StreamPointAt(gathered, _target, Math.Max(0f, p - 0.025f));
                 angle = tangent.Angle() + Mathf.Pi * 0.5f + Mathf.Sin(seed + _age * 9f) * 0.5f;
@@ -163,7 +158,6 @@ public partial class NFallingPetalsVfx : Node2D
             DrawPetal(position, 4.5f + Noise(i + 2) * 6f, angle,
                 new Color(PetalTint(i), entrance * (0.58f + p * 0.36f)));
         }
-        // A few genuinely falling petals establish the card's name around the selected enemy.
         for (int i = 0; i < 9; i++)
         {
             Vector2 p = _target + new Vector2((Noise(i + 107) - 0.5f) * _radius * 2.4f,
@@ -244,7 +238,6 @@ public partial class NFallingPetalsVfx : Node2D
 
     private static Color PetalTint(int i) => Sakura.Lerp(Ivory, Noise(i + 43) * 0.7f);
 
-    // Fixed local visual noise only; no combat/target RNG and no multiplayer state changes.
     private static float Noise(int i)
     {
         float value = Mathf.Sin(i * 127.1f + 311.7f) * 43758.5453f;

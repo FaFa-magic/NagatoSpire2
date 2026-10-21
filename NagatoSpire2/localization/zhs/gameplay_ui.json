@@ -1,4 +1,6 @@
 {
+  "NAGATO_SPIRE2_REWARD_CARD_SEAL": "封印1张牌",
+  "NAGATO_SPIRE2_REWARD_CARD_SEAL.selectionScreenPrompt": "选择1张牌施加封印",
   "NAGATO_SPIRE2_REWARD_CARD_UPGRADE": "升级1张牌",
   "NAGATO_CHOICE.multi": "万象启示 · 选择一项或多项军令后确认",
   "NAGATO_CHOICE.single": "审阅军书，择一颁令",

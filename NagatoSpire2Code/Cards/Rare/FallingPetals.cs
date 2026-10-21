@@ -1,45 +1,54 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
-using NagatoSpire2.NagatoSpire2Code.Combat;
-using NagatoSpire2.NagatoSpire2Code.HoverTips;
 using NagatoSpire2.NagatoSpire2Code.Nodes.Vfx;
 
 namespace NagatoSpire2.NagatoSpire2Code.Cards.Rare;
 
-public sealed class FallingPetals() : NagatoCardModel(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+public sealed class FallingPetals() : NagatoCardModel(0, CardType.Attack, CardRarity.Rare, TargetType.RandomEnemy)
 {
-	protected override IEnumerable<DynamicVar> CanonicalVars =>
-	[
-		new CalculationBaseVar(0m),
-		new ExtraDamageVar(1m),
-		new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => NagatoTemporaryPowers.Count(card.Owner.Creature)),
-		new IntVar("Reduction", 1)
-	];
-
-	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [NagatoHoverTips.TemporaryPower];
-
+	protected override bool HasEnergyCostX => true;
+	public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+	protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1m, ValueProp.Move), new IntVar("Hits", 1), new EnergyVar(1)];
+	protected override IEnumerable<IHoverTip> AdditionalHoverTips => [EnergyHoverTip];
 	protected override IEnumerable<string> ExtraRunAssetPaths =>
 		[.. base.ExtraRunAssetPaths, NFallingPetalsVfx.ScenePath, NagatoFallingPetalsVfx.ImpactSoundPath];
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-		if (CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead)
+		if (CombatState is not { } combatState)
 			return;
-
-		await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-			.FromCard(this, cardPlay)
-			.Targeting(cardPlay.Target)
-			.BeforeDamage(() => NagatoFallingPetalsVfx.Play(Owner.Creature, cardPlay.Target,
-				NagatoTemporaryPowers.Count(Owner.Creature)))
+		int x = ResolveEnergyXValue();
+		decimal damage = x + DynamicVars.Damage.BaseValue;
+		Creature? visualTarget = null;
+		await DamageCmd.Attack(damage)
+			.WithHitCount(x + DynamicVars["Hits"].IntValue).FromCard(this, cardPlay)
+			.TargetingRandomOpponents(combatState)
+			.WithHitVfxNode(target =>
+			{
+				visualTarget = target;
+				return null;
+			})
+			.BeforeDamage(() => visualTarget == null ? Task.CompletedTask
+				: NagatoFallingPetalsVfx.Play(Owner.Creature, visualTarget, damage))
 			.Execute(choiceContext);
-		await NagatoTemporaryPowers.Reduce(Owner.Creature, DynamicVars["Reduction"].IntValue);
 	}
 
-	protected override void OnUpgrade() => DynamicVars["Reduction"].UpgradeValueBy(1m);
+	public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+	{
+		if (card == this && !CombatManager.Instance.IsOverOrEnding && !Owner.Creature.IsDead)
+			await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+	}
+
+	protected override void OnUpgrade()
+	{
+		DynamicVars.Damage.UpgradeValueBy(1m);
+		DynamicVars["Hits"].UpgradeValueBy(1m);
+	}
 }
